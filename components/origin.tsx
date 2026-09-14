@@ -34,7 +34,7 @@ export type OriginOptions = {
   /**
    * The smallest the incoming page is drawn at the start, as a fraction of
    * full size. A small button at its true scale would frame a smear; at a
-   * third the button frames a readable crop of the page's top-left corner.
+   * third the button frames a readable crop of the page's middle.
    */
   minScale: number
   /** How far the sides bow outward while the window grows, as a fraction of each side's length. 0 keeps them straight. */
@@ -51,8 +51,18 @@ const DEFAULTS: OriginOptions = {
   bulge: 0.12,
 }
 
-/** Riser's curve. The slow start holds the window on the button for a beat before it swells. */
+/** Riser's curve, for the window. The slow start holds it on the button for a beat before it swells. */
 const EASE = [0.76, 0, 0.24, 1] as const
+/**
+ * The page inside runs its own curve and lands at LAND of the run. A page
+ * drawn at a scale drifting between 0.98 and 1 for the last fifth of a slow
+ * ease puts its text on a different sub-pixel phase every frame, and that
+ * reads as jitter. This curve ends with a little velocity left, so the
+ * content stops rather than crawls, while the window's edge and bulge keep
+ * the slow settle to the end. By then the bulge is under one percent.
+ */
+const CONTENT_EASE = [0.76, 0, 0.35, 0.9] as const
+const LAND = 0.85
 const STEPS = 60
 const KAPPA = 0.5523
 
@@ -121,23 +131,22 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 const fmt = (n: number) => (Math.round(n * 100) / 100).toString()
 
 /**
- * A rounded rectangle whose four sides bow outward by `bow` times their
- * length. Each side is one cubic; each corner is one cubic that picks up the
- * side's leaving tangent, so a bowed side and its corner stay one curve.
- * Twelve cubics whatever the numbers, so every keyframe interpolates with
- * the next.
+ * A rounded rectangle whose four sides bow outward, top right bottom left,
+ * by the amounts in `bows`. Each side is one cubic; each corner is one cubic
+ * that picks up the side's leaving tangent, so a bowed side and its corner
+ * stay one curve. Twelve cubics whatever the numbers, so every keyframe
+ * interpolates with the next.
  */
-const pillow = (w: number, h: number, r: number, bow: number) => {
+const pillow = (x: number, y: number, w: number, h: number, r: number, bows: number[]) => {
   const sides: { a: Pt; b: Pt; n: Pt }[] = [
-    { a: [r, 0], b: [w - r, 0], n: [0, -1] },
-    { a: [w, r], b: [w, h - r], n: [1, 0] },
-    { a: [w - r, h], b: [r, h], n: [0, 1] },
-    { a: [0, h - r], b: [0, r], n: [-1, 0] },
+    { a: [x + r, y], b: [x + w - r, y], n: [0, -1] },
+    { a: [x + w, y + r], b: [x + w, y + h - r], n: [1, 0] },
+    { a: [x + w - r, y + h], b: [x + r, y + h], n: [0, 1] },
+    { a: [x, y + h - r], b: [x, y + r], n: [-1, 0] },
   ]
-  const cubics = sides.map(({ a, b, n }) => {
-    const len = Math.hypot(b[0] - a[0], b[1] - a[1])
+  const cubics = sides.map(({ a, b, n }, i) => {
     // Both controls pushed out by 4/3 of the bow puts the curve's midpoint at exactly the bow.
-    const d = (bow * len * 4) / 3
+    const d = (bows[i] * 4) / 3
     const c1: Pt = [lerp(a[0], b[0], 1 / 3) + n[0] * d, lerp(a[1], b[1], 1 / 3) + n[1] * d]
     const c2: Pt = [lerp(a[0], b[0], 2 / 3) + n[0] * d, lerp(a[1], b[1], 2 / 3) + n[1] * d]
     return { a, b, c1, c2 }
@@ -191,7 +200,9 @@ export const OriginTransition = createViewTransition<OriginOptions>({
       radius: side * 0.12,
       fill: surfaceOf(document.body),
     }
-    start = { ...s, scale: Math.max(o.minScale, s.w / W, s.h / H) }
+    // Room for the bows: the page has to reach beyond the window on every side.
+    const fit = 1 + 2 * o.bulge
+    start = { ...s, scale: Math.max(o.minScale, (s.w / W) * fit, (s.h / H) * fit) }
 
     const root = document.documentElement.style
     root.setProperty('--origin-fill', o.fill ?? s.fill)
@@ -203,24 +214,34 @@ export const OriginTransition = createViewTransition<OriginOptions>({
     const W = window.innerWidth
     const H = window.innerHeight
     const ease = bezier(EASE)
+    const contentEase = bezier(CONTENT_EASE)
     const s = start
 
-    // The page is scaled about its top-left and clipped in its own
-    // coordinates, so the link frames the page's top-left corner and the
-    // clip is the screen shape divided by the scale.
+    // The window is the shape on screen. The page is scaled about its centre,
+    // which travels from the link's centre to the screen's, so there is page
+    // beyond the window on every side for the bows to look onto. The clip is
+    // the window mapped through the page's transform, and each bow is held to
+    // the room it has so the window never looks past the page's edge.
+    const c0: Pt = [s.x + s.w / 2, s.y + s.h / 2]
     const frames = Array.from({ length: STEPS + 1 }, (_, i) => {
-      const p = ease(i / STEPS)
-      const x = lerp(s.x, 0, p)
-      const y = lerp(s.y, 0, p)
+      const t = i / STEPS
+      const p = ease(t)
+      const pc = t >= LAND ? 1 : Math.max(p, contentEase(t / LAND))
       const w = lerp(s.w, W, p)
       const h = lerp(s.h, H, p)
-      const scale = lerp(s.scale, 1, p)
+      const wx = lerp(c0[0], W / 2, p) - w / 2
+      const wy = lerp(c0[1], H / 2, p) - h / 2
       const r = Math.min(lerp(s.radius, 0, p), w / 2, h / 2)
+      const scale = lerp(s.scale, 1, pc)
+      const tx = lerp(c0[0], W / 2, pc) - (W * scale) / 2
+      const ty = lerp(c0[1], H / 2, pc) - (H * scale) / 2
       const bow = o.bulge * Math.sin(Math.PI * p)
+      const room = [wy - ty, tx + W * scale - (wx + w), ty + H * scale - (wy + h), wx - tx]
+      const bows = [bow * w, bow * h, bow * w, bow * h].map((b, k) => Math.max(0, Math.min(b, room[k])) / scale)
       return {
-        offset: i / STEPS,
-        transform: `translate(${fmt(x)}px, ${fmt(y)}px) scale(${fmt(scale)})`,
-        clipPath: pillow(w / scale, h / scale, r / scale, bow),
+        offset: t,
+        transform: `translate(${fmt(tx)}px, ${fmt(ty)}px) scale(${fmt(scale)})`,
+        clipPath: pillow((wx - tx) / scale, (wy - ty) / scale, w / scale, h / scale, r / scale, bows),
       }
     })
 

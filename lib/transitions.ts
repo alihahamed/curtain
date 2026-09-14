@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
       { name: 'duration', type: 'number', def: '0.8', description: 'Seconds the page takes to open.' },
       { name: 'speed', type: 'number', def: '1', description: 'Divides the duration. Above 1 is faster.' },
       { name: 'dim', type: 'number', def: '0.25', description: 'How far the outgoing page darkens as it is covered, 0 to 1.' },
-      { name: 'minScale', type: 'number', def: '0.35', description: 'The smallest the incoming page is drawn at the start, as a fraction of full size. A small button at its true scale would frame a smear; at a third it frames a readable crop of the page’s top-left corner.' },
+      { name: 'minScale', type: 'number', def: '0.35', description: 'The smallest the incoming page is drawn at the start, as a fraction of full size. A small button at its true scale would frame a smear; at a third it frames a readable crop of the page’s middle.' },
       { name: 'bulge', type: 'number', def: '0.12', description: 'How far the sides bow outward while the window grows, as a fraction of each side’s length. 0 keeps them straight.' },
       { name: 'fill', type: 'string', def: 'the link’s own', description: 'One colour for every opening, instead of reading it from the link. A single link can override with data-origin-fill.' },
     ],
