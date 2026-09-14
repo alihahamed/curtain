@@ -4,6 +4,29 @@
   "homepage": "https://github.com/alihahamed/transitions-lib",
   "items": [
     {
+      "name": "origin",
+      "type": "registry:component",
+      "title": "Origin",
+      "description": "The next page opens out of the thing you clicked — a window the size, shape and colour of the link grows into the page. No dependencies.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/transitions/origin.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/transitions/view-transition-core.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/transitions/transitions.css",
+          "type": "registry:file",
+          "target": "@components/transitions.css"
+        }
+      ],
+      "docs": "Wrap your layout with the transition. This is the only step:\n\n  // app/layout.tsx\n  import { OriginTransition } from \"@/components/origin\"\n\n  export default function RootLayout({ children }) {\n    return (\n      <html lang=\"en\">\n        <body>\n          <OriginTransition>{children}</OriginTransition>\n        </body>\n      </html>\n    )\n  }\n\nYour existing <Link>s and <a>s are intercepted automatically. New tabs,\nmodified clicks, downloads, external links and same-page hashes are left alone.\n\nThe next page opens out of the thing you clicked. A window the size, shape\nand colour of the link grows to fill the screen while the page inside it\ngrows to full size; its sides bow outward as it grows and flatten as they\nmeet the edges. The rectangle, corner radius and colour are read from the\nlink at click time — a transparent link takes the nearest painted surface\nbehind it — so nothing is configured and a theme change costs nothing.\n\nduration is seconds for the whole opening (0.8), dim how far the outgoing\npage darkens (0.25), bulge how far the sides bow as a fraction of their\nlength (0.12; 0 keeps them straight), minScale the smallest the incoming page\nis drawn at the start (0.35). fill forces one colour for every opening;\ndata-origin-fill on a single link overrides just that one.\n\nNeeds the View Transitions API: Chrome 111+, Safari 18+, Firefox 132+. Older\nbrowsers navigate normally with no animation. Browser back/forward is not\nanimated."
+    },
+    {
       "name": "tear",
       "type": "registry:component",
       "title": "Tear",
