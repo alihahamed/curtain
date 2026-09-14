@@ -26,6 +26,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-rule: var(--rule);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -49,41 +50,51 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /*
+   * Catalogue palette. Warm paper and ink, not another charcoal dark theme.
+   * The transitions each own a palette of their own, so the page around them
+   * stays quiet and lets the specimen bands carry the colour.
+   */
+  --paper: #f4f1ea;
+  --ink: #1c1b1a;
+  --rule: #d5cec0;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #faf8f3;
+  --card-foreground: var(--ink);
+  --popover: #faf8f3;
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: #e9e4d9;
+  --secondary-foreground: var(--ink);
+  --muted: #e9e4d9;
+  --muted-foreground: #6f675a;
+  --accent: #e9e4d9;
+  --accent-foreground: var(--ink);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: #ddd6c8;
+  --input: #ddd6c8;
+  --ring: #a89685;
+  --chart-1: #d5cec0;
+  --chart-2: #6f675a;
+  --chart-3: #4a443b;
+  --chart-4: #332f29;
+  --chart-5: #1c1b1a;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #faf8f3;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: #e9e4d9;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #ddd6c8;
+  --sidebar-ring: #a89685;
 }
 
 .dark {
+  --rule: oklch(1 0 0 / 14%);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

@@ -1,70 +1,76 @@
 import Link from 'next/link'
 import { transitions } from '@/lib/transitions'
-import { TransitionCard } from '@/components/site/transition-card'
+import { Hero } from '@/components/site/hero'
+import { InstallSteps } from '@/components/site/install-steps'
+import { SpecimenBand } from '@/components/site/specimen-band'
+import { RuleHeading, SpecTable } from '@/components/site/catalogue'
 
 export default function Home() {
   const shipped = transitions.filter((t) => t.ready)
-  return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-20">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        shadcn registry · next.js app router
-      </p>
-      <h1 className="mt-4 max-w-2xl text-5xl font-semibold leading-[1.05] tracking-tight">
-        Page transitions with
-        <span className="text-muted-foreground"> a hand in them.</span>
-      </h1>
-      <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-        Not fades. A clapperboard that claps, a strip of slats that folds, a zip that
-        closes, two desks that slide past on a spring. Each one covers the screen, swaps
-        the route behind itself, and leaves. Install one with the shadcn CLI and wrap your
-        layout — that is the whole integration.
-      </p>
+  const zeroDep = shipped.filter((t) => t.dependencies.length === 0)
+  const featured = shipped.slice(0, 3)
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link
-          href="/transitions"
-          className="rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-        >
-          Browse transitions
-        </Link>
-        <a
-          href="https://github.com/alihahamed/curtain"
-          className="rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
-        >
-          GitHub
-        </a>
+  return (
+    <main>
+      <div className="mx-auto w-full max-w-6xl px-6 pt-6">
+        <Hero count={shipped.length} zeroDep={zeroDep.length} />
       </div>
 
-      <section className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
-        {[
-          ['01', 'Install', 'npx shadcn add …/r/slate.json'],
-          ['02', 'Wrap', '<SlateTransition>{children}</SlateTransition>'],
-          ['03', 'Done', 'Every <Link> is intercepted. Nothing else changes.'],
-        ].map(([n, title, body]) => (
-          <div key={n} className="bg-background p-5">
-            <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{n}</p>
-            <h3 className="mt-2 text-sm font-medium">{title}</h3>
-            <p className="mt-1.5 break-words font-mono text-[11px] leading-relaxed text-muted-foreground">{body}</p>
-          </div>
-        ))}
-      </section>
-
-      <section className="mt-20">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-sm font-medium">Latest</h2>
-          <Link
-            href="/transitions"
-            className="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-          >
-            all {shipped.length} →
-          </Link>
+      <div className="mx-auto mt-20 w-full max-w-6xl px-6">
+        <RuleHeading label="Integration" aside="three steps" />
+        <div className="mt-5">
+          <InstallSteps />
         </div>
-        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {shipped.slice(0, 3).map((t) => (
-            <TransitionCard key={t.slug} t={t} />
+      </div>
+
+      {/* Bands run full bleed — the colour is the point, and a margin would cage it. */}
+      <section className="mt-20">
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <RuleHeading label="Latest" aside={`${shipped.length} in the catalogue`} />
+        </div>
+        <div className="mt-5 border-t border-rule">
+          {featured.map((t, i) => (
+            <SpecimenBand key={t.slug} t={t} index={i} />
           ))}
         </div>
+        <div className="mx-auto w-full max-w-6xl px-6 pt-4">
+          <Link
+            href="/transitions"
+            className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"
+          >
+            See all {shipped.length} →
+          </Link>
+        </div>
       </section>
+
+      <div className="mx-auto mt-20 mb-24 grid w-full max-w-6xl gap-12 px-6 sm:grid-cols-2">
+        <div>
+          <RuleHeading label="The set" />
+          <SpecTable
+            className="mt-5"
+            rows={[
+              ['transitions', shipped.length],
+              ['no dependencies', `${zeroDep.length} of ${shipped.length}`],
+              ['engines', 'GSAP · View Transitions'],
+              ['licence', 'MIT'],
+            ]}
+          />
+        </div>
+        <div>
+          <RuleHeading label="What you write" />
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            One provider around your layout. Existing links are intercepted for you, new tabs and
+            modified clicks are left alone, and a transition that fails to finish never traps
+            anyone behind it. Reduced motion skips the animation entirely.
+          </p>
+          <Link
+            href="/docs"
+            className="mt-5 inline-block font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"
+          >
+            Getting started →
+          </Link>
+        </div>
+      </div>
     </main>
   )
 }
