@@ -868,17 +868,23 @@
   z-index: 1;
 }
 
-/* Geometry arrives from the script; the stylesheet only clears the browser's defaults. */
+/*
+ * Geometry arrives from the script; the stylesheet only clears the browser's
+ * defaults. will-change keeps the scaled page on its own compositor layer,
+ * rasterised once, so its text does not shimmer as the scale settles.
+ */
 .vt-origin::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
   z-index: 2;
   transform-origin: 0 0;
+  will-change: transform;
 }
 
 .vt-origin::view-transition-group(origin-fill) {
   animation: none;
   transform-origin: 0 0;
+  will-change: transform;
 }
 
 .vt-origin::view-transition-image-pair(origin-fill) {

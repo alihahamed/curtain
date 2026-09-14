@@ -224,18 +224,26 @@ export const OriginTransition = createViewTransition<OriginOptions>({
       }
     })
 
+    // The scale and the clip are separate animations on purpose. A path clip
+    // cannot run on the compositor, and one effect carrying both would drag
+    // the transform onto the main thread with it — the page would then be
+    // re-rasterised every frame and its text would shimmer as it lands.
+    // Apart, the transform is composited and rasterised once at full size.
+    const motion = frames.map(({ offset, transform }) => ({ offset, transform }))
+    const shape = frames.map(({ offset, clipPath }) => ({ offset, clipPath }))
+    const fade = [
+      { offset: 0, opacity: 1 },
+      { offset: 0.3, opacity: 1 },
+      { offset: 0.85, opacity: 0 },
+      { offset: 1, opacity: 0 },
+    ]
+
     const root = document.documentElement
     const timing = { duration: seconds * 1000, easing: 'linear', fill: 'both' as const }
-    root.animate(frames, { ...timing, pseudoElement: '::view-transition-new(root)' })
-    root.animate(frames, { ...timing, pseudoElement: '::view-transition-group(origin-fill)' })
-    root.animate(
-      [
-        { offset: 0, opacity: 1 },
-        { offset: 0.3, opacity: 1 },
-        { offset: 0.85, opacity: 0 },
-        { offset: 1, opacity: 0 },
-      ],
-      { ...timing, pseudoElement: '::view-transition-group(origin-fill)' },
-    )
+    for (const pseudoElement of ['::view-transition-new(root)', '::view-transition-group(origin-fill)']) {
+      root.animate(motion, { ...timing, pseudoElement })
+      root.animate(shape, { ...timing, pseudoElement })
+    }
+    root.animate(fade, { ...timing, pseudoElement: '::view-transition-group(origin-fill)' })
   },
 })
