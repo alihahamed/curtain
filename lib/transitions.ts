@@ -90,7 +90,7 @@ export default function RootLayout({ children }) {
       'A link with a transparent background opens in the colour of the nearest painted surface behind it, ending at the page itself.',
       'Browser back and forward are not animated — history navigation snaps.',
     ],
-    ready: false,
+    ready: true,
   },
   {
     slug: 'tear',
