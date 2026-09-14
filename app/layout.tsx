@@ -6,16 +6,17 @@ const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://curtain.dev'),
   title: {
-    default: 'transitions — characterful page transitions for Next.js',
-    template: '%s — transitions',
+    default: 'curtain — characterful page transitions for Next.js',
+    template: '%s — curtain',
   },
   description:
     'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
   openGraph: {
     type: 'website',
-    siteName: 'transitions',
-    title: 'transitions — characterful page transitions for Next.js',
+    siteName: 'curtain',
+    title: 'curtain — characterful page transitions for Next.js',
     description:
       'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
   },

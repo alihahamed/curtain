@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "transitions",
-  "homepage": "https://github.com/alihahamed/transitions-lib",
+  "name": "curtain",
+  "homepage": "https://github.com/alihahamed/curtain",
   "items": [
     {
       "name": "origin",

@@ -15,7 +15,7 @@ export default function SiteLayout({ children }: LayoutProps<'/'>) {
           <div className="ml-auto flex items-center gap-5 font-mono text-xs text-muted-foreground">
             <NavLink href="/transitions">gallery</NavLink>
             <a
-              href="https://github.com/alihahamed/transitions-lib"
+              href="https://github.com/alihahamed/curtain"
               className="transition-colors hover:text-foreground"
             >
               github

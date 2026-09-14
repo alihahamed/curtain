@@ -625,4 +625,4 @@ export default function RootLayout({ children }) {
 export const bySlug = (slug: string) => transitions.find((t) => t.slug === slug)
 
 export const installCommand = (slug: string) =>
-  `npx shadcn@latest add https://transitions-lib.vercel.app/r/${slug}.json`
+  `npx shadcn@latest add https://curtain.dev/r/${slug}.json`

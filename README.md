@@ -1,4 +1,4 @@
-# transitions
+# curtain
 
 Characterful page transitions for the Next.js App Router, installed with the shadcn CLI.
 
@@ -8,7 +8,7 @@ behind their own ink, and retract away.
 ## Install
 
 ```bash
-npx shadcn@latest add https://transitions-lib.vercel.app/r/crayon.json
+npx shadcn@latest add https://curtain.dev/r/crayon.json
 ```
 
 Then one line in your layout:
