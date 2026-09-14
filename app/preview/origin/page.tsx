@@ -1,59 +1,74 @@
 import Link from 'next/link'
+import { Nav } from './nav'
+
+const projects = [
+  { name: 'Meridian', kind: 'Brand & site', bg: '#d9552b', fg: '#fff4ec' },
+  { name: 'Slowfield', kind: 'Product', bg: '#2f5d50', fg: '#e9f2ee' },
+  { name: 'Aster', kind: 'Editorial', bg: '#e4dccb', fg: '#1c1b1a' },
+]
 
 /**
- * Several links with different surfaces, so the colour bridge has something
- * to prove: a dark button on a light page, a coloured card, a bare text link.
+ * A studio's home page. Every link opens page two, each from its own
+ * rectangle and in its own colour: nav text, a dark pill, an outlined
+ * button, three project cards.
  */
-export default function A() {
+export default function Home() {
   return (
     <main
-      className="flex h-dvh flex-col justify-between overflow-hidden p-10"
+      className="flex h-dvh flex-col overflow-hidden px-8 py-6 md:px-12"
       style={{ background: '#f4f1ea', color: '#1c1b1a' }}
     >
-      <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#8a7f6a' }}>
-        page one
-      </span>
+      <Nav tone="light" href="/preview/origin/b" />
 
-      <div className="flex max-w-xl flex-col gap-8">
-        <p className="text-2xl font-medium leading-snug tracking-tight">
-          The next page opens out of whatever you click. Each of these opens in its own colour.
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link
-            href="/preview/origin/b"
-            className="rounded-full px-6 py-3 text-sm font-medium"
-            style={{ background: '#1c1b1a', color: '#f4f1ea' }}
-          >
-            Open the dark page
-          </Link>
-          <Link
-            href="/preview/origin/b"
-            className="rounded-xl px-6 py-3 text-sm font-medium"
-            style={{ background: '#d9552b', color: '#fff4ec' }}
-          >
-            Or from orange
-          </Link>
-          <Link href="/preview/origin/b" className="text-sm underline underline-offset-4">
-            or a plain text link
-          </Link>
+      <section className="grid flex-1 items-center gap-12 md:grid-cols-[1.2fr_1fr]">
+        <div className="flex flex-col gap-8">
+          <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#8a7f6a' }}>
+            Design studio — Oslo
+          </span>
+          <h1 className="max-w-xl text-5xl font-medium leading-[1.02] tracking-tight md:text-6xl">
+            Interfaces with a sense of occasion.
+          </h1>
+          <p className="max-w-md text-lg leading-snug" style={{ color: '#6f675a' }}>
+            We design products that open, unfold and arrive, rather than simply appear. Click anything
+            on this page and watch where the next one comes from.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/preview/origin/b"
+              className="rounded-full px-6 py-3 text-sm font-medium"
+              style={{ background: '#1c1b1a', color: '#f4f1ea' }}
+            >
+              See the work
+            </Link>
+            <Link
+              href="/preview/origin/b"
+              className="rounded-full border px-6 py-3 text-sm font-medium"
+              style={{ borderColor: '#1c1b1a' }}
+            >
+              Our process
+            </Link>
+          </div>
         </div>
-        <Link
-          href="/preview/origin/b"
-          className="block max-w-xs rounded-2xl p-6"
-          style={{ background: '#e4dccb' }}
-        >
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: '#8a7f6a' }}>
-            a card
-          </span>
-          <span className="mt-2 block text-base leading-snug">
-            Cards open from their whole surface, in the card&rsquo;s colour.
-          </span>
-        </Link>
-      </div>
 
-      <span className="font-mono text-[11px]" style={{ color: '#8a7f6a' }}>
-        click a link →
-      </span>
+        <div className="hidden w-full max-w-md flex-col gap-3 justify-self-end md:flex">
+          {projects.map((p) => (
+            <Link
+              key={p.name}
+              href="/preview/origin/b"
+              className="flex items-end justify-between rounded-2xl p-5"
+              style={{ background: p.bg, color: p.fg, minHeight: 112 }}
+            >
+              <span className="text-xl font-medium tracking-tight">{p.name}</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-80">{p.kind}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <footer className="flex items-center justify-between font-mono text-[11px]" style={{ color: '#8a7f6a' }}>
+        <span>page one</span>
+        <span>every link opens from itself →</span>
+      </footer>
     </main>
   )
 }
