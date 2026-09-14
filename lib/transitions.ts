@@ -48,6 +48,49 @@ export type TransitionMeta = {
 
 export const transitions: TransitionMeta[] = [
   {
+    slug: 'origin',
+    name: 'Origin',
+    tagline: 'The next page opens out of the thing you clicked.',
+    description:
+      'A window the size and shape of the link, in the link’s own colour, grows to fill the screen while the page inside it grows to full size. The two edges move together, so it reads as the page swelling out of the button rather than a hole being cut. The rectangle, corner radius and colour are read from the link at click time — a dark button opens dark, a card opens from its whole surface, a text link opens in the page’s own colour — so nothing is configured and a theme change costs nothing. The page you are leaving only dims.',
+    engine: 'Native',
+    dependencies: [],
+    accent: ['#f4f1ea', '#d9552b', '#1c1b1a'],
+    duration: 500,
+    requires:
+      'The View Transitions API — Chrome 111+, Safari 18+, Firefox 132+. Older browsers navigate normally with no animation. Nothing breaks, but there is no fallback effect.',
+    usage: `import { OriginTransition } from '@/components/origin'
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <OriginTransition>{children}</OriginTransition>
+      </body>
+    </html>
+  )
+}`,
+    props: [
+      { name: 'children', type: 'ReactNode', def: '—', description: 'Your app. Wrap the contents of <body>. (Required)' },
+      { name: 'duration', type: 'number', def: '0.5', description: 'Seconds the page takes to open.' },
+      { name: 'speed', type: 'number', def: '1', description: 'Divides the duration. Above 1 is faster.' },
+      { name: 'dim', type: 'number', def: '0.25', description: 'How far the outgoing page darkens as it is covered, 0 to 1.' },
+      { name: 'minScale', type: 'number', def: '0.35', description: 'The smallest the incoming page is drawn at the start, as a fraction of full size. A small button at its true scale would frame a smear; at a third it frames a readable crop of the page’s top-left corner.' },
+      { name: 'fill', type: 'string', def: 'the link’s own', description: 'One colour for every opening, instead of reading it from the link. A single link can override with data-origin-fill.' },
+    ],
+    controls: [
+      { kind: 'range', key: 'duration', label: 'Duration', min: 0.2, max: 1.4, step: 0.01, def: 0.5 },
+      { kind: 'range', key: 'dim', label: 'Dim', min: 0, max: 0.7, step: 0.01, def: 0.25 },
+      { kind: 'range', key: 'minScale', label: 'Start scale', min: 0.05, max: 1, step: 0.01, def: 0.35 },
+    ],
+    notes: [
+      'No dependencies and no JavaScript animating anything — the stylesheet drives all of it from a few numbers read at click time.',
+      'A link with a transparent background opens in the colour of the nearest painted surface behind it, ending at the page itself.',
+      'Browser back and forward are not animated — history navigation snaps.',
+    ],
+    ready: false,
+  },
+  {
     slug: 'tear',
     name: 'Tear',
     tagline: 'A sheet of paper comes down over the page and is torn in two.',

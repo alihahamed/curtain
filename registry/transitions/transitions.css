@@ -820,3 +820,95 @@
 .tear-kraft     { --tear-paper: #c9a26b; --tear-fibre: #efdfc2; }
 .tear-newsprint { --tear-paper: #d9d6cf; --tear-fibre: #f7f5f0; }
 .tear-ink       { --tear-paper: #1c1b1a; --tear-fibre: #3a3835; }
+
+/* ---------- origin ---------- */
+
+/*
+ * The incoming page is scaled about its top-left corner and clipped to the
+ * link's rectangle in its own coordinates, then both open to the full screen
+ * on one ease. A separate fill layer, in the link's colour, runs the same
+ * geometry above it and fades out across the middle of the run — the colour
+ * bridge from the button to the page. The outgoing page only dims.
+ *
+ * The ease is the iOS sheet curve: quick out of the gate so the window is
+ * visibly growing within the first frames, then a long settle. No overshoot —
+ * a full-bleed page overshooting the viewport shows you its edges.
+ */
+.vt-origin {
+  --origin-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.origin-fill {
+  display: none;
+}
+
+/* Shown only for the navigation, so it is captured — the pseudo tree hides the live DOM. */
+.vt-origin .origin-fill {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  background: var(--origin-fill, #ffffff);
+  view-transition-name: origin-fill;
+}
+
+.vt-origin::view-transition-group(root) {
+  animation: none;
+}
+
+.vt-origin::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+.vt-origin::view-transition-old(root) {
+  animation: origin-dim var(--vt-duration, 0.5s) var(--origin-ease) both;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+.vt-origin::view-transition-new(root) {
+  animation: origin-open var(--vt-duration, 0.5s) var(--origin-ease) both;
+  mix-blend-mode: normal;
+  z-index: 2;
+  transform-origin: 0 0;
+}
+
+.vt-origin::view-transition-group(origin-fill) {
+  animation:
+    origin-open var(--vt-duration, 0.5s) var(--origin-ease) both,
+    origin-fade var(--vt-duration, 0.5s) var(--origin-ease) both;
+  transform-origin: 0 0;
+}
+
+.vt-origin::view-transition-image-pair(origin-fill) {
+  isolation: auto;
+}
+
+.vt-origin::view-transition-old(origin-fill),
+.vt-origin::view-transition-new(origin-fill) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@keyframes origin-open {
+  from {
+    transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(var(--origin-scale, 0.35));
+    clip-path: inset(0 var(--origin-right, 0px) var(--origin-bottom, 0px) 0 round var(--origin-radius, 0px));
+  }
+  to {
+    transform: translate(0px, 0px) scale(1);
+    clip-path: inset(0 0 0 0 round 0px);
+  }
+}
+
+@keyframes origin-fade {
+  0%, 20% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+
+@keyframes origin-dim {
+  to {
+    filter: brightness(var(--origin-dim, 0.75));
+  }
+}
