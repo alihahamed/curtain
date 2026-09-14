@@ -164,27 +164,22 @@ const pillow = (x: number, y: number, w: number, h: number, r: number, bows: num
     const k = r * KAPPA
     d += ` C ${fmt(s.b[0] + out[0] * k)} ${fmt(s.b[1] + out[1] * k)} ${fmt(next.a[0] - into[0] * k)} ${fmt(next.a[1] - into[1] * k)} ${fmt(next.a[0])} ${fmt(next.a[1])}`
   })
-  return `path("${d} Z")`
+  return `${d} Z`
 }
 
-/**
- * The colour bridge. Kept above the page, captured as its own snapshot group,
- * and stacked over the incoming page. It runs the same geometry as the page
- * and fades out across the middle of the run, so the first frames are the
- * button's own colour swelling and the page condenses inside it.
- */
-function Fill() {
+/** Listens for the click. Renders nothing — anything live in the DOM would paint a frame before the snapshot. */
+function Recorder() {
   useEffect(() => {
     document.addEventListener('click', record, true)
     return () => document.removeEventListener('click', record, true)
   }, [])
-  return <div className="origin-fill" aria-hidden />
+  return null
 }
 
 export const OriginTransition = createViewTransition<OriginOptions>({
   name: 'origin',
   defaults: DEFAULTS,
-  defs: <Fill />,
+  defs: <Recorder />,
   duration: (o) => o.duration / o.speed,
 
   prepare: (o) => {
@@ -219,9 +214,8 @@ export const OriginTransition = createViewTransition<OriginOptions>({
 
     // The window is the shape on screen. The page is scaled about its centre,
     // which travels from the link's centre to the screen's, so there is page
-    // beyond the window on every side for the bows to look onto. The clip is
-    // the window mapped through the page's transform, and each bow is held to
-    // the room it has so the window never looks past the page's edge.
+    // beyond the window on every side for the bows to look onto; each bow is
+    // held to the room it has so the window never looks past the page's edge.
     const c0: Pt = [s.x + s.w / 2, s.y + s.h / 2]
     const frames = Array.from({ length: STEPS + 1 }, (_, i) => {
       const t = i / STEPS
@@ -232,39 +226,46 @@ export const OriginTransition = createViewTransition<OriginOptions>({
       const wx = lerp(c0[0], W / 2, p) - w / 2
       const wy = lerp(c0[1], H / 2, p) - h / 2
       const r = Math.min(lerp(s.radius, 0, p), w / 2, h / 2)
-      const scale = lerp(s.scale, 1, pc)
-      const tx = lerp(c0[0], W / 2, pc) - (W * scale) / 2
-      const ty = lerp(c0[1], H / 2, pc) - (H * scale) / 2
+      // Rounded before the room is measured, so the bows are held against the
+      // page as it is actually drawn — two decimals of scale is 4px of page.
+      const scale = Math.round(lerp(s.scale, 1, pc) * 1e5) / 1e5
+      const tx = Math.round((lerp(c0[0], W / 2, pc) - (W * scale) / 2) * 100) / 100
+      const ty = Math.round((lerp(c0[1], H / 2, pc) - (H * scale) / 2) * 100) / 100
       const bow = o.bulge * Math.sin(Math.PI * p)
       const room = [wy - ty, tx + W * scale - (wx + w), ty + H * scale - (wy + h), wx - tx]
-      const bows = [bow * w, bow * h, bow * w, bow * h].map((b, k) => Math.max(0, Math.min(b, room[k])) / scale)
+      const bows = [bow * w, bow * h, bow * w, bow * h].map((b, k) => Math.max(0, Math.min(b, room[k])))
       return {
         offset: t,
-        transform: `translate(${fmt(tx)}px, ${fmt(ty)}px) scale(${fmt(scale)})`,
-        clipPath: pillow((wx - tx) / scale, (wy - ty) / scale, w / scale, h / scale, r / scale, bows),
+        transform: `translate(${tx}px, ${ty}px) scale(${scale})`,
+        window: pillow(wx, wy, w, h, r, bows),
       }
     })
 
-    // The scale and the clip are separate animations on purpose. A path clip
-    // cannot run on the compositor, and one effect carrying both would drag
-    // the transform onto the main thread with it — the page would then be
-    // re-rasterised every frame and its text would shimmer as it lands.
-    // Apart, the transform is composited and rasterised once at full size.
+    // Two layers over a coloured backdrop, and neither mixes a composited
+    // transform with a main-thread clip. The outgoing page sits on top with
+    // the window cut out of it — a clip in screen coordinates on a layer that
+    // never moves, so a late main-thread frame delays the edge and moves
+    // nothing. Under it the incoming page is only scaled and faded, both on
+    // the compositor, rasterised once at full size so its text does not
+    // shimmer. Behind both, the image pair's background is the link's colour:
+    // it shows through the window while the page is still transparent, and
+    // the page condenses out of it. Nothing live in the DOM, nothing to flash.
     const motion = frames.map(({ offset, transform }) => ({ offset, transform }))
-    const shape = frames.map(({ offset, clipPath }) => ({ offset, clipPath }))
-    const fade = [
-      { offset: 0, opacity: 1 },
-      { offset: 0.3, opacity: 1 },
-      { offset: 0.85, opacity: 0 },
-      { offset: 1, opacity: 0 },
+    const hole = frames.map(({ offset, window }) => ({
+      offset,
+      clipPath: `path(evenodd, "M 0 0 H ${W} V ${H} H 0 Z ${window}")`,
+    }))
+    const arrive = [
+      { offset: 0, opacity: 0 },
+      { offset: 0.3, opacity: 0 },
+      { offset: 0.85, opacity: 1 },
+      { offset: 1, opacity: 1 },
     ]
 
     const root = document.documentElement
     const timing = { duration: seconds * 1000, easing: 'linear', fill: 'both' as const }
-    for (const pseudoElement of ['::view-transition-new(root)', '::view-transition-group(origin-fill)']) {
-      root.animate(motion, { ...timing, pseudoElement })
-      root.animate(shape, { ...timing, pseudoElement })
-    }
-    root.animate(fade, { ...timing, pseudoElement: '::view-transition-group(origin-fill)' })
+    root.animate(motion, { ...timing, pseudoElement: '::view-transition-new(root)' })
+    root.animate(arrive, { ...timing, pseudoElement: '::view-transition-new(root)' })
+    root.animate(hole, { ...timing, pseudoElement: '::view-transition-old(root)' })
   },
 })

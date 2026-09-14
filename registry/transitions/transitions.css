@@ -839,62 +839,40 @@
   --origin-ease: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.origin-fill {
-  display: none;
-}
-
-/* Shown only for the navigation, so it is captured — the pseudo tree hides the live DOM. */
-.vt-origin .origin-fill {
-  display: block;
-  position: fixed;
-  inset: 0;
-  z-index: 2147483647;
-  pointer-events: none;
-  background: var(--origin-fill, #ffffff);
-  view-transition-name: origin-fill;
-}
-
 .vt-origin::view-transition-group(root) {
   animation: none;
 }
 
+/*
+ * The colour bridge. The link's colour sits behind both pages and shows
+ * through the window while the incoming page is still transparent, so the
+ * first frames are the button's own colour swelling and the page condenses
+ * out of it. A backdrop rather than a layer of its own: anything live in the
+ * DOM would paint a frame before the snapshot is taken and flash.
+ */
 .vt-origin::view-transition-image-pair(root) {
   isolation: auto;
-}
-
-.vt-origin::view-transition-old(root) {
-  animation: origin-dim var(--vt-duration, 0.5s) var(--origin-ease) both;
-  mix-blend-mode: normal;
-  z-index: 1;
+  background: var(--origin-fill, #ffffff);
 }
 
 /*
- * Geometry arrives from the script; the stylesheet only clears the browser's
- * defaults. will-change keeps the scaled page on its own compositor layer,
- * rasterised once, so its text does not shimmer as the scale settles.
+ * The outgoing page is on top, with the window cut out of it by the script;
+ * the incoming page is underneath, only scaled. will-change keeps the scaled
+ * page on its own compositor layer, rasterised once, so its text does not
+ * shimmer as the scale settles.
  */
+.vt-origin::view-transition-old(root) {
+  animation: origin-dim var(--vt-duration, 0.5s) var(--origin-ease) both;
+  mix-blend-mode: normal;
+  z-index: 2;
+}
+
 .vt-origin::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
-  z-index: 2;
+  z-index: 1;
   transform-origin: 0 0;
   will-change: transform;
-}
-
-.vt-origin::view-transition-group(origin-fill) {
-  animation: none;
-  transform-origin: 0 0;
-  will-change: transform;
-}
-
-.vt-origin::view-transition-image-pair(origin-fill) {
-  isolation: auto;
-}
-
-.vt-origin::view-transition-old(origin-fill),
-.vt-origin::view-transition-new(origin-fill) {
-  animation: none;
-  mix-blend-mode: normal;
 }
 
 @keyframes origin-dim {
