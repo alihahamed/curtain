@@ -26,6 +26,12 @@ export type ViewTransitionConfig<O> = {
    * the animating — the core still holds the snapshot open for the duration.
    */
   paint?: (progress: number, options: O) => void
+  /**
+   * Runs once the snapshot pseudo-elements exist. For animations the
+   * stylesheet cannot express — a clip path computed from the click, say —
+   * start them here with `document.documentElement.animate(..., { pseudoElement })`.
+   */
+  ready?: (options: O, seconds: number) => void
   /** Seconds the transition should last. */
   duration: (options: O) => number
 }
@@ -111,6 +117,12 @@ export function createViewTransition<O extends object>(config: ViewTransitionCon
               { opacity: [1, 1] },
               { duration: seconds * 1000, pseudoElement: '::view-transition-old(root)' },
             )
+
+            try {
+              config.ready?.(o, seconds)
+            } catch (error) {
+              console.error('[transition] ready failed', error)
+            }
 
             if (!config.paint) return
 

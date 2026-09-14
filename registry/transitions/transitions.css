@@ -825,17 +825,18 @@
 
 /*
  * The incoming page is scaled about its top-left corner and clipped to the
- * link's rectangle in its own coordinates, then both open to the full screen
- * on one ease. A separate fill layer, in the link's colour, runs the same
+ * link's shape in its own coordinates, then both open to the full screen. The
+ * clip is a path computed from the click — its sides bow as it grows — so
+ * the geometry runs through the Web Animations API from origin.tsx, not from
+ * keyframes here. A separate fill layer, in the link's colour, runs the same
  * geometry above it and fades out across the middle of the run — the colour
  * bridge from the button to the page. The outgoing page only dims.
  *
- * The ease is the iOS sheet curve: quick out of the gate so the window is
- * visibly growing within the first frames, then a long settle. No overshoot —
- * a full-bleed page overshooting the viewport shows you its edges.
+ * Riser's ease: the slow start holds the window on the button for a beat
+ * before it swells, which is what makes it read as coming from there.
  */
 .vt-origin {
-  --origin-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --origin-ease: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .origin-fill {
@@ -867,17 +868,16 @@
   z-index: 1;
 }
 
+/* Geometry arrives from the script; the stylesheet only clears the browser's defaults. */
 .vt-origin::view-transition-new(root) {
-  animation: origin-open var(--vt-duration, 0.5s) var(--origin-ease) both;
+  animation: none;
   mix-blend-mode: normal;
   z-index: 2;
   transform-origin: 0 0;
 }
 
 .vt-origin::view-transition-group(origin-fill) {
-  animation:
-    origin-open var(--vt-duration, 0.5s) var(--origin-ease) both,
-    origin-fade var(--vt-duration, 0.5s) var(--origin-ease) both;
+  animation: none;
   transform-origin: 0 0;
 }
 
@@ -889,22 +889,6 @@
 .vt-origin::view-transition-new(origin-fill) {
   animation: none;
   mix-blend-mode: normal;
-}
-
-@keyframes origin-open {
-  from {
-    transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(var(--origin-scale, 0.35));
-    clip-path: inset(0 var(--origin-right, 0px) var(--origin-bottom, 0px) 0 round var(--origin-radius, 0px));
-  }
-  to {
-    transform: translate(0px, 0px) scale(1);
-    clip-path: inset(0 0 0 0 round 0px);
-  }
-}
-
-@keyframes origin-fade {
-  0%, 20% { opacity: 1; }
-  80%, 100% { opacity: 0; }
 }
 
 @keyframes origin-dim {
