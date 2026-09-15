@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect } from 'react'
 
 /** How far the grid overlaps the hero at load; matches the grid's negative top margin. */
-export const PEEK = 220
+export const PEEK = 140
 
 /**
  * The home page scroll, on GSAP. Nothing is pinned and nothing fades: the

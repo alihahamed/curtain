@@ -17,7 +17,7 @@ import { HomeScroll } from '@/components/site/home-scroll'
 export default function Home() {
   return (
     <main className="relative w-full bg-background">
-      <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[260px]">
+      <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[180px]">
         <div data-field className="absolute inset-0 will-change-transform">
           <HeroField />
         </div>
@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* The grid starts before the hero ends, so its first row peeks above the fold; the field fades out under its top. */}
-      <section data-grid className="grid-fade relative z-10 -mt-[220px] px-4 pb-24 sm:px-6">
+      <section data-grid className="grid-fade relative z-10 -mt-[140px] px-4 pb-24 sm:px-6">
         <Bento />
       </section>
       <HomeScroll />
