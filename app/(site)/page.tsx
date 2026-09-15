@@ -18,8 +18,11 @@ export default function Home() {
   return (
     <main className="relative w-full bg-background">
       <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[180px]">
-        <div data-field className="field-fade absolute inset-0 will-change-transform">
-          <HeroField />
+        {/* The fade sits on a wrapper that never moves: on the field itself, parallax slides the faded edge out of the clip. */}
+        <div className="field-fade pointer-events-none absolute inset-0">
+          <div data-field className="absolute inset-0 will-change-transform">
+            <HeroField />
+          </div>
         </div>
         <div data-hero-copy className="relative z-10 flex flex-col items-center px-6 pt-[20dvh] text-center sm:px-8 sm:pt-[21dvh]">
         <h1 className="hero-rise max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
