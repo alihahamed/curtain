@@ -27,7 +27,7 @@ function GitHubMark({ className = '' }: { className?: string }) {
 /** A quiet count badge; the same inner grey as the search control. */
 function Stars({ n }: { n: number | null }) {
   if (n === null) return null
-  return <span className="rounded-[6px] bg-foreground/[0.08] px-1.5 py-0.5 text-xs tabular-nums text-foreground/70">{formatStars(n)}</span>
+  return <span className="rounded-[6px] bg-foreground/[0.1] px-1.5 py-0.5 text-xs tabular-nums text-foreground/70">{formatStars(n)}</span>
 }
 
 /**
@@ -50,6 +50,7 @@ export function SiteNav({ stars }: { stars: number | null }) {
   }, [open])
 
   const control = 'nav-control flex h-10 items-center rounded-[8px] px-2.5 text-sm text-foreground/80'
+  const filled = 'bg-foreground/[0.08]'
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
@@ -70,16 +71,16 @@ export function SiteNav({ stars }: { stars: number | null }) {
           </div>
 
           <div className="ml-auto flex items-center gap-1">
-            <IconButton label="Search" className="bg-foreground/[0.08]" onClick={() => setSearching(true)}>
+            <IconButton label="Search" className={filled} onClick={() => setSearching(true)}>
               <SearchIcon />
             </IconButton>
-            <a href={`https://github.com/${REPO}`} className={`${control} hidden gap-2 md:flex`}>
+            <a href={`https://github.com/${REPO}`} className={`${control} ${filled} hidden gap-2 md:flex`}>
               <GitHubMark className="size-4" />
               GitHub
               <Stars n={stars} />
             </a>
-            <ThemeToggle />
-            <IconButton label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="nav-rollout" className="md:hidden" onClick={() => setOpen((o) => !o)}>
+            <ThemeToggle className={filled} />
+            <IconButton label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="nav-rollout" className={`${filled} md:hidden`} onClick={() => setOpen((o) => !o)}>
               <Menu className={`icon-swap ${open ? 'icon-swap-out' : ''}`} />
               <X className={`icon-swap ${open ? '' : 'icon-swap-out'}`} />
             </IconButton>
