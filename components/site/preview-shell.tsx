@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Suspense, type ReactNode } from 'react'
 import { AutoAdvance } from '@/components/site/auto-advance'
+import { transitions } from '@/lib/transitions'
 
 export type Layout = 'left' | 'centre' | 'split' | 'bottom' | 'stats' | 'card'
 
@@ -83,7 +84,7 @@ export function PreviewShell({
         <p className={`${h} max-w-[14ch]`}>{children}</p>
         <div className="mt-[3.2vw] grid grid-cols-3 gap-[2vw] border-t border-current/15 pt-[2.4vw]">
           {[
-            ['9', 'transitions'],
+            [String(transitions.filter((t) => t.ready).length), 'transitions'],
             ['1', 'line to add'],
             ['0', 'config'],
           ].map(([n, l]) => (

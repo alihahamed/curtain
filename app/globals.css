@@ -578,3 +578,23 @@
   background-color: currentColor;
   mask: var(--mark) center / contain no-repeat;
 }
+
+.see-all {
+  transition-property: background-color, border-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.see-all:hover {
+  background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+.see-all:active { transform: scale(0.97); }
+.see-all-arrow {
+  transition-property: translate, color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.see-all:hover .see-all-arrow {
+  translate: 3px 0;
+  color: var(--foreground);
+}

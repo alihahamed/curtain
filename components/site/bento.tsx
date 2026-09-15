@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { CopyMenu } from '@/components/site/copy-menu'
 import { transitions } from '@/lib/transitions'
@@ -58,6 +59,21 @@ export function Bento() {
       {slugs.map((slug) => (
         <Card key={slug} slug={slug} />
       ))}
+    </div>
+  )
+}
+
+const count = transitions.filter((t) => t.ready).length
+const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+
+/** Under the grid: the way to the rest of them. */
+export function AllTransitions() {
+  return (
+    <div className="mt-12 flex justify-center">
+      <Link href="/transitions" className="see-all group flex h-11 items-center gap-2 rounded-[10px] border border-border bg-foreground/[0.06] pr-3 pl-4 text-[15px] text-foreground">
+        See all {words[count] ?? count} transitions
+        <ArrowRight className="see-all-arrow size-4 text-foreground/70" aria-hidden="true" />
+      </Link>
     </div>
   )
 }

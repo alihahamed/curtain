@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { HeroField } from '@/components/site/hero-field'
 import { InstallCommand } from '@/components/site/install-command'
-import { Bento } from '@/components/site/bento'
+import { AllTransitions, Bento } from '@/components/site/bento'
 import { HomeScroll } from '@/components/site/home-scroll'
 import { Faq, Testimonial, ToolStack } from '@/components/site/home-sections'
 
@@ -59,6 +59,7 @@ export default function Home() {
       {/* The grid starts before the hero ends, so its first row peeks above the fold; the field fades out under its top. */}
       <section data-grid className="relative z-10 -mt-[140px] px-4 sm:px-6">
         <Bento />
+        <AllTransitions />
       </section>
 
       <div className="flex flex-col gap-32 overflow-x-clip pt-16 pb-40 sm:gap-40">
