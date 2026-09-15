@@ -34,21 +34,23 @@ export function SiteFooter({ stars }: { stars: number | null }) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.registerPlugin(ScrollTrigger)
     const ctx = gsap.context(() => {
-      // The rise starts a little before the wordmark reaches the screen and ends at
-      // the bottom of the page, a long stretch for a short move, so it drifts. Over that stretch the
-      // letters travel a fraction of the scroll, and never more than the short
-      // letters (c, u, r, a, n) can drop before they fall out of the half-height
-      // clip, so the whole word is on screen the entire time, settling like a wave.
+      // Played, not scrubbed. The wordmark sits at the very bottom of the page, so it
+      // is only on screen for the last couple of hundred pixels of scroll; anything
+      // tied to that stretch is either too quick to follow or too small to see. So
+      // the letters rise up out of the clip at their own pace once the wordmark is
+      // in view, one after another, and sink back when it leaves so it plays again.
       const mark = el.querySelector<HTMLElement>('.footer-mark')
-      gsap.fromTo(
+      const rise = gsap.fromTo(
         '[data-letter]',
-        { yPercent: (i: number) => 9 + i * 2 },
-        {
-          yPercent: 0,
-          ease: 'none',
-          scrollTrigger: { trigger: mark, start: 'top bottom+=400', end: 'bottom bottom', scrub: 0.5 },
-        },
+        { yPercent: 105 },
+        { yPercent: 0, duration: 1.4, ease: 'expo.out', stagger: 0.09, paused: true },
       )
+      ScrollTrigger.create({
+        trigger: mark,
+        start: 'top 92%',
+        onEnter: () => rise.play(),
+        onLeaveBack: () => rise.reverse(),
+      })
       gsap.from('[data-footer-row] > *', {
         y: 24,
         opacity: 0,

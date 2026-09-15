@@ -78,7 +78,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 ## Footer
 
 - A row of three: the name with who made it under it, the three links, and the X, GitHub and back-to-top controls.
-- Below everything, the wordmark at display size, cut at its middle like a curtain half raised and fading into the page. Its letters rise with the scroll, tied to it directly with no smoothing, each starting a little lower than the last and all landing together at the bottom of the page, and each lifts and takes the accent under the pointer.
+- Below everything, the wordmark at display size, cut at its middle like a curtain half raised and fading into the page. Its letters rise out of the clip one after another at their own pace once it is in view, and sink back when it leaves so it plays again (tied to scroll it was either too fast or invisible, since the wordmark is only on screen for the page's last stretch), and each lifts and takes the accent under the pointer.
 - Links draw an underline from the left on hover; the icons tip and grow a little; the back-to-top arrow nudges up.
 
 ## Open
