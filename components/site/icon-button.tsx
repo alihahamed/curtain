@@ -7,7 +7,7 @@ export function IconButton({ label, className = '', ...rest }: ComponentProps<'b
       type="button"
       aria-label={label}
       title={label}
-      className={`nav-control relative grid size-10 shrink-0 place-items-center rounded-lg text-foreground/80 [&>svg]:col-start-1 [&>svg]:row-start-1 [&>svg]:size-[18px] ${className}`}
+      className={`nav-control relative grid size-10 shrink-0 place-items-center rounded-[8px] text-foreground/80 [&>svg]:col-start-1 [&>svg]:row-start-1 [&>svg]:size-[18px] ${className}`}
       {...rest}
     />
   )

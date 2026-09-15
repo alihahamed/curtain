@@ -18,8 +18,6 @@ const entries: Entry[] = [
   ...pages,
 ]
 
-const isMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)
-
 /**
  * A native dialog over a filtered list: no palette library. Opens on ⌘K (Ctrl+K
  * elsewhere), on / when not typing, and from the button in the bar.
@@ -72,7 +70,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
       ref={dialog}
       onClose={() => onOpenChange(false)}
       onClick={(e) => e.target === dialog.current && onOpenChange(false)}
-      className="search m-0 mx-auto mt-[12dvh] w-[min(100vw-2rem,36rem)] rounded-2xl border border-border bg-popover p-2 text-popover-foreground backdrop:bg-black/40"
+      className="search m-0 mx-auto mt-[12dvh] w-[min(100vw-2rem,36rem)] rounded-[14px] border border-border bg-popover p-1.5 text-popover-foreground backdrop:bg-black/40"
     >
       <div className="flex h-11 items-center gap-2 px-2">
         <SearchIcon className="size-[18px] shrink-0 text-muted-foreground" aria-hidden="true" />
@@ -108,7 +106,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
             aria-selected={i === active}
             onMouseEnter={() => setActive(i)}
             onClick={() => go(entry)}
-            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-lg px-3 py-2 text-left ${i === active ? 'bg-accent text-accent-foreground' : ''}`}
+            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-[8px] px-3 py-2 text-left ${i === active ? 'bg-accent text-accent-foreground' : ''}`}
           >
             <span>{entry.title}</span>
             <span className="truncate text-sm text-muted-foreground">{entry.hint}</span>
@@ -119,9 +117,3 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
   )
 }
 
-/** The key hint the bar shows next to Search, on the platform's own keys. */
-export function SearchHint() {
-  const [mac, setMac] = useState(true)
-  useEffect(() => setMac(isMac()), [])
-  return <kbd className="text-xs text-muted-foreground">{mac ? '⌘K' : 'Ctrl K'}</kbd>
-}
