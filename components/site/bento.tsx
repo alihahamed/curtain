@@ -9,8 +9,9 @@ import { transitions } from '@/lib/transitions'
  * Six transitions as cards, three across with the middle column wider for the
  * two that move sideways (spaces, concertina): a bordered card with the preview
  * inset in its own rounded window, the name and a copy control under it.
- * The preview is the real thing in a frame, rendered at twice the window and
- * scaled down so its type reads at thumbnail size, mounted only while near.
+ * The preview is the real thing in a frame at 1:1, mounted only while near.
+ * Not scaled: a scaled frame puts whole-pixel edges on half pixels, and
+ * concertina's window shows hairlines again.
  */
 const slugs = ['tear', 'spaces', 'zipper', 'slate', 'concertina', 'crayon']
 
@@ -36,7 +37,7 @@ function Card({ slug }: { slug: string }) {
             title={`${t.name} preview`}
             tabIndex={-1}
             aria-hidden="true"
-            className="pointer-events-none absolute left-0 top-0 h-[200%] w-[200%] origin-top-left scale-50 bg-background"
+            className="pointer-events-none absolute inset-0 size-full bg-background"
           />
         )}
       </div>
