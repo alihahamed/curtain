@@ -15,7 +15,7 @@ export default function Gallery() {
 
   return (
     <main>
-      <div className="mx-auto w-full max-w-6xl px-6 pt-6">
+      <div className="mx-auto w-full max-w-6xl px-6 pt-24">
         <Rule />
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-muted-foreground">
           <Mono>catalogue</Mono>

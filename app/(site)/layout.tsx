@@ -1,7 +1,12 @@
-/**
- * No chrome for now: the pages stand on their own. The header and footer come
- * back when the site has a shape to hang them on.
- */
-export default function SiteLayout({ children }: LayoutProps<'/'>) {
-  return <>{children}</>
+import { SiteNav } from '@/components/site/site-nav'
+import { githubStars } from '@/lib/github-stars'
+
+export default async function SiteLayout({ children }: LayoutProps<'/'>) {
+  const stars = await githubStars()
+  return (
+    <>
+      <SiteNav stars={stars} />
+      {children}
+    </>
+  )
 }

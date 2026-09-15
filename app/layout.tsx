@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Onest } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import './globals.css'
 
 // See design.md: Bricolage for headings, medium or semibold; Onest, medium, for everything else.
@@ -25,13 +26,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html
-      lang="en"
-      className={`${heading.variable} ${text.variable} dark h-full antialiased`}
-      style={{ colorScheme: 'dark' }}
-    >
+    <html lang="en" className={`${heading.variable} ${text.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-full flex-col">
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

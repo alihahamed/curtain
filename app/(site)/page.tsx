@@ -1,4 +1,4 @@
-import { DarkstarShader } from '@/components/site/darkstar-shader'
+import { HeroField } from '@/components/site/hero-field'
 
 /**
  * The home page is the hero and nothing else: a WebGL field filling the whole
@@ -13,16 +13,12 @@ import { DarkstarShader } from '@/components/site/darkstar-shader'
 export default function Home() {
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-background">
-      <DarkstarShader
-        theme="dark"
-        background={{ dark: '#0a0a0a', light: '#f4f1ea' }}
-        className="absolute inset-0"
-      />
+      <HeroField />
       <section className="relative z-10 flex h-full flex-col items-center px-6 pt-[26dvh] text-center sm:px-8 sm:pt-[28dvh]">
         <h1 className="max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           Page transitions worth watching
         </h1>
-        <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal text-foreground/80 sm:mt-6">
+        <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">
           Made for the Next.js App Router. Drop one in and your links do the rest.
         </p>
       </section>

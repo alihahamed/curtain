@@ -23,7 +23,7 @@ export default async function TransitionPage({ params }: PageProps<'/transitions
   if (!t) notFound()
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-16">
+    <main className="mx-auto w-full max-w-3xl px-6 pt-24 pb-16">
       <nav className="font-mono text-xs text-muted-foreground">
         <Link href="/transitions" className="transition-colors hover:text-foreground">
           transitions

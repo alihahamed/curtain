@@ -54,7 +54,15 @@ This is about the site's own controls. The transitions themselves have their own
 
 Before a UI change lands, walk this once: nested corners are concentric, icons sit centred by eye, shadows and borders are each doing their own job, headings do not wrap awkwardly, changing numbers are tabular, images have outlines where they need them, enter and exit are split and subtle, buttons press without exaggeration, no `transition: all` or `will-change: all`, small controls still hit easily.
 
+## Chrome
+
+- The navigation is one floating box, 640px at most, 16px from the top, with a border and a blurred background and no shadow. Its corners are concentric with the controls inside: 18 outside, 8px padding, 10 on the controls.
+- Transitions and docs are visible links on wide screens. Below the tablet width they move into a panel that rolls out of the bottom of the same box, so the box grows rather than a second thing appearing.
+- Search is a native dialog over a filtered list. It opens on the platform's command or control key with K, on the slash key when not typing, and from the bar. The hint shows the platform's own keys.
+- The star count is fetched on the server once an hour and left out when GitHub does not answer. Never a zero.
+- The theme toggle is one control, sun or moon cross-faded. Dark is the default and the choice is remembered.
+
 ## Open
 
-- Header and footer are out until the site has a shape to hang them on.
+- The footer is out until the site has a shape to hang it on.
 - Light theme: the paper palette exists in the stylesheet but is not the default and is not a decision yet.

@@ -13,7 +13,7 @@ export default async function Lab({ params }: PageProps<'/lab/[slug]'>) {
   if (!t) notFound()
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-14">
+    <main className="mx-auto w-full max-w-5xl px-6 pt-24 pb-14">
       <nav className="font-mono text-xs text-muted-foreground">
         <Link href={`/transitions/${t.slug}`} className="transition-colors hover:text-foreground">
           {t.slug}

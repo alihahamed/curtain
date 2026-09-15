@@ -16,7 +16,7 @@ export default function Docs() {
   const native = shipped.filter((t) => t.dependencies.length === 0)
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 pt-6 pb-24">
+    <main className="mx-auto w-full max-w-3xl px-6 pt-24 pb-24">
       <Rule />
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-muted-foreground">
         <Mono>getting started</Mono>
