@@ -29,7 +29,7 @@ function UnknownWall() {
     return () => io.disconnect()
   }, [])
   return (
-    <div ref={ref} aria-hidden="true" inert className="unknown-wall pointer-events-none absolute top-1/2 left-1/2 h-[640px] w-[min(100vw,76rem)] -translate-x-1/2 -translate-y-1/2 opacity-35">
+    <div ref={ref} aria-hidden="true" inert className="unknown-wall pointer-events-none absolute top-1/2 left-1/2 h-[680px] w-[min(100vw,72rem)] -translate-x-1/2 -translate-y-1/2">
       {near && (
         <DriftWall
           items={unknowns}
@@ -39,6 +39,8 @@ function UnknownWall() {
           gap={16}
           radius={16}
           speed={26}
+          turn={0}
+          tilt={14}
           parallax={0}
           dim={1}
           overlayColor="#000"
