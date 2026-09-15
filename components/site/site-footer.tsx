@@ -34,14 +34,16 @@ export function SiteFooter({ stars }: { stars: number | null }) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.registerPlugin(ScrollTrigger)
     const ctx = gsap.context(() => {
+      // Tied straight to the scroll: no smoothing to lag behind, no stagger to race
+      // ahead, and the whole approach of the footer to happen over. Each letter sits
+      // a little lower than the one before and they all land together at the bottom.
       gsap.fromTo(
         '[data-letter]',
-        { yPercent: 70 },
+        { yPercent: (i: number) => 38 + i * 6 },
         {
           yPercent: 0,
           ease: 'none',
-          stagger: 0.06,
-          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: 0.6 },
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: true },
         },
       )
       gsap.from('[data-footer-row] > *', {
@@ -63,7 +65,12 @@ export function SiteFooter({ stars }: { stars: number | null }) {
           <Link href="/" className="font-heading text-2xl">
             curtain
           </Link>
-          <p className="mt-3 max-w-[30ch] text-foreground/60 text-pretty">Page transitions worth watching, made for the Next.js App Router.</p>
+          <p className="mt-3 text-sm text-foreground/50">
+            Made by{' '}
+            <a href={X_PROFILE} target="_blank" rel="noopener" className="footer-link text-foreground/75">
+              Ali Ahmed
+            </a>
+          </p>
         </div>
 
         <nav aria-label="Footer">
@@ -82,7 +89,7 @@ export function SiteFooter({ stars }: { stars: number | null }) {
           </ul>
         </nav>
 
-        <div className="flex items-start gap-2">
+        <div className="flex flex-wrap items-start gap-2">
           <Tip content="Say hi">
             <a href={X_PROFILE} target="_blank" rel="noopener" aria-label="Ali Ahmed on X" className="footer-icon grid size-10 place-items-center rounded-[10px] border border-border bg-foreground/[0.04] text-foreground/75">
               <XMark className="size-4" />
@@ -94,28 +101,19 @@ export function SiteFooter({ stars }: { stars: number | null }) {
               {stars !== null && <span className="tabular-nums">{formatStars(stars)}</span>}
             </a>
           </Tip>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })}
+            className="footer-top group flex h-10 items-center gap-2 rounded-[10px] px-3 text-sm text-foreground/60"
+          >
+            Back to top
+            <ArrowUp className="footer-top-arrow size-4" aria-hidden="true" />
+          </button>
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-6 text-sm text-foreground/50 sm:px-8">
-        <p>
-          Made by{' '}
-          <a href={X_PROFILE} target="_blank" rel="noopener" className="footer-link text-foreground/75">
-            Ali Ahmed
-          </a>
-        </p>
-        <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })}
-          className="footer-top group flex h-10 items-center gap-2 rounded-[10px] px-3 text-foreground/60"
-        >
-          Back to top
-          <ArrowUp className="footer-top-arrow size-4" aria-hidden="true" />
-        </button>
-      </div>
-
       {/* The wordmark, cut at its middle. aria-hidden: the name is already above. */}
-      <div aria-hidden="true" className="footer-mark mt-6 flex h-[0.56em] justify-center overflow-hidden font-heading text-[clamp(6rem,24vw,22rem)] leading-[0.8] tracking-[-0.02em] select-none">
+      <div aria-hidden="true" className="footer-mark mt-2 flex h-[0.56em] justify-center overflow-hidden font-heading text-[clamp(6rem,24vw,22rem)] leading-[0.8] tracking-[-0.02em] select-none">
         {'curtain'.split('').map((ch, i) => (
           <span key={i} data-letter className="footer-letter inline-block">
             {ch}
