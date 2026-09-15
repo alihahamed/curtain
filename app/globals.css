@@ -506,3 +506,69 @@
 .card:hover {
   border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
 }
+
+/* Home sections under the grid. */
+.cta {
+  transition-property: transform, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.cta:hover { opacity: 0.9; }
+.cta:active { transform: scale(0.96); }
+.cta-arrow,
+.inspired-arrow {
+  transition-property: translate, color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cta:hover .cta-arrow,
+.inspired-link:hover .inspired-arrow {
+  translate: 2px -2px;
+}
+.tool,
+.inspired-link {
+  transition-property: color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.tool:hover,
+.inspired-link:hover {
+  color: var(--foreground);
+}
+.inspired-rule {
+  transform-origin: left;
+  transition-property: background-color, scale;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.inspired-link:hover .inspired-rule {
+  background-color: var(--brand);
+}
+.faq-q {
+  transition-property: color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.faq-q:hover { color: var(--foreground); }
+.faq-icon {
+  transition-property: rotate, color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.faq-icon-open {
+  rotate: 45deg;
+  color: var(--foreground);
+}
+.faq-a {
+  opacity: 0;
+  translate: 0 -4px;
+  transition-property: opacity, translate;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.faq-a-open {
+  opacity: 1;
+  translate: 0 0;
+  transition-duration: 250ms;
+  transition-delay: 80ms;
+}
