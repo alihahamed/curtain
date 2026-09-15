@@ -8,17 +8,10 @@ const X_POST = `https://x.com/intent/post?text=${encodeURIComponent('Built somet
 /** The ask, in place of testimonials we do not have yet: an empty seat with a way to fill it. */
 export function Testimonial() {
   return (
-    <section data-reveal className="mx-auto w-full max-w-[40rem] px-4 text-center">
-      <div className="rounded-[20px] border border-dashed border-foreground/20 px-6 py-14 sm:px-12">
-        <div className="mx-auto mb-7 flex w-fit items-center">
-          {[0, 1, 2].map((i) => (
-            <span key={i} className="-ml-2 size-9 rounded-full border border-dashed border-foreground/25 bg-background first:ml-0" />
-          ))}
-          <span className="-ml-2 grid size-9 place-items-center rounded-full border border-foreground/25 bg-foreground text-background">
-            <Plus className="size-4" aria-hidden="true" />
-          </span>
-        </div>
-        <h2 className="font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] leading-[1.05] tracking-[-0.015em] text-balance">
+    <section data-reveal className="mx-auto mt-16 w-full max-w-[46rem] px-4 text-center sm:mt-24">
+      {/* The marquee goes in behind this card, low opacity. */}
+      <div className="rounded-[20px] border border-dashed border-foreground/20 px-6 py-16 sm:px-12">
+        <h2 className="font-heading text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] leading-[1.02] tracking-[-0.02em] text-balance">
           Your words could sit right here.
         </h2>
         <p className="mx-auto mt-4 max-w-[34ch] text-foreground/65">
