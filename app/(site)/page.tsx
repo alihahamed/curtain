@@ -24,11 +24,22 @@ export default function Home() {
             width={1074}
             height={1153}
             priority
-            className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.06em] align-middle"
+            className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.02em] align-middle"
           />
         </h1>
         <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">
-          Made for the Next.js App Router. Drop one in and your links do the rest.
+          Made for the{' '}
+          <span className="whitespace-nowrap">
+            <Image
+              src="/icons8-next.js-48.png"
+              alt=""
+              width={48}
+              height={48}
+              className="mr-[0.3em] inline-block size-[1.05em] -translate-y-[0.08em] align-middle"
+            />
+            Next.js App Router.
+          </span>{' '}
+          Drop one in and your links do the rest.
         </p>
       </section>
     </main>

@@ -58,7 +58,7 @@ export function SiteNav({ stars }: { stars: number | null }) {
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <nav
         aria-label="Site"
-        className="w-full max-w-[40rem] rounded-[14px] border border-border bg-background/70 p-1.5 backdrop-blur-xl"
+        className="w-full max-w-[40rem] rounded-[14px] border border-border bg-background p-1.5"
       >
         <div className="flex items-center gap-1">
           <Tip content="Front row">
