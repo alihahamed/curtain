@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { HeroField } from '@/components/site/hero-field'
+import { InstallCommand } from '@/components/site/install-command'
 
 /**
  * The home page is the hero and nothing else: a WebGL field filling the whole
@@ -16,7 +17,7 @@ export default function Home() {
     <main className="relative h-dvh w-full overflow-hidden bg-background">
       <HeroField />
       <section className="relative z-10 flex h-full flex-col items-center px-6 pt-[26dvh] text-center sm:px-8 sm:pt-[28dvh]">
-        <h1 className="max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
+        <h1 className="hero-rise max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           Page transitions worth watching
           <Image
             src="/hero-tv.webp"
@@ -27,20 +28,22 @@ export default function Home() {
             className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.02em] align-middle"
           />
         </h1>
-        <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">
+        <p className="hero-rise mt-5 max-w-[34ch] [animation-delay:90ms] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">
           Made for the{' '}
           <span className="whitespace-nowrap">
             <Image
               src="/icons8-next.js-48.png"
               alt=""
-              width={48}
-              height={48}
-              className="mr-[0.3em] inline-block size-[1.05em] -translate-y-[0.08em] align-middle"
+              width={52}
+              height={52}
+              className="mr-[0.3em] inline-block size-[1.55em] -translate-y-[0.08em] align-middle"
             />
             Next.js App Router.
           </span>{' '}
           Drop one in and your links do the rest.
         </p>
+        <InstallCommand className="hero-rise mt-10 [animation-delay:180ms] sm:mt-12" />
+        <p className="hero-rise mt-4 text-sm text-foreground/60 [animation-delay:260ms]">Copy, paste, curtain up.</p>
       </section>
     </main>
   )

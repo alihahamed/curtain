@@ -63,6 +63,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 - The GitHub control reads GitHub with the mark, and the star count sits after it as a small badge on the same grey fill. The count is fetched on the server once an hour and left out when GitHub does not answer. Never a zero.
 - The theme toggle is one control, sun or moon cross-faded. Dark is the default and the choice is remembered.
 - Every control in the bar has a tooltip, below it, two or three words with a small dry joke: Front row, The good stuff, Actually short, Skip the scrolling, Stars welcome, Lights on or off. Never a sentence, never a pun that needs a second read.
+- The install block is the hero's call to action, in the bar's box: manager tabs with a marker that slides on a spring, the command in Onest with a little tracking, a copy control. Switching managers draws the new command across the line; copying sweeps the accent through the text and holds the button pink for a beat. The caption under it is "Copy, paste, curtain up."
 
 ## Open
 
