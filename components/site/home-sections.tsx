@@ -153,7 +153,7 @@ export function Faq() {
   return (
     <section data-reveal className="mx-auto w-full max-w-[58rem] px-4">
       <h2 className="text-center font-heading text-[clamp(2rem,1.3rem+2.8vw,3.5rem)] leading-[1.05] tracking-[-0.015em]">
-        Questions, answered
+        Before you ask
       </h2>
       <BouncyAccordion
         className="mt-14"
