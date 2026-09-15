@@ -73,7 +73,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 - A card's preview is the real thing in a frame, playing on its own, at 1:1, never scaled, since a scaled frame brings back sub-pixel hairlines, mounted only while near the viewport. The copy control opens a menu of the four package managers on hover.
 - After the grid, in order: an ask in place of testimonials (no card, just a large "Your words could sit right here." over a drifting wall of question-mark tiles at 35% opacity, inert and faded on every edge, a button to post on X at @AhmedAli8177), the tools it is built on (Next.js, GSAP, Tailwind CSS) as brand marks in their own colours (Next.js in the foreground, since it is monochrome) with their names between dashed rules, then the FAQ. Each rises 48px as it comes in, once, with no fade.
 - As the grid scrolls away the card columns part at different speeds, the middle one fastest.
-- FAQ answers come from the docs and nowhere else. If the docs do not say it, the FAQ does not either.
+- The FAQ is the beui bouncy accordion: rows in one rounded group that split apart around the open one on a spring. Its answers come from the docs and nowhere else. If the docs do not say it, the FAQ does not either.
 
 ## Open
 

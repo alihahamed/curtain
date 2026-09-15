@@ -1,8 +1,9 @@
 'use client'
 
-import { ArrowUpRight, Plus } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import DriftWall from '@/components/DriftWall'
+import { BouncyAccordion } from '@/components/motion/bouncy-accordion'
 
 const X_POST = `https://x.com/intent/post?text=${encodeURIComponent('Built something with curtain @AhmedAli8177 ')}`
 
@@ -147,38 +148,17 @@ const faqs: { q: string; a: string }[] = [
 ]
 
 export function Faq() {
-  const [open, setOpen] = useState<number | null>(0)
   return (
     <section data-reveal className="mx-auto w-full max-w-[44rem] px-4">
       <h2 className="text-center font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] leading-[1.05] tracking-[-0.015em]">
         Questions, answered
       </h2>
-      <div className="mt-12 border-t border-border">
-        {faqs.map((f, i) => {
-          const isOpen = open === i
-          return (
-            <div key={f.q} className="border-b border-border">
-              <h3 className="font-sans text-base">
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-${i}`}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="faq-q flex min-h-14 w-full items-center justify-between gap-6 py-3 text-left"
-                >
-                  {f.q}
-                  <Plus className={`faq-icon size-4 shrink-0 text-foreground/60 ${isOpen ? 'faq-icon-open' : ''}`} aria-hidden="true" />
-                </button>
-              </h3>
-              <div id={`faq-${i}`} className={`nav-rollout ${isOpen ? 'nav-rollout-open' : ''}`} inert={!isOpen}>
-                <div className="overflow-hidden">
-                  <p className={`faq-a max-w-[58ch] pb-5 text-foreground/65 ${isOpen ? 'faq-a-open' : ''}`}>{f.a}</p>
-                </div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      <BouncyAccordion
+        className="mt-12"
+        defaultValue="0"
+        items={faqs.map((f, i) => ({ id: String(i), title: f.q, description: f.a }))}
+        classNames={{ title: 'whitespace-normal', description: 'text-pretty' }}
+      />
     </section>
   )
 }

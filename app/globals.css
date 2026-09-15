@@ -531,34 +531,6 @@
 .tool:hover {
   color: var(--foreground);
 }
-.faq-q {
-  transition-property: color;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
-}
-.faq-q:hover { color: var(--foreground); }
-.faq-icon {
-  transition-property: rotate, color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.faq-icon-open {
-  rotate: 45deg;
-  color: var(--foreground);
-}
-.faq-a {
-  opacity: 0;
-  translate: 0 -4px;
-  transition-property: opacity, translate;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
-}
-.faq-a-open {
-  opacity: 1;
-  translate: 0 0;
-  transition-duration: 250ms;
-  transition-delay: 80ms;
-}
 
 /* The question-mark wall behind the testimonial ask fades in and out at its top and bottom edges. */
 .unknown-wall {
