@@ -29,7 +29,7 @@ function Card({ slug }: { slug: string }) {
 
   return (
     <div ref={ref} data-tile className="card rounded-[20px] border border-border bg-card p-2.5">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[12px] border border-border bg-background lg:aspect-auto lg:h-[264px]">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[12px] border border-border bg-background lg:aspect-auto lg:h-[280px]">
         {near && (
           <iframe
             src={`/preview/${slug}?loop`}
@@ -52,7 +52,7 @@ function Card({ slug }: { slug: string }) {
 
 export function Bento() {
   return (
-    <div data-tiles className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1.3fr_1fr]">
+    <div data-tiles className="mx-auto grid w-full max-w-[82rem] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1fr]">
       {slugs.map((slug) => (
         <Card key={slug} slug={slug} />
       ))}
