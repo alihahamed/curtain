@@ -42,11 +42,11 @@ export function SiteFooter({ stars }: { stars: number | null }) {
       const mark = el.querySelector<HTMLElement>('.footer-mark')
       gsap.fromTo(
         '[data-letter]',
-        { yPercent: (i: number) => 12 + i * 3 },
+        { yPercent: (i: number) => 9 + i * 2 },
         {
           yPercent: 0,
           ease: 'none',
-          scrollTrigger: { trigger: mark, start: 'top bottom+=260', end: 'bottom bottom', scrub: 0.5 },
+          scrollTrigger: { trigger: mark, start: 'top bottom+=400', end: 'bottom bottom', scrub: 0.5 },
         },
       )
       gsap.from('[data-footer-row] > *', {
