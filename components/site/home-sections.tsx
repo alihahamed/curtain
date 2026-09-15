@@ -71,13 +71,11 @@ export function Testimonial() {
   )
 }
 
+/** Brand marks from simple-icons (CC0), drawn in currentColor through a CSS mask so they follow the theme. */
 const tools = [
-  { name: 'Next.js', href: 'https://nextjs.org' },
-  { name: 'GSAP', href: 'https://gsap.com' },
-  { name: 'three.js', href: 'https://threejs.org' },
-  { name: 'Tailwind CSS', href: 'https://tailwindcss.com' },
-  { name: 'shadcn', href: 'https://ui.shadcn.com' },
-  { name: 'View Transitions', href: 'https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API' },
+  { name: 'Next.js', href: 'https://nextjs.org', icon: '/brands/nextjs.svg' },
+  { name: 'GSAP', href: 'https://gsap.com', icon: '/brands/gsap.svg' },
+  { name: 'Tailwind CSS', href: 'https://tailwindcss.com', icon: '/brands/tailwind.svg' },
 ]
 
 /** The label on a dashed rule, in sentence case (design.md: no caps labels). */
@@ -95,10 +93,11 @@ export function ToolStack() {
   return (
     <section data-reveal className="mx-auto w-full max-w-[44rem] px-4">
       <RuleLabel>Built on</RuleLabel>
-      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-9 gap-y-4">
+      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-5">
         {tools.map((t) => (
           <li key={t.name}>
-            <a href={t.href} target="_blank" rel="noopener" className="tool font-heading text-[clamp(1.15rem,1rem+0.6vw,1.5rem)] text-foreground/45">
+            <a href={t.href} target="_blank" rel="noopener" className="tool flex items-center gap-2.5 font-heading text-[clamp(1.1rem,1rem+0.5vw,1.4rem)] text-foreground/45">
+              <span aria-hidden="true" className="brand-mark size-[1.25em] shrink-0" style={{ '--mark': `url(${t.icon})` } as React.CSSProperties} />
               {t.name}
             </a>
           </li>
