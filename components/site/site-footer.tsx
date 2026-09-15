@@ -34,16 +34,19 @@ export function SiteFooter({ stars }: { stars: number | null }) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.registerPlugin(ScrollTrigger)
     const ctx = gsap.context(() => {
-      // Tied straight to the scroll: no smoothing to lag behind, no stagger to race
-      // ahead, and the whole approach of the footer to happen over. Each letter sits
-      // a little lower than the one before and they all land together at the bottom.
+      // The rise happens only while the wordmark itself is on screen: from its top
+      // edge entering the viewport to the bottom of the page. Over that stretch the
+      // letters travel a fraction of the scroll, and never more than the short
+      // letters (c, u, r, a, n) can drop before they fall out of the half-height
+      // clip, so the whole word is on screen the entire time, settling like a wave.
+      const mark = el.querySelector<HTMLElement>('.footer-mark')
       gsap.fromTo(
         '[data-letter]',
-        { yPercent: (i: number) => 38 + i * 6 },
+        { yPercent: (i: number) => 16 + i * 3 },
         {
           yPercent: 0,
           ease: 'none',
-          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: true },
+          scrollTrigger: { trigger: mark, start: 'top bottom', end: 'bottom bottom', scrub: 0.25 },
         },
       )
       gsap.from('[data-footer-row] > *', {
@@ -55,7 +58,23 @@ export function SiteFooter({ stars }: { stars: number | null }) {
         scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       })
     }, el)
-    return () => ctx.revert()
+    // The page above keeps growing after load (the FAQ opens its first answer, the
+    // wall mounts), which leaves every trigger's start and end measured too high.
+    // Re-measure whenever the page's height actually changes.
+    let frame = 0
+    let height = document.body.offsetHeight
+    const ro = new ResizeObserver(() => {
+      if (document.body.offsetHeight === height) return
+      height = document.body.offsetHeight
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => ScrollTrigger.refresh())
+    })
+    ro.observe(document.body)
+    return () => {
+      ro.disconnect()
+      cancelAnimationFrame(frame)
+      ctx.revert()
+    }
   }, [])
 
   return (
