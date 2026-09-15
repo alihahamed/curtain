@@ -34,19 +34,19 @@ export function SiteFooter({ stars }: { stars: number | null }) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.registerPlugin(ScrollTrigger)
     const ctx = gsap.context(() => {
-      // The rise happens only while the wordmark itself is on screen: from its top
-      // edge entering the viewport to the bottom of the page. Over that stretch the
+      // The rise starts a little before the wordmark reaches the screen and ends at
+      // the bottom of the page, a long stretch for a short move, so it drifts. Over that stretch the
       // letters travel a fraction of the scroll, and never more than the short
       // letters (c, u, r, a, n) can drop before they fall out of the half-height
       // clip, so the whole word is on screen the entire time, settling like a wave.
       const mark = el.querySelector<HTMLElement>('.footer-mark')
       gsap.fromTo(
         '[data-letter]',
-        { yPercent: (i: number) => 16 + i * 3 },
+        { yPercent: (i: number) => 12 + i * 3 },
         {
           yPercent: 0,
           ease: 'none',
-          scrollTrigger: { trigger: mark, start: 'top bottom', end: 'bottom bottom', scrub: 0.25 },
+          scrollTrigger: { trigger: mark, start: 'top bottom+=260', end: 'bottom bottom', scrub: 0.5 },
         },
       )
       gsap.from('[data-footer-row] > *', {
