@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The dev badge would show inside every preview frame on the home page.
+  devIndicators: false,
 };
 
 export default nextConfig;

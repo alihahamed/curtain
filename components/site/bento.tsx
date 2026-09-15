@@ -31,6 +31,7 @@ function Card({ slug }: { slug: string }) {
   return (
     <div ref={ref} data-tile className="card rounded-[20px] border border-border bg-card p-2.5">
       <div className="relative aspect-[4/3] overflow-hidden rounded-[12px] border border-border bg-background lg:aspect-auto lg:h-[280px]">
+        <Link href={`/transitions/${slug}`} aria-label={`Open ${t.name}`} className="absolute inset-0 z-10 rounded-[12px]" />
         {near && (
           <iframe
             src={`/preview/${slug}?loop`}

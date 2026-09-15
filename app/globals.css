@@ -494,8 +494,9 @@
 
 
 /* The grid is black; the field shows only through a short fade at its top, so it reads as the hero running out. */
-.grid-fade {
-  background: linear-gradient(to bottom, transparent, var(--background) 240px);
+.field-fade {
+  /* The field runs out into the page over its last stretch, in either theme, instead of ending on a line. */
+  mask-image: linear-gradient(to bottom, black calc(100% - 320px), transparent);
 }
 .card {
   transition-property: border-color, transform;

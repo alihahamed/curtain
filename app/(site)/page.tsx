@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="relative w-full bg-background">
       <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[180px]">
-        <div data-field className="absolute inset-0 will-change-transform">
+        <div data-field className="field-fade absolute inset-0 will-change-transform">
           <HeroField />
         </div>
         <div data-hero-copy className="relative z-10 flex flex-col items-center px-6 pt-[20dvh] text-center sm:px-8 sm:pt-[21dvh]">
@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* The grid starts before the hero ends, so its first row peeks above the fold; the field fades out under its top. */}
-      <section data-grid className="grid-fade relative z-10 -mt-[140px] px-4 pb-24 sm:px-6">
+      <section data-grid className="relative z-10 -mt-[140px] px-4 pb-24 sm:px-6">
         <Bento />
       </section>
       <HomeScroll />

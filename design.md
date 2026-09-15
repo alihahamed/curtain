@@ -68,7 +68,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Home page
 
-- Under the hero, six transitions as cards, three across, two on a tablet, one on a phone: a bordered card, the preview inset in its own rounded window, the name and a copy control under it. The grid is the page's black. The field belongs to the hero and runs a short way under the grid's top through a fade, so it reads as the hero running out rather than a second surface starting. The first row peeks above the fold.
+- Under the hero, six transitions as cards, three across, two on a tablet, one on a phone: a bordered card, the preview inset in its own rounded window, the name and a copy control under it. The grid is the page's black. The field belongs to the hero and fades out over its last 320px, in either theme, so it reads as the hero running out rather than a second surface starting. The first row peeks above the fold.
 - Nothing pins and nothing fades on scroll. The field drifts up slower than the page and grows a little as the hero leaves, and the card columns arrive at slightly different speeds. On GSAP ScrollTrigger; reduced motion scrolls plainly.
 - A card's preview is the real thing in a frame, playing on its own, at 1:1, never scaled, since a scaled frame brings back sub-pixel hairlines, mounted only while near the viewport. The copy control opens a menu of the four package managers on hover.
 
