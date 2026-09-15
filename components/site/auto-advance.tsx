@@ -22,10 +22,17 @@ export function AutoAdvance({ href, delay = 2000 }: { href: string; delay?: numb
     const root = document.documentElement
     if (flagged) root.classList.add('loop')
     if (!root.classList.contains('loop') || stage !== 'none') return
-    const t = window.setTimeout(() => {
-      if (document.visibilityState !== 'visible') return
+    // While the frame is paused (its card is off screen) or the tab is hidden, keep
+    // checking back rather than turning the page, so it resumes as soon as it is seen.
+    let t = 0
+    const tick = () => {
+      if (document.visibilityState !== 'visible' || root.hasAttribute('data-paused')) {
+        t = window.setTimeout(tick, 400)
+        return
+      }
       document.querySelector<HTMLAnchorElement>(`a[href="${href}"]`)?.click()
-    }, delay)
+    }
+    t = window.setTimeout(tick, delay)
     return () => window.clearTimeout(t)
   }, [flagged, href, delay, stage])
   return null
