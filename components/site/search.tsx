@@ -108,7 +108,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
           aria-label="Search"
           className="h-full w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
         />
-        <IconButton label="Close search" className="-mr-1 size-8 [&>svg]:size-4" onClick={() => onOpenChange(false)}>
+        <IconButton label="Close search" className="-mr-1 size-8 bg-brand/15 text-foreground hover:bg-brand/25 [&>svg]:size-4" onClick={() => onOpenChange(false)}>
           <X />
         </IconButton>
       </div>

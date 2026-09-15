@@ -177,6 +177,10 @@
   background-color: var(--accent);
   color: var(--foreground);
 }
+/* A control that carries the accent keeps it on hover, a shade deeper. */
+.nav-control.bg-brand\/15:hover {
+  background-color: color-mix(in oklab, var(--brand) 25%, transparent);
+}
 .nav-control:active {
   transform: scale(0.96);
 }
