@@ -6,21 +6,13 @@ import { CopyMenu } from '@/components/site/copy-menu'
 import { transitions } from '@/lib/transitions'
 
 /**
- * Six transitions, sized by what each needs to read: wide for the ones that
- * move sideways, tall for the ones that run top to bottom. Four columns, one
- * on a phone. Each tile is the real preview in a frame, playing on its own,
- * mounted only while the tile is near the viewport.
+ * Six transitions in two equal columns, one on a phone. Each tile is the real
+ * preview in a frame, playing on its own, mounted only while the tile is near
+ * the viewport. The field shows through the gaps: no sheet behind the grid.
  */
-const tiles: { slug: string; span: string }[] = [
-  { slug: 'tear', span: 'md:col-span-2 md:row-span-2' },
-  { slug: 'spaces', span: 'md:col-span-2' },
-  { slug: 'zipper', span: 'md:row-span-2' },
-  { slug: 'slate', span: '' },
-  { slug: 'concertina', span: 'md:col-span-2' },
-  { slug: 'crayon', span: '' },
-]
+const tiles = ['tear', 'spaces', 'zipper', 'slate', 'concertina', 'crayon']
 
-function Tile({ slug, span }: { slug: string; span: string }) {
+function Tile({ slug }: { slug: string }) {
   const t = transitions.find((x) => x.slug === slug)!
   const ref = useRef<HTMLDivElement>(null)
   const [near, setNear] = useState(false)
@@ -34,7 +26,7 @@ function Tile({ slug, span }: { slug: string; span: string }) {
   }, [])
 
   return (
-    <div ref={ref} data-tile className={`tile relative overflow-hidden rounded-[14px] border border-border bg-card ${span}`}>
+    <div ref={ref} data-tile className="tile relative overflow-hidden rounded-[14px] border border-border bg-card">
       {near && (
         <iframe
           src={`/preview/${slug}?loop`}
@@ -56,9 +48,9 @@ function Tile({ slug, span }: { slug: string; span: string }) {
 
 export function Bento() {
   return (
-    <div className="mx-auto grid w-full max-w-6xl auto-rows-[240px] grid-cols-1 gap-3 md:auto-rows-[220px] md:grid-cols-4">
-      {tiles.map((x) => (
-        <Tile key={x.slug} {...x} />
+    <div data-tiles className="mx-auto grid w-full max-w-6xl auto-rows-[260px] grid-cols-1 gap-4 md:auto-rows-[400px] md:grid-cols-2">
+      {tiles.map((slug) => (
+        <Tile key={slug} slug={slug} />
       ))}
     </div>
   )

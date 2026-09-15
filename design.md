@@ -68,8 +68,8 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Home page
 
-- Under the hero, six transitions in a bento: wide tiles for spaces and concertina, tall for tear and zipper, singles for slate and crayon. Four columns, one on a phone. The grid peeks 120px above the fold.
-- The hero pins while the grid slides up over it. The field grows and drifts slowest, the copy recedes at about half speed and fades, the tiles rise into place in a stagger. All on GSAP ScrollTrigger; reduced motion scrolls plainly.
+- Under the hero, six transitions as equal tiles in two columns, one on a phone, with no sheet behind them: the field runs on through the gaps. The first row peeks above the fold through a soft fade that lifts as you scroll.
+- The hero pins while the grid slides up over it. The field grows and drifts slowest, the copy recedes at about half speed and fades, and the two columns drift up at different speeds so the rows arrive rather than scroll. All on GSAP ScrollTrigger; reduced motion scrolls plainly.
 - A tile is the real preview in a frame, playing on its own, mounted only while near the viewport. On it, only the name and a copy control; the copy control opens a menu of the four package managers on hover.
 
 ## Open

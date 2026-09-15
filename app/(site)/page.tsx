@@ -52,8 +52,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The grid starts before the hero ends, so its first row peeks above the fold. */}
-      <section data-grid className="relative z-10 -mt-[120px] rounded-t-[24px] border-t border-border bg-background px-4 pt-6 pb-24 sm:px-6">
+      {/* The grid starts before the hero ends, so its first row peeks above the fold through a soft fade. */}
+      <section data-grid className="relative z-10 -mt-[220px] px-4 pb-24 sm:px-6">
         <Bento />
       </section>
       <HomeScroll />

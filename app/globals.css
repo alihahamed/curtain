@@ -499,3 +499,9 @@
 .loop .preview-hint {
   visibility: hidden;
 }
+
+/* The grid's top row peeks above the fold through a soft fade; --fade is driven by scroll. */
+[data-tiles] {
+  --fade: 260px;
+  mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.35) calc(var(--fade) * 0.45), black var(--fade));
+}

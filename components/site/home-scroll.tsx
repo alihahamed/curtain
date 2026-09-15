@@ -21,19 +21,16 @@ export function HomeScroll() {
 
       ScrollTrigger.create({ trigger: hero, start: 'top top', end: () => `+=${grid.offsetHeight}`, pin: true, pinSpacing: false })
 
+      const tiles = gsap.utils.toArray<HTMLElement>('[data-tile]')
       gsap
         .timeline({ scrollTrigger: { trigger: grid, start: 'top bottom', end: 'top top', scrub: 0.4 } })
         .to('[data-field]', { scale: 1.14, yPercent: -5, ease: 'none' }, 0)
         .to('[data-hero-copy]', { yPercent: -45, opacity: 0, ease: 'none' }, 0)
-
-      gsap.from('[data-tile]', {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        stagger: 0.08,
-        scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
-      })
+        // The fade over the peeking row lifts as the grid comes up.
+        .fromTo('[data-tiles]', { '--fade': '260px' }, { '--fade': '0px', ease: 'none' }, 0)
+        // The two columns drift at different speeds, so the rows arrive rather than scroll.
+        .fromTo(tiles.filter((_, i) => i % 2 === 0), { y: 60 }, { y: 0, ease: 'none' }, 0)
+        .fromTo(tiles.filter((_, i) => i % 2 === 1), { y: 140 }, { y: 0, ease: 'none' }, 0)
     })
     return () => ctx.revert()
   }, [])
