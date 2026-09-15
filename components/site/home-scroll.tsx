@@ -10,6 +10,9 @@ import { useEffect } from 'react'
  * about half speed. Tiles rise into place in a stagger the first time the grid
  * arrives. Reduced motion leaves the page to scroll on its own.
  */
+/** How far the grid overlaps the hero at load; matches the grid's negative top margin. */
+export const PEEK = 220
+
 export function HomeScroll() {
   useEffect(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -22,8 +25,9 @@ export function HomeScroll() {
       ScrollTrigger.create({ trigger: hero, start: 'top top', end: () => `+=${grid.offsetHeight}`, pin: true, pinSpacing: false })
 
       const tiles = gsap.utils.toArray<HTMLElement>('[data-tile]')
+      // The grid already peeks PEEK px at load, so the timeline starts there, not at the viewport bottom.
       gsap
-        .timeline({ scrollTrigger: { trigger: grid, start: 'top bottom', end: 'top top', scrub: 0.4 } })
+        .timeline({ scrollTrigger: { trigger: grid, start: `top bottom-=${PEEK}`, end: 'top top', scrub: 0.4 } })
         .to('[data-field]', { scale: 1.14, yPercent: -5, ease: 'none' }, 0)
         .to('[data-hero-copy]', { yPercent: -45, opacity: 0, ease: 'none' }, 0)
         // The fade over the peeking row lifts as the grid comes up.

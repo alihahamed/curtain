@@ -68,7 +68,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Home page
 
-- Under the hero, six transitions as equal tiles in two columns, one on a phone, with no sheet behind them: the field runs on through the gaps. The first row peeks above the fold through a soft fade that lifts as you scroll.
+- Under the hero, six transitions as equal tiles in two columns, one on a phone, on the page's black. The field belongs to the hero and runs a short way under the grid's top through a fade, so it reads as the hero running out rather than a second surface starting. The first row peeks above the fold through a soft fade that lifts as you scroll.
 - The hero pins while the grid slides up over it. The field grows and drifts slowest, the copy recedes at about half speed and fades, and the two columns drift up at different speeds so the rows arrive rather than scroll. All on GSAP ScrollTrigger; reduced motion scrolls plainly.
 - A tile is the real preview in a frame, playing on its own, mounted only while near the viewport. On it, only the name and a copy control; the copy control opens a menu of the four package managers on hover.
 

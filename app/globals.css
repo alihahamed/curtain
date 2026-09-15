@@ -505,3 +505,8 @@
   --fade: 260px;
   mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.35) calc(var(--fade) * 0.45), black var(--fade));
 }
+
+/* The grid is black; the field shows only through a short fade at its top, so it reads as the hero running out. */
+.grid-fade {
+  background: linear-gradient(to bottom, transparent, var(--background) 360px);
+}
