@@ -151,15 +151,20 @@ const faqs: { q: string; a: string }[] = [
 
 export function Faq() {
   return (
-    <section data-reveal className="mx-auto w-full max-w-[44rem] px-4">
-      <h2 className="text-center font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] leading-[1.05] tracking-[-0.015em]">
+    <section data-reveal className="mx-auto w-full max-w-[58rem] px-4">
+      <h2 className="text-center font-heading text-[clamp(2rem,1.3rem+2.8vw,3.5rem)] leading-[1.05] tracking-[-0.015em]">
         Questions, answered
       </h2>
       <BouncyAccordion
-        className="mt-12"
+        className="mt-14"
         defaultValue="0"
         items={faqs.map((f, i) => ({ id: String(i), title: f.q, description: f.a }))}
-        classNames={{ title: 'whitespace-normal', description: 'text-pretty' }}
+        classNames={{
+          trigger: 'min-h-[64px] gap-4 px-5 sm:min-h-[72px] sm:gap-6 sm:px-7',
+          title: 'whitespace-normal text-[clamp(1rem,0.95rem+0.3vw,1.125rem)]',
+          chevron: 'size-7 [&>svg]:size-5',
+          description: 'sm:px-2 sm:pb-2 text-[clamp(0.95rem,0.9rem+0.25vw,1.0625rem)] leading-7 text-pretty',
+        }}
       />
     </section>
   )
