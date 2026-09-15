@@ -1,11 +1,13 @@
 'use client'
 
-import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import DriftWall from '@/components/DriftWall'
 import { BouncyAccordion } from '@/components/motion/bouncy-accordion'
 
-const X_POST = `https://x.com/intent/post?text=${encodeURIComponent('Built something with curtain @AhmedAli8177 ')}`
+// Prefilled so the post reads well on its own; the cursor lands after it for their own words.
+const X_POST = `https://x.com/intent/post?text=${encodeURIComponent(
+  'My page transitions finally have some personality. Built with curtain by @AhmedAli8177\n\nhttps://curtain.dev\n\n',
+)}`
 
 const unknowns = Array.from({ length: 15 }, () => ({ glyph: '?' }))
 
@@ -62,10 +64,11 @@ export function Testimonial() {
           href={X_POST}
           target="_blank"
           rel="noopener"
+          aria-label="Post it on X"
           className="cta mt-8 inline-flex h-11 items-center gap-2 rounded-[10px] bg-foreground px-5 text-background"
         >
-          Leave yours
-          <ArrowUpRight className="cta-arrow size-4" aria-hidden="true" />
+          Post it on
+          <span aria-hidden="true" className="brand-mark cta-arrow size-4" style={{ '--mark': 'url(/brands/x.svg)' } as React.CSSProperties} />
         </a>
       </div>
     </section>
