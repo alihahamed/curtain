@@ -1,6 +1,7 @@
 'use client'
 
-import { Search as SearchIcon } from 'lucide-react'
+import { Search as SearchIcon, X } from 'lucide-react'
+import { IconButton } from '@/components/site/icon-button'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { transitions } from '@/lib/transitions'
@@ -34,6 +35,8 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
     return entries.filter((e) => (e.title + ' ' + e.hint).toLowerCase().includes(q))
   }, [query])
 
+  // Open is native. Close is delayed a beat so the fade-out can run first;
+  // data-closing drives that state in CSS.
   useEffect(() => {
     const el = dialog.current
     if (!el) return
@@ -41,7 +44,14 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
       setQuery('')
       setActive(0)
       el.showModal()
-    } else if (!open && el.open) el.close()
+    } else if (!open && el.open && !('closing' in el.dataset)) {
+      el.dataset.closing = ''
+      const t = setTimeout(() => {
+        delete el.dataset.closing
+        el.close()
+      }, 160)
+      return () => clearTimeout(t)
+    }
   }, [open])
 
   useEffect(() => {
@@ -69,6 +79,10 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
     <dialog
       ref={dialog}
       onClose={() => onOpenChange(false)}
+      onCancel={(e) => {
+        e.preventDefault()
+        onOpenChange(false)
+      }}
       onClick={(e) => e.target === dialog.current && onOpenChange(false)}
       className="search m-0 mx-auto mt-[12dvh] w-[min(100vw-2rem,36rem)] rounded-[14px] border border-border bg-popover p-1.5 text-popover-foreground backdrop:bg-black/40"
     >
@@ -94,9 +108,11 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
           aria-label="Search"
           className="h-full w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
         />
-        <kbd className="hidden rounded-md border border-border px-1.5 py-0.5 text-xs text-muted-foreground sm:block">esc</kbd>
+        <IconButton label="Close search" className="-mr-1 size-8 [&>svg]:size-4" onClick={() => onOpenChange(false)}>
+          <X />
+        </IconButton>
       </div>
-      <div className="mt-2 max-h-[50dvh] overflow-y-auto border-t border-border pt-2" role="listbox">
+      <div className="search-list mt-1.5 max-h-[50dvh] overflow-y-auto border-t border-border pt-1.5" role="listbox">
         {results.length === 0 && <p className="px-3 py-6 text-center text-muted-foreground">Nothing for “{query}”.</p>}
         {results.map((entry, i) => (
           <button
@@ -106,7 +122,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
             aria-selected={i === active}
             onMouseEnter={() => setActive(i)}
             onClick={() => go(entry)}
-            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-[8px] px-3 py-2 text-left ${i === active ? 'bg-accent text-accent-foreground' : ''}`}
+            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-[8px] px-3 py-2 text-left ${i === active ? 'bg-brand/12 text-foreground' : ''}`}
           >
             <span>{entry.title}</span>
             <span className="truncate text-sm text-muted-foreground">{entry.hint}</span>
