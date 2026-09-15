@@ -24,7 +24,7 @@ export default function Home() {
             width={1074}
             height={1153}
             priority
-            className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.04em] align-baseline"
+            className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.06em] align-middle"
           />
         </h1>
         <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">

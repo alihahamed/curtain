@@ -8,12 +8,14 @@ import { IconButton } from '@/components/site/icon-button'
 import { NavLink } from '@/components/site/nav-link'
 import { Search } from '@/components/site/search'
 import { ThemeToggle } from '@/components/site/theme-toggle'
+import { Tip } from '@/components/site/tip'
 import { REPO, formatStars } from '@/lib/github-stars'
 
 const links = [
-  { href: '/transitions', label: 'Transitions' },
-  { href: '/docs', label: 'Docs' },
+  { href: '/transitions', label: 'Transitions', tip: 'The good stuff' },
+  { href: '/docs', label: 'Docs', tip: 'Actually short' },
 ]
+
 
 /** The GitHub mark. Lucide dropped its brand icons, so it lives here. */
 function GitHubMark({ className = '' }: { className?: string }) {
@@ -59,31 +61,45 @@ export function SiteNav({ stars }: { stars: number | null }) {
         className="w-full max-w-[40rem] rounded-[14px] border border-border bg-background/70 p-1.5 backdrop-blur-xl"
       >
         <div className="flex items-center gap-1">
-          <Link href="/" className={`${control} font-heading text-lg text-foreground`}>
-            curtain
-          </Link>
+          <Tip content="Front row">
+            <Link href="/" className={`${control} font-heading text-lg text-foreground`}>
+              curtain
+            </Link>
+          </Tip>
           <div className="ml-2 hidden items-center gap-1 md:flex">
             {links.map((l) => (
-              <NavLink key={l.href} href={l.href} className={`${control} aria-[current=page]:text-foreground`}>
-                {l.label}
-              </NavLink>
+              <Tip key={l.href} content={l.tip}>
+                <NavLink href={l.href} className={`${control} aria-[current=page]:text-foreground`}>
+                  {l.label}
+                </NavLink>
+              </Tip>
             ))}
           </div>
 
           <div className="ml-auto flex items-center gap-1">
-            <IconButton label="Search" className={filled} onClick={() => setSearching(true)}>
-              <SearchIcon />
-            </IconButton>
-            <a href={`https://github.com/${REPO}`} className={`${control} ${filled} hidden gap-2 md:flex`}>
-              <GitHubMark className="size-4" />
-              GitHub
-              <Stars n={stars} />
-            </a>
+            <Tip content="Skip the scrolling">
+              <IconButton label="Search" className={filled} onClick={() => setSearching(true)}>
+                <SearchIcon />
+              </IconButton>
+            </Tip>
+            <span className="hidden md:inline-flex">
+              <Tip content="Stars welcome">
+                <a href={`https://github.com/${REPO}`} className={`${control} ${filled} gap-2`}>
+                  <GitHubMark className="size-4" />
+                  GitHub
+                  <Stars n={stars} />
+                </a>
+              </Tip>
+            </span>
             <ThemeToggle className={filled} />
-            <IconButton label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="nav-rollout" className={`${filled} md:hidden`} onClick={() => setOpen((o) => !o)}>
-              <Menu className={`icon-swap ${open ? 'icon-swap-out' : ''}`} />
-              <X className={`icon-swap ${open ? '' : 'icon-swap-out'}`} />
-            </IconButton>
+            <span className="md:hidden">
+              <Tip content={open ? 'Roll it up' : 'More in here'}>
+                <IconButton label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="nav-rollout" className={filled} onClick={() => setOpen((o) => !o)}>
+                  <Menu className={`icon-swap ${open ? 'icon-swap-out' : ''}`} />
+                  <X className={`icon-swap ${open ? '' : 'icon-swap-out'}`} />
+                </IconButton>
+              </Tip>
+            </span>
           </div>
         </div>
 

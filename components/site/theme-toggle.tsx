@@ -4,6 +4,7 @@ import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useSyncExternalStore } from 'react'
 import { IconButton } from '@/components/site/icon-button'
+import { Tip } from '@/components/site/tip'
 
 const subscribe = () => () => {}
 const mounted = () => useSyncExternalStore(subscribe, () => true, () => false)
@@ -14,13 +15,15 @@ export function ThemeToggle({ className }: { className?: string }) {
   const ready = mounted()
   const dark = !ready || resolvedTheme === 'dark'
   return (
-    <IconButton
-      className={className}
-      label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
-      onClick={() => setTheme(dark ? 'light' : 'dark')}
-    >
-      <Sun className={`icon-swap ${dark ? 'icon-swap-out' : ''}`} />
-      <Moon className={`icon-swap ${dark ? '' : 'icon-swap-out'}`} />
-    </IconButton>
+    <Tip content={dark ? 'Lights on' : 'Lights off'}>
+      <IconButton
+        className={className}
+        label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+        onClick={() => setTheme(dark ? 'light' : 'dark')}
+      >
+        <Sun className={`icon-swap ${dark ? 'icon-swap-out' : ''}`} />
+        <Moon className={`icon-swap ${dark ? '' : 'icon-swap-out'}`} />
+      </IconButton>
+    </Tip>
   )
 }
