@@ -8,9 +8,9 @@ const X_POST = `https://x.com/intent/post?text=${encodeURIComponent('Built somet
 /** The ask, in place of testimonials we do not have yet: an empty seat with a way to fill it. */
 export function Testimonial() {
   return (
-    <section data-reveal className="mx-auto mt-16 w-full max-w-[46rem] px-4 text-center sm:mt-24">
+    <section data-reveal className="mx-auto mt-28 w-full max-w-[46rem] px-4 text-center sm:mt-40">
       {/* The marquee goes in behind this card, low opacity. */}
-      <div className="rounded-[20px] border border-dashed border-foreground/20 px-6 py-16 sm:px-12">
+      <div className="px-6 py-16 sm:px-12">
         <h2 className="font-heading text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] leading-[1.02] tracking-[-0.02em] text-balance">
           Your words could sit right here.
         </h2>
