@@ -3,7 +3,7 @@ import { HeroField } from '@/components/site/hero-field'
 import { InstallCommand } from '@/components/site/install-command'
 import { Bento } from '@/components/site/bento'
 import { HomeScroll } from '@/components/site/home-scroll'
-import { Faq, Inspired, Testimonial, ToolStack } from '@/components/site/home-sections'
+import { Faq, Testimonial, ToolStack } from '@/components/site/home-sections'
 
 /**
  * The home page is the hero and nothing else: a WebGL field filling the whole
@@ -64,7 +64,6 @@ export default function Home() {
       <div className="flex flex-col gap-32 overflow-x-clip pt-16 pb-40 sm:gap-40">
         <Testimonial />
         <ToolStack />
-        <Inspired />
         <Faq />
       </div>
       <HomeScroll />

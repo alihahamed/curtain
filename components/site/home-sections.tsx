@@ -111,36 +111,6 @@ export function ToolStack() {
   )
 }
 
-const links = [
-  { name: 'Devouring Details', href: 'https://devouringdetails.com' },
-  { name: 'rauno.me', href: 'https://rauno.me' },
-]
-
-export function Inspired() {
-  return (
-    <section data-reveal className="mx-auto w-full max-w-[28rem] px-4 text-center">
-      <h2 className="flex items-center justify-center gap-3 font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.5rem)] leading-none tracking-[-0.015em]">
-        <span className="size-[0.62em] shrink-0 rounded-full bg-brand" aria-hidden="true" />
-        Devouring Details
-      </h2>
-      <p className="mt-5 text-foreground/65 text-pretty">
-        The care in curtain owes a lot to Devouring Details by Rauno Freiberg. If you want to know why an interface feels good, start there.
-      </p>
-      <ul className="mt-12 flex flex-col gap-1 text-left">
-        {links.map((l) => (
-          <li key={l.name}>
-            <a href={l.href} target="_blank" rel="noopener" className="inspired-link flex h-11 items-center gap-4 text-foreground/65">
-              <span className="shrink-0">{l.name}</span>
-              <span className="inspired-rule h-px flex-1 bg-foreground/15" />
-              <ArrowUpRight className="inspired-arrow size-4 shrink-0" aria-hidden="true" />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )
-}
-
 const faqs: { q: string; a: string }[] = [
   {
     q: 'How do I add one?',

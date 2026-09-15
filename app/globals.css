@@ -515,34 +515,21 @@
 }
 .cta:hover { opacity: 0.9; }
 .cta:active { transform: scale(0.96); }
-.cta-arrow,
-.inspired-arrow {
+.cta-arrow {
   transition-property: translate, color;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.cta:hover .cta-arrow,
-.inspired-link:hover .inspired-arrow {
+.cta:hover .cta-arrow {
   translate: 2px -2px;
 }
-.tool,
-.inspired-link {
+.tool {
   transition-property: color;
   transition-duration: 150ms;
   transition-timing-function: ease-out;
 }
-.tool:hover,
-.inspired-link:hover {
+.tool:hover {
   color: var(--foreground);
-}
-.inspired-rule {
-  transform-origin: left;
-  transition-property: background-color, scale;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.inspired-link:hover .inspired-rule {
-  background-color: var(--brand);
 }
 .faq-q {
   transition-property: color;
