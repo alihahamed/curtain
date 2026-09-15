@@ -486,27 +486,22 @@
   transition-duration: 220ms;
   transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.tile {
-  transition-property: border-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-out;
-}
-.tile:hover {
-  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
-}
 
 /* A preview running on its own in a tile has nothing to click, so the hints go. */
 .loop .preview-hint {
   visibility: hidden;
 }
 
-/* The grid's top row peeks above the fold through a soft fade; --fade is driven by scroll. */
-[data-tiles] {
-  --fade: 260px;
-  mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.35) calc(var(--fade) * 0.45), black var(--fade));
-}
 
 /* The grid is black; the field shows only through a short fade at its top, so it reads as the hero running out. */
 .grid-fade {
-  background: linear-gradient(to bottom, transparent, var(--background) 360px);
+  background: linear-gradient(to bottom, transparent, var(--background) 240px);
+}
+.card {
+  transition-property: border-color, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+.card:hover {
+  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
 }

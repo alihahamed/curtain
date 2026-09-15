@@ -68,9 +68,9 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Home page
 
-- Under the hero, six transitions as equal tiles in two columns, one on a phone, on the page's black. The field belongs to the hero and runs a short way under the grid's top through a fade, so it reads as the hero running out rather than a second surface starting. The first row peeks above the fold through a soft fade that lifts as you scroll.
-- The hero pins while the grid slides up over it. The field grows and drifts slowest, the copy recedes at about half speed and fades, and the two columns drift up at different speeds so the rows arrive rather than scroll. All on GSAP ScrollTrigger; reduced motion scrolls plainly.
-- A tile is the real preview in a frame, playing on its own, mounted only while near the viewport. On it, only the name and a copy control; the copy control opens a menu of the four package managers on hover.
+- Under the hero, six transitions as cards, three across, two on a tablet, one on a phone: a bordered card, the preview inset in its own rounded window, the name and a copy control under it. The grid is the page's black. The field belongs to the hero and runs a short way under the grid's top through a fade, so it reads as the hero running out rather than a second surface starting. The first row peeks above the fold.
+- Nothing pins and nothing fades on scroll. The field drifts up slower than the page and grows a little as the hero leaves, and the card columns arrive at slightly different speeds. On GSAP ScrollTrigger; reduced motion scrolls plainly.
+- A card's preview is the real thing in a frame, playing on its own, rendered at twice the window and scaled down so its type reads small, mounted only while near the viewport. The copy control opens a menu of the four package managers on hover.
 
 ## Open
 

@@ -17,11 +17,11 @@ import { HomeScroll } from '@/components/site/home-scroll'
 export default function Home() {
   return (
     <main className="relative w-full bg-background">
-      <section data-hero className="relative h-dvh w-full overflow-hidden">
+      <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[260px]">
         <div data-field className="absolute inset-0 will-change-transform">
           <HeroField />
         </div>
-        <div data-hero-copy className="relative z-10 flex h-full flex-col items-center px-6 pt-[20dvh] text-center sm:px-8 sm:pt-[21dvh]">
+        <div data-hero-copy className="relative z-10 flex flex-col items-center px-6 pt-[20dvh] text-center sm:px-8 sm:pt-[21dvh]">
         <h1 className="hero-rise max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           Page transitions worth watching
           <Image
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The grid starts before the hero ends, so its first row peeks above the fold through a soft fade. */}
+      {/* The grid starts before the hero ends, so its first row peeks above the fold; the field fades out under its top. */}
       <section data-grid className="grid-fade relative z-10 -mt-[220px] px-4 pb-24 sm:px-6">
         <Bento />
       </section>
