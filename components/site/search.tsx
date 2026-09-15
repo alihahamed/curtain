@@ -108,7 +108,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
           aria-label="Search"
           className="h-full w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
         />
-        <IconButton label="Close search" className="-mr-1 size-8 bg-brand/15 text-foreground hover:bg-brand/25 [&>svg]:size-4" onClick={() => onOpenChange(false)}>
+        <IconButton label="Close search" className="brand-fill -mr-1 size-8 [&>svg]:size-4" onClick={() => onOpenChange(false)}>
           <X />
         </IconButton>
       </div>
@@ -122,7 +122,7 @@ export function Search({ open, onOpenChange }: { open: boolean; onOpenChange: (o
             aria-selected={i === active}
             onMouseEnter={() => setActive(i)}
             onClick={() => go(entry)}
-            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-[8px] px-3 py-2 text-left ${i === active ? 'bg-brand/12 text-foreground' : ''}`}
+            className={`flex min-h-11 w-full items-baseline justify-between gap-4 rounded-[8px] px-3 py-2 text-left ${i === active ? 'brand-fill' : ''}`}
           >
             <span>{entry.title}</span>
             <span className="truncate text-sm text-muted-foreground">{entry.hint}</span>

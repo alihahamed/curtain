@@ -177,9 +177,17 @@
   background-color: var(--accent);
   color: var(--foreground);
 }
-/* A control that carries the accent keeps it on hover, a shade deeper. */
-.nav-control.bg-brand\/15:hover {
-  background-color: color-mix(in oklab, var(--brand) 25%, transparent);
+/* The accent as a fill is solid, with white on it; hover goes a shade deeper, never translucent. */
+.brand-fill,
+.brand-fill:hover {
+  background-color: var(--brand);
+  color: #fff;
+}
+.brand-fill:hover {
+  background-color: color-mix(in oklab, var(--brand) 88%, black);
+}
+.brand-fill .text-muted-foreground {
+  color: rgb(255 255 255 / 0.8);
 }
 .nav-control:active {
   transform: scale(0.96);

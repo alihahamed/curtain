@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { HeroField } from '@/components/site/hero-field'
 
 /**
@@ -17,6 +18,14 @@ export default function Home() {
       <section className="relative z-10 flex h-full flex-col items-center px-6 pt-[26dvh] text-center sm:px-8 sm:pt-[28dvh]">
         <h1 className="max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           Page transitions worth watching
+          <Image
+            src="/hero-tv.webp"
+            alt=""
+            width={1074}
+            height={1153}
+            priority
+            className="ml-[0.18em] inline-block h-[0.92em] w-auto -translate-y-[0.04em] align-baseline"
+          />
         </h1>
         <p className="mt-5 max-w-[34ch] text-[clamp(1rem,0.9rem+0.45vw,1.25rem)] leading-normal tracking-tight text-foreground/80 sm:mt-6">
           Made for the Next.js App Router. Drop one in and your links do the rest.

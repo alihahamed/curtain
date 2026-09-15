@@ -20,7 +20,7 @@ The rules the site is built to. Short on purpose; it grows as decisions are made
 
 - Dark by default. The page is near-black, `#0a0a0a`.
 - The transitions carry the colour; the page around them stays quiet.
-- One accent, `#ff0055`, taken from Ali's desktop scheme. It marks state, never content: focus rings, the selected row in search, text selection, at low opacity where it is a fill. Headings, body and links stay in the foreground colour.
+- One accent, `#ff0055`, taken from Ali's desktop scheme. It marks state, never content: focus rings, the selected row in search, text selection. As a fill it is solid with white on it, never a tint; hover goes a shade deeper. Headings, body and links stay in the foreground colour.
 
 ## Surfaces
 
