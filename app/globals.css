@@ -571,3 +571,70 @@
   translate: 3px 0;
   color: var(--foreground);
 }
+
+/* Footer. */
+.footer-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition-property: color, background-size;
+  transition-duration: 150ms, 300ms;
+  transition-timing-function: ease-out, cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.footer-link:hover {
+  color: var(--foreground);
+  background-size: 100% 1px;
+}
+.footer-icon {
+  transition-property: color, background-color, border-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.footer-icon:hover {
+  color: var(--foreground);
+  background-color: color-mix(in oklab, var(--foreground) 9%, transparent);
+  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+.footer-icon:active { transform: scale(0.96); }
+.footer-icon > :first-child {
+  transition-property: rotate, scale;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.34, 1.5, 0.4, 1);
+}
+.footer-icon:hover > :first-child {
+  rotate: -8deg;
+  scale: 1.12;
+}
+.footer-top {
+  transition-property: color, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.footer-top:hover {
+  color: var(--foreground);
+  background-color: color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+.footer-top-arrow {
+  transition-property: translate;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.34, 1.5, 0.4, 1);
+}
+.footer-top:hover .footer-top-arrow {
+  translate: 0 -3px;
+}
+/* The wordmark fades down into the page, and each letter lifts under the pointer. */
+.footer-mark {
+  color: color-mix(in oklab, var(--foreground) 92%, transparent);
+  mask-image: linear-gradient(to bottom, black 35%, transparent);
+}
+.footer-letter {
+  transition-property: translate, color;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.footer-letter:hover {
+  translate: 0 -0.08em;
+  color: var(--brand);
+}

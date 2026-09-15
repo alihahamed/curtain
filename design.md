@@ -75,7 +75,12 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 - As the grid scrolls away the card columns part at different speeds, the middle one fastest.
 - The FAQ is the beui bouncy accordion: rows in one rounded group that split apart around the open one on a spring. Its answers come from the docs and nowhere else. If the docs do not say it, the FAQ does not either.
 
+## Footer
+
+- A row of three: the name with one line, the three links, and the X and GitHub controls. Under it, who made it and a back-to-top control.
+- Below everything, the wordmark at display size, cut at its middle like a curtain half raised and fading into the page. Its letters rise into place on a scrubbed stagger as the footer scrolls in, and each lifts and takes the accent under the pointer.
+- Links draw an underline from the left on hover; the icons tip and grow a little; the back-to-top arrow nudges up.
+
 ## Open
 
-- The footer is out until the site has a shape to hang it on.
 - Light theme: the paper palette exists in the stylesheet but is not the default and is not a decision yet.

@@ -62,7 +62,7 @@ export default function Home() {
         <AllTransitions />
       </section>
 
-      <div className="flex flex-col gap-32 overflow-x-clip pt-16 pb-40 sm:gap-40">
+      <div className="flex flex-col gap-32 overflow-x-clip pt-16 pb-24 sm:gap-40">
         <Testimonial />
         <ToolStack />
         <Faq />
