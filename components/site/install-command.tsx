@@ -4,6 +4,7 @@ import { Check, Copy } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { IconButton } from '@/components/site/icon-button'
 import { Tip } from '@/components/site/tip'
+import { transitions } from '@/lib/transitions'
 
 const managers = [
   { id: 'bun', run: 'bunx --bun' },
@@ -14,7 +15,9 @@ const managers = [
 type Manager = (typeof managers)[number]['id']
 
 const KEY = 'curtain:pm'
-const ITEM = 'https://curtain.dev/r/crayon.json'
+const HOST = 'https://curtain.dev/r/'
+const names = transitions.filter((t) => t.ready).map((t) => t.slug)
+const ROTATE_MS = 2000
 
 /**
  * The install line for the hero. Switching managers draws the new command
@@ -27,6 +30,26 @@ export function InstallCommand({ className = '' }: { className?: string }) {
   const [sweep, setSweep] = useState(0)
   const tabs = useRef<HTMLDivElement>(null)
   const [marker, setMarker] = useState({ x: 0, w: 0, ready: false })
+  const [idx, setIdx] = useState(0)
+  const [held, setHeld] = useState(false)
+  const measure = useRef<HTMLSpanElement>(null)
+  const [nameW, setNameW] = useState<number | null>(null)
+  const name = names[idx]
+
+  // The transition name turns over every two seconds, unless the pointer or
+  // focus is on the block, so what you see is what you copy.
+  useEffect(() => {
+    if (held || copied) return
+    const id = window.setInterval(() => {
+      if (document.visibilityState === 'visible') setIdx((i) => (i + 1) % names.length)
+    }, ROTATE_MS)
+    return () => window.clearInterval(id)
+  }, [held, copied])
+
+  // The name's box is sized to the incoming word so the caret glides rather than jumps.
+  useLayoutEffect(() => {
+    if (measure.current) setNameW(measure.current.offsetWidth)
+  }, [name])
 
   useEffect(() => {
     try {
@@ -54,7 +77,7 @@ export function InstallCommand({ className = '' }: { className?: string }) {
   }
 
   const run = managers.find((m) => m.id === pm)!.run
-  const command = `${run} shadcn@latest add ${ITEM}`
+  const command = `${run} shadcn@latest add ${HOST}${name}.json`
 
   const copy = async () => {
     try {
@@ -78,7 +101,13 @@ export function InstallCommand({ className = '' }: { className?: string }) {
   }
 
   return (
-    <div className={`install w-full max-w-[40rem] rounded-[14px] border border-border bg-background p-1.5 text-left ${className}`}>
+    <div
+      className={`install w-full max-w-[40rem] rounded-[14px] border border-border bg-background p-1.5 text-left ${className}`}
+      onPointerEnter={() => setHeld(true)}
+      onPointerLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)}
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setHeld(false)}
+    >
       <div className="flex items-center justify-between gap-2">
         <div ref={tabs} role="tablist" aria-label="Package manager" className="relative flex gap-1" onKeyDown={onTabKey}>
           <span
@@ -118,8 +147,16 @@ export function InstallCommand({ className = '' }: { className?: string }) {
         <span key={pm} className="install-text block">
           <span className="text-muted-foreground">{run}</span> shadcn@latest add{' '}
           <span className="whitespace-nowrap">
-            <span className="text-muted-foreground">https://curtain.dev/r/</span>
-            crayon.json
+            <span className="text-muted-foreground">{HOST}</span>
+            <span className="install-name relative inline-block overflow-hidden align-bottom" style={{ width: nameW ?? undefined }}>
+              <span key={name} className="install-name-in inline-block">
+                {name}
+              </span>
+              <span ref={measure} aria-hidden="true" className="invisible absolute left-0 top-0 whitespace-pre">
+                {name}
+              </span>
+            </span>
+            .json
           </span>
           <span aria-hidden="true" className="install-caret ml-[0.15em] inline-block h-[1.05em] w-[2px] translate-y-[0.2em] rounded-full bg-foreground/70" />
         </span>

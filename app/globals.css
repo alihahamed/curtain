@@ -221,9 +221,13 @@
   transition-duration: 200ms;
   transition-timing-function: ease-out;
 }
+.icon-swap {
+  transition-property: opacity, scale, rotate, filter;
+}
 .icon-swap-out {
   opacity: 0;
-  scale: 0.8;
+  scale: 0.7;
+  rotate: -70deg;
   filter: blur(2px);
 }
 .search {
@@ -372,6 +376,91 @@
     animation: none;
   }
   .install-marker {
+    transition: none;
+  }
+}
+
+/* The bar: drops in ahead of the headline. */
+@keyframes bar-drop {
+  from {
+    opacity: 0;
+    translate: 0 -10px;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+.bar-drop {
+  animation: bar-drop 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.bar-drop nav {
+  transition-property: border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+.bar-drop nav:hover {
+  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+/* The marker behind the wordmark and links. Still on first paint, then it glides. */
+.nav-marker {
+  transition-property: translate, width, opacity;
+  transition-duration: 300ms, 300ms, 150ms;
+  transition-timing-function: cubic-bezier(0.34, 1.25, 0.4, 1), cubic-bezier(0.34, 1.25, 0.4, 1), ease-out;
+}
+.nav-marker-still {
+  transition-property: opacity;
+}
+.nav-item {
+  transition-property: color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.nav-item:hover {
+  color: var(--foreground);
+}
+.nav-item:active {
+  transform: scale(0.97);
+}
+/* Wordmark letters lift in turn, curtain up. */
+@keyframes letter-lift {
+  0% { translate: 0 0; }
+  35% { translate: 0 -3px; }
+  100% { translate: 0 0; }
+}
+.wordmark:hover .wordmark-letter {
+  animation: letter-lift 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 28ms);
+}
+/* The name in the install command turns over: old rolls up, new rolls in from below. */
+@keyframes name-roll-in {
+  from {
+    translate: 0 110%;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+.install-name {
+  transition-property: width;
+  transition-duration: 320ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.install-name-in {
+  animation: name-roll-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar-drop,
+  .install-name-in,
+  .wordmark:hover .wordmark-letter {
+    animation: none;
+  }
+  .nav-marker,
+  .install-name {
     transition: none;
   }
 }

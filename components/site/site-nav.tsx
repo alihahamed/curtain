@@ -3,7 +3,7 @@
 import { Menu, Search as SearchIcon, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { IconButton } from '@/components/site/icon-button'
 import { NavLink } from '@/components/site/nav-link'
 import { Search } from '@/components/site/search'
@@ -15,6 +15,19 @@ const links = [
   { href: '/transitions', label: 'Transitions', tip: 'The good stuff' },
   { href: '/docs', label: 'Docs', tip: 'Actually short' },
 ]
+
+/** The wordmark, one span per letter so they can lift in turn on hover. */
+function Wordmark() {
+  return (
+    <span className="wordmark inline-flex" aria-label="curtain">
+      {'curtain'.split('').map((ch, i) => (
+        <span key={i} aria-hidden="true" className="wordmark-letter inline-block" style={{ '--i': i } as React.CSSProperties}>
+          {ch}
+        </span>
+      ))}
+    </span>
+  )
+}
 
 
 /** The GitHub mark. Lucide dropped its brand icons, so it lives here. */
@@ -43,6 +56,24 @@ export function SiteNav({ stars }: { stars: number | null }) {
   const [searching, setSearching] = useState(false)
   const pathname = usePathname()
 
+  // One marker slides behind the wordmark and the links. It follows the pointer
+  // and, when the pointer leaves, settles back on the page you are on.
+  const group = useRef<HTMLDivElement>(null)
+  const [hover, setHover] = useState<string | null>(null)
+  const current = pathname === '/' ? '/' : (links.find((l) => pathname.startsWith(l.href))?.href ?? null)
+  const target = hover ?? current
+  const [mark, setMark] = useState({ x: 0, w: 0, on: false, moved: false })
+  useLayoutEffect(() => {
+    const el = target ? group.current?.querySelector<HTMLElement>(`[data-nav="${target}"]`) : null
+    if (!el || getComputedStyle(el).display === 'none') {
+      setMark((m) => ({ ...m, on: false }))
+      return
+    }
+    // Measured against the group, not offsetParent: the tooltip wrapper sits between.
+    const x = el.getBoundingClientRect().left - group.current!.getBoundingClientRect().left
+    setMark((m) => ({ x, w: el.offsetWidth, on: true, moved: m.on }))
+  }, [target])
+
   useEffect(() => setOpen(false), [pathname])
   useEffect(() => {
     if (!open) return
@@ -52,28 +83,36 @@ export function SiteNav({ stars }: { stars: number | null }) {
   }, [open])
 
   const control = 'nav-control flex h-10 items-center rounded-[8px] px-2.5 text-sm text-foreground/80'
+  const item = 'nav-item relative z-10 flex h-10 items-center rounded-[8px] px-2.5 text-sm text-foreground/80'
   const filled = 'bg-foreground/[0.08]'
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+    <header className="bar-drop fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <nav
         aria-label="Site"
         className="w-full max-w-[40rem] rounded-[14px] border border-border bg-background p-1.5"
       >
         <div className="flex items-center gap-1">
-          <Tip content="Front row">
-            <Link href="/" className={`${control} font-heading text-lg text-foreground`}>
-              curtain
-            </Link>
-          </Tip>
-          <div className="ml-2 hidden items-center gap-1 md:flex">
-            {links.map((l) => (
-              <Tip key={l.href} content={l.tip}>
-                <NavLink href={l.href} className={`${control} aria-[current=page]:text-foreground`}>
-                  {l.label}
-                </NavLink>
-              </Tip>
-            ))}
+          <div ref={group} className="relative flex items-center gap-1" onPointerLeave={() => setHover(null)}>
+            <span
+              aria-hidden="true"
+              className={`nav-marker pointer-events-none absolute top-0 h-10 rounded-[8px] bg-foreground/[0.08] ${mark.on ? 'opacity-100' : 'opacity-0'} ${mark.moved ? '' : 'nav-marker-still'}`}
+              style={{ translate: `${mark.x}px 0`, width: mark.w }}
+            />
+            <Tip content="Front row">
+              <Link href="/" data-nav="/" onPointerEnter={() => setHover('/')} className={`${item} font-heading text-lg text-foreground`}>
+                <Wordmark />
+              </Link>
+            </Tip>
+            <div className="ml-2 hidden items-center gap-1 md:flex">
+              {links.map((l) => (
+                <Tip key={l.href} content={l.tip}>
+                  <NavLink href={l.href} data-nav={l.href} onPointerEnter={() => setHover(l.href)} className={`${item} aria-[current=page]:text-foreground`}>
+                    {l.label}
+                  </NavLink>
+                </Tip>
+              ))}
+            </div>
           </div>
 
           <div className="ml-auto flex items-center gap-1">
