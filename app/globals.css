@@ -508,21 +508,6 @@
 }
 
 /* Home sections under the grid. */
-.cta {
-  transition-property: transform, opacity;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
-}
-.cta:hover { opacity: 0.9; }
-.cta:active { transform: scale(0.96); }
-.cta-arrow {
-  transition-property: translate, color;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.cta:hover .cta-arrow {
-  translate: 2px -2px;
-}
 .tool {
   transition-property: color;
   transition-duration: 150ms;

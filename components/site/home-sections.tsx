@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import DriftWall from '@/components/DriftWall'
 import { BouncyAccordion } from '@/components/motion/bouncy-accordion'
+import ShinyButton from '@/components/pixel-perfect/shiny-button'
 
 // Prefilled so the post reads well on its own; the cursor lands after it for their own words.
 const X_POST = `https://x.com/intent/post?text=${encodeURIComponent(
@@ -60,16 +61,12 @@ export function Testimonial() {
         <p className="mx-auto mt-4 max-w-[34ch] text-foreground/65">
           Built something with curtain? Tell us and it lands on this page.
         </p>
-        <a
-          href={X_POST}
-          target="_blank"
-          rel="noopener"
-          aria-label="Post it on X"
-          className="cta mt-8 inline-flex h-11 items-center gap-2 rounded-[10px] bg-foreground px-5 text-background"
-        >
-          Post it on
-          <span aria-hidden="true" className="brand-mark cta-arrow size-4" style={{ '--mark': 'url(/brands/x.svg)' } as React.CSSProperties} />
-        </a>
+        <ShinyButton asChild size="lg" wrapperClassName="mt-8 rounded-[10px] border-transparent" className="h-11 gap-2 rounded-[10px] bg-foreground px-5 text-[15px] text-background hover:bg-foreground">
+          <a href={X_POST} target="_blank" rel="noopener" aria-label="Post it on X">
+            Post it on
+            <span aria-hidden="true" className="brand-mark size-4" style={{ '--mark': 'url(/brands/x.svg)' } as React.CSSProperties} />
+          </a>
+        </ShinyButton>
       </div>
     </section>
   )
