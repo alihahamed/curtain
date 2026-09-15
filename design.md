@@ -21,6 +21,39 @@ The rules the site is built to. Short on purpose; it grows as decisions are made
 - Dark by default. The page is near-black, `#0a0a0a`.
 - The transitions carry the colour; the page around them stays quiet.
 
+## Surfaces
+
+- Nested rounded corners are concentric. The outer radius is the inner radius plus the padding between them. When the padding is large, the layers are separate surfaces and the maths is dropped.
+- Borders separate, shadows lift. A card, button, dropdown or popover gets a layered shadow only when it needs depth. A focus ring is a border, never a shadow.
+- Shadows are transparent and quiet enough to sit on any background. No shadow is an opaque grey.
+- Images get a neutral inset outline so their edges do not blur into the page. One pixel, black or white at ten percent alpha, never tinted with the palette.
+
+## Alignment
+
+- Icons are centred by eye, not by geometry. Arrows, triangles and asymmetric glyphs get a small offset. Fix the SVG first; a pixel of margin is the fallback.
+- Headings and short titles use balanced wrapping. Captions, descriptions and list items use pretty wrapping. Long prose and code get neither.
+- Numbers that change, such as counters, timers and durations, are tabular so nothing shifts around them.
+- Font smoothing is antialiased at the root. Already on.
+
+## Motion in the interface
+
+This is about the site's own controls. The transitions themselves have their own rules.
+
+- Interactive state changes use CSS transitions, so they can retarget when the pointer changes its mind mid-motion. Keyframes are for one-shot entrances and loading only.
+- Enter is opacity, a small vertical move and optionally blur. Exit is shorter and quieter than enter, around 150ms.
+- Press is a scale to 0.96 on tactile buttons, and it can be turned off where the movement would distract.
+- Icon swaps cross-fade with opacity, scale and blur. Nothing pops between visible and hidden.
+- Transitions name their properties. `transition: all` does not appear in the codebase.
+- `will-change` is used only to fix a measured first-frame stutter on transform, opacity or filter. Never `will-change: all`.
+
+## Touch
+
+- Every interactive control has at least a 40 by 40 pixel hit area, 44 where the layout allows. A small icon gets its area from a pseudo-element, and expanded areas never overlap.
+
+## Checking a polish pass
+
+Before a UI change lands, walk this once: nested corners are concentric, icons sit centred by eye, shadows and borders are each doing their own job, headings do not wrap awkwardly, changing numbers are tabular, images have outlines where they need them, enter and exit are split and subtle, buttons press without exaggeration, no `transition: all` or `will-change: all`, small controls still hit easily.
+
 ## Open
 
 - Header and footer are out until the site has a shape to hang them on.
