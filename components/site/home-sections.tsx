@@ -1,16 +1,56 @@
 'use client'
 
 import { ArrowUpRight, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import DriftWall from '@/components/DriftWall'
 
 const X_POST = `https://x.com/intent/post?text=${encodeURIComponent('Built something with curtain @AhmedAli8177 ')}`
+
+const unknowns = Array.from({ length: 15 }, () => ({ glyph: '?' }))
+
+/**
+ * A wall of question-mark tiles drifting behind the ask: the testimonials that
+ * are not here yet. Decorative only, so it is inert, hidden from assistive
+ * tech, faded top and bottom, and mounted only while near the viewport so its
+ * animation loop is not running the rest of the time.
+ */
+function UnknownWall() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [near, setNear] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting), { rootMargin: '20% 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <div ref={ref} aria-hidden="true" inert className="unknown-wall pointer-events-none absolute top-1/2 left-1/2 h-[640px] w-[min(100vw,76rem)] -translate-x-1/2 -translate-y-1/2 opacity-35">
+      {near && (
+        <DriftWall
+          items={unknowns}
+          columns={6}
+          tileWidth={150}
+          tileHeight={150}
+          gap={16}
+          radius={16}
+          speed={26}
+          parallax={0}
+          dim={1}
+          overlayColor="#000"
+          fade={0.35}
+        />
+      )}
+    </div>
+  )
+}
 
 /** The ask, in place of testimonials we do not have yet: an empty seat with a way to fill it. */
 export function Testimonial() {
   return (
-    <section data-reveal className="mx-auto mt-28 w-full max-w-[46rem] px-4 text-center sm:mt-40">
-      {/* The marquee goes in behind this card, low opacity. */}
-      <div className="px-6 py-16 sm:px-12">
+    <section data-reveal className="relative mx-auto mt-28 w-full max-w-[46rem] px-4 text-center sm:mt-40">
+      <UnknownWall />
+      <div className="relative z-10 px-6 py-16 sm:px-12">
         <h2 className="font-heading text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] leading-[1.02] tracking-[-0.02em] text-balance">
           Your words could sit right here.
         </h2>

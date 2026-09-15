@@ -572,3 +572,16 @@
   transition-duration: 250ms;
   transition-delay: 80ms;
 }
+
+/* The question-mark wall behind the testimonial ask fades in and out at its top and bottom edges. */
+.unknown-wall {
+  mask-image:
+    linear-gradient(to bottom, transparent, black 22%, black 78%, transparent),
+    linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  mask-composite: intersect;
+}
+/* Black tiles, but lifted a step off the page so they read on a black background too. */
+.unknown-wall [data-tile-id] > span {
+  background: #141414;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
+}
