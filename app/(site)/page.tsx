@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-background">
       <HeroField />
-      <section className="relative z-10 flex h-full flex-col items-center px-6 pt-[26dvh] text-center sm:px-8 sm:pt-[28dvh]">
+      <section className="relative z-10 flex h-full flex-col items-center px-6 pt-[20dvh] text-center sm:px-8 sm:pt-[21dvh]">
         <h1 className="hero-rise max-w-[14ch] text-[clamp(2.375rem,1.2rem+5.5vw,5.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           Page transitions worth watching
           <Image
