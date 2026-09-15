@@ -66,6 +66,12 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 - Every control in the bar has a tooltip, below it, two or three words with a small dry joke: Front row, The good stuff, Actually short, Skip the scrolling, Stars welcome, Lights on or off. Never a sentence, never a pun that needs a second read.
 - The install block is the hero's call to action, in the bar's box: manager tabs with a marker that slides on a spring, the command in Onest with a little tracking, a copy control. Switching managers draws the new command across the line; copying sweeps the accent through the text and holds the button pink for a beat. The transition name turns over every two seconds, rolling up out of the line, and holds still while the pointer or focus is on the block so what you see is what you copy. The caption under it is "Copy, paste, curtain up."
 
+## Home page
+
+- Under the hero, six transitions in a bento: wide tiles for spaces and concertina, tall for tear and zipper, singles for slate and crayon. Four columns, one on a phone. The grid peeks 120px above the fold.
+- The hero pins while the grid slides up over it. The field grows and drifts slowest, the copy recedes at about half speed and fades, the tiles rise into place in a stagger. All on GSAP ScrollTrigger; reduced motion scrolls plainly.
+- A tile is the real preview in a frame, playing on its own, mounted only while near the viewport. On it, only the name and a copy control; the copy control opens a menu of the four package managers on hover.
+
 ## Open
 
 - The footer is out until the site has a shape to hang it on.

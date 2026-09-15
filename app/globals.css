@@ -446,6 +446,8 @@
   }
 }
 .install-name {
+  /* clip-path, not overflow: an inline-block with overflow hidden moves its baseline to its bottom edge. */
+  clip-path: inset(0);
   transition-property: width;
   transition-duration: 320ms;
   transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -463,4 +465,37 @@
   .install-name {
     transition: none;
   }
+}
+
+/* The copy menu on a tile: closed until hover or focus, then settles up into place. */
+.copy-menu {
+  opacity: 0;
+  translate: 0 6px;
+  scale: 0.96;
+  pointer-events: none;
+  transform-origin: bottom right;
+  transition-property: opacity, translate, scale;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in;
+}
+.copy-menu[data-open] {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  pointer-events: auto;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.tile {
+  transition-property: border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+.tile:hover {
+  border-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+
+/* A preview running on its own in a tile has nothing to click, so the hints go. */
+.loop .preview-hint {
+  visibility: hidden;
 }

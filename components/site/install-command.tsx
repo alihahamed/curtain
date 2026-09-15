@@ -148,7 +148,7 @@ export function InstallCommand({ className = '' }: { className?: string }) {
           <span className="text-muted-foreground">{run}</span> shadcn@latest add{' '}
           <span className="whitespace-nowrap">
             <span className="text-muted-foreground">{HOST}</span>
-            <span className="install-name relative inline-block overflow-hidden align-bottom" style={{ width: nameW ?? undefined }}>
+            <span className="install-name relative inline-block" style={{ width: nameW ?? undefined }}>
               <span key={name} className="install-name-in inline-block">
                 {name}
               </span>

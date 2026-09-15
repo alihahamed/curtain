@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import type { ReactNode } from 'react'
+import { Suspense, type ReactNode } from 'react'
+import { AutoAdvance } from '@/components/site/auto-advance'
 
 /** Full-bleed clickable panel used inside the preview frames. */
 export function PreviewShell({
@@ -25,11 +26,14 @@ export function PreviewShell({
       className="flex h-dvh flex-col justify-between overflow-hidden p-10"
       style={bg || fg ? { background: bg, color: fg } : undefined}
     >
-      <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: accent }}>
+      <span className="preview-hint font-mono text-xs uppercase tracking-[0.2em]" style={{ color: accent }}>
         page {step}
       </span>
       <p className="max-w-sm text-2xl font-medium leading-snug tracking-tight">{children}</p>
-      <span className="font-mono text-[11px] text-muted-foreground">click anywhere →</span>
+      <span className="preview-hint font-mono text-[11px] text-muted-foreground">click anywhere →</span>
+      <Suspense>
+        <AutoAdvance href={href} />
+      </Suspense>
     </Link>
   )
 }

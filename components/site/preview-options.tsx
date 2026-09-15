@@ -17,7 +17,9 @@ export function usePreviewOptions(): Record<string, string | number> {
   const params = useSearchParams()
   const parse = () =>
     Object.fromEntries(
-      [...params.entries()].map(([k, v]) => [k, NUMERIC.test(v) ? Number(v) : v]),
+      [...params.entries()]
+        .filter(([k]) => k !== 'loop') // the tiles' auto-advance flag, not an option
+        .map(([k, v]) => [k, NUMERIC.test(v) ? Number(v) : v]),
     )
 
   const [options, setOptions] = useState(parse)
