@@ -638,3 +638,25 @@
   translate: 0 -0.08em;
   color: var(--brand);
 }
+
+/* Reduced motion: the small hover moves in the chrome and home sections stay put too. */
+@media (prefers-reduced-motion: reduce) {
+  .see-all-arrow,
+  .footer-top-arrow,
+  .footer-icon > :first-child,
+  .footer-letter,
+  .icon-swap,
+  .nav-rollout,
+  .search,
+  .copy-menu {
+    transition: none;
+  }
+  .footer-letter:hover,
+  .see-all:hover .see-all-arrow,
+  .footer-top:hover .footer-top-arrow,
+  .footer-icon:hover > :first-child {
+    translate: none;
+    rotate: none;
+    scale: none;
+  }
+}
