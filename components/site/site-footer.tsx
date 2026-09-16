@@ -6,6 +6,7 @@ import { ArrowUp } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { LogoMark } from '@/components/site/logo-mark'
+import { getLenis } from '@/components/site/smooth-scroll'
 import { GitHubMark } from '@/components/site/site-nav'
 import { Tip } from '@/components/site/tip'
 import { REPO, formatStars } from '@/lib/github-stars'
@@ -126,7 +127,11 @@ export function SiteFooter({ stars }: { stars: number | null }) {
           </Tip>
           <button
             type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })}
+            onClick={() => {
+              const lenis = getLenis()
+              if (lenis) lenis.scrollTo(0, { duration: 1.4 })
+              else window.scrollTo({ top: 0 })
+            }}
             className="footer-top group flex h-10 items-center gap-2 rounded-[10px] px-3 text-sm text-foreground/60"
           >
             Back to top
