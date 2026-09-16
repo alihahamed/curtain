@@ -660,3 +660,11 @@
     scale: none;
   }
 }
+
+/* Navbar text is pure black or pure white: no opacity, no off-white foreground. */
+.site-nav :is(a, button) {
+  color: #000;
+}
+.dark .site-nav :is(a, button) {
+  color: #fff;
+}

@@ -46,7 +46,7 @@ export function GitHubMark({ className = '' }: { className?: string }) {
 /** A quiet count badge; the same inner grey as the search control. */
 function Stars({ n }: { n: number | null }) {
   if (n === null) return null
-  return <span className="rounded-[6px] bg-foreground/[0.1] px-1.5 py-0.5 text-xs tabular-nums text-foreground/70">{formatStars(n)}</span>
+  return <span className="rounded-[6px] bg-foreground/[0.1] px-1.5 py-0.5 text-xs tabular-nums">{formatStars(n)}</span>
 }
 
 /**
@@ -91,7 +91,7 @@ export function SiteNav({ stars }: { stars: number | null }) {
   const filled = 'bg-foreground/[0.08]'
 
   return (
-    <header className="bar-drop fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+    <header className="site-nav bar-drop fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <nav
         aria-label="Site"
         className="w-full max-w-[40rem] rounded-[14px] border border-border bg-background p-1.5"
