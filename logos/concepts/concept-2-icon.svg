@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>curtain</title>
+  <g id="icon">
+    <rect x="8" y="8" width="84" height="84" rx="18" fill="#ff0055"/>
+    <path d="M8 26 C8 16 16 8 26 8 H74 C84 8 92 16 92 26 V50 C82 60 72 40 61 50 C50 60 40 40 29 50 C20 58 13 46 8 52 Z" fill="currentColor"/>
+  </g>
+</svg>

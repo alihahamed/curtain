@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>curtain</title>
+  <g id="icon">
+    <defs>
+      <mask id="c4i-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+        <rect width="100" height="100" fill="#fff"/>
+        <rect x="26" y="18" width="70" height="70" rx="16" fill="#000"/>
+      </mask>
+    </defs>
+    <rect x="4" y="12" width="62" height="62" rx="14" fill="currentColor" mask="url(#c4i-gap)"/>
+    <rect x="32" y="24" width="58" height="58" rx="13" fill="#ff0055"/>
+  </g>
+</svg>
