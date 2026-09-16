@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Onest } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
@@ -22,6 +22,14 @@ export const metadata: Metadata = {
     description:
       'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
   },
+}
+
+/** The browser chrome on phones matches the page in either theme. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f1ea' },
+  ],
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
