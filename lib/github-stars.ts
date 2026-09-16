@@ -7,7 +7,12 @@ export const REPO = 'alihahamed/curtain'
 export async function githubStars(): Promise<number | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}`, {
-      headers: { accept: 'application/vnd.github+json' },
+      // GitHub rejects API calls without a User-Agent, and pins behaviour to a version.
+      headers: {
+        accept: 'application/vnd.github+json',
+        'user-agent': 'curtain.dev',
+        'x-github-api-version': '2022-11-28',
+      },
       next: { revalidate: 3600 },
     })
     if (!res.ok) return null
