@@ -88,6 +88,11 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 - Below everything, the wordmark at display size, cut at its middle like a curtain half raised and fading into the page. Its letters rise out of the clip one after another at their own pace once it is in view, and sink back when it leaves so it plays again (tied to scroll it was either too fast or invisible, since the wordmark is only on screen for the page's last stretch), and each lifts and takes the accent under the pointer.
 - Links draw an underline from the left on hover; the icons tip and grow a little; the back-to-top arrow nudges up.
 
+## Logo
+
+- The mark is a curtain on a rod with ball finials and rings, two fold lines cut into each drape, and a scalloped hem, parted in the middle. One colour only: pure white on dark, pure black on light, never the accent. The wordmark is Curtain, capital C, in Bricolage Grotesque SemiBold drawn as paths.
+- Sources live in logos/export. The favicon follows the tab's theme (app/icon.svg); favicon.ico and the Apple icon are the white mark on the near-black page colour.
+
 ## Open
 
 - Light theme: the paper palette exists in the stylesheet but is not the default and is not a decision yet.

@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUp } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { LogoMark } from '@/components/site/logo-mark'
 import { GitHubMark } from '@/components/site/site-nav'
 import { Tip } from '@/components/site/tip'
 import { REPO, formatStars } from '@/lib/github-stars'
@@ -83,8 +84,9 @@ export function SiteFooter({ stars }: { stars: number | null }) {
     <footer ref={root} className="relative mt-auto overflow-hidden border-t border-border">
       <div data-footer-row className="mx-auto grid w-full max-w-6xl gap-10 px-6 pt-16 pb-12 sm:grid-cols-[1.4fr_1fr_auto] sm:px-8">
         <div>
-          <Link href="/" className="font-heading text-2xl">
-            curtain
+          <Link href="/" className="inline-flex items-center gap-2 font-heading text-2xl">
+            <LogoMark className="size-[1.1em]" />
+            Curtain
           </Link>
           <p className="mt-3 text-sm text-foreground/50">
             Made by{' '}
@@ -135,7 +137,7 @@ export function SiteFooter({ stars }: { stars: number | null }) {
 
       {/* The wordmark, cut at its middle. aria-hidden: the name is already above. */}
       <div aria-hidden="true" className="footer-mark mt-2 flex h-[0.56em] justify-center overflow-hidden font-heading text-[clamp(6rem,24vw,22rem)] leading-[0.8] tracking-[-0.02em] select-none">
-        {'curtain'.split('').map((ch, i) => (
+        {'Curtain'.split('').map((ch, i) => (
           <span key={i} data-letter className="footer-letter inline-block">
             {ch}
           </span>

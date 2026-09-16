@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { IconButton } from '@/components/site/icon-button'
+import { LogoMark } from '@/components/site/logo-mark'
 import { NavLink } from '@/components/site/nav-link'
 import { Search } from '@/components/site/search'
 import { ThemeToggle } from '@/components/site/theme-toggle'
@@ -16,15 +17,18 @@ const links = [
   { href: '/docs', label: 'Docs', tip: 'Actually short' },
 ]
 
-/** The wordmark, one span per letter so they can lift in turn on hover. */
+/** The mark and the wordmark, one span per letter so they can lift in turn on hover. */
 function Wordmark() {
   return (
-    <span className="wordmark inline-flex" aria-label="curtain">
-      {'curtain'.split('').map((ch, i) => (
-        <span key={i} aria-hidden="true" className="wordmark-letter inline-block" style={{ '--i': i } as React.CSSProperties}>
-          {ch}
-        </span>
-      ))}
+    <span className="wordmark inline-flex items-center gap-2" aria-label="Curtain">
+      <LogoMark className="size-[1.2em] shrink-0" />
+      <span className="inline-flex" aria-hidden="true">
+        {'Curtain'.split('').map((ch, i) => (
+          <span key={i} className="wordmark-letter inline-block" style={{ '--i': i } as React.CSSProperties}>
+            {ch}
+          </span>
+        ))}
+      </span>
     </span>
   )
 }
