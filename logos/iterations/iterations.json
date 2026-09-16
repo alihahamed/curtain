@@ -28,5 +28,30 @@
     "n": 6,
     "title": "Line drapes",
     "blurb": "Two thick curved strokes under a rod, like brackets pulling apart, with the light filling the space between."
+  },
+  {
+    "n": 7,
+    "title": "Finials and rings",
+    "blurb": "Ball finials on the rod, rings holding the drapes, two fold grooves per drape and a scalloped hem."
+  },
+  {
+    "n": 8,
+    "title": "Valance",
+    "blurb": "A scalloped pelmet across the top instead of a bare rod, with folded drapes hanging from it."
+  },
+  {
+    "n": 9,
+    "title": "Tiebacks",
+    "blurb": "The drapes are gathered at the waist with pink ties, so the opening swells in the middle."
+  },
+  {
+    "n": 10,
+    "title": "Deep folds",
+    "blurb": "Three fold grooves per drape, each ending in its own scallop at the hem, under a finial rod."
+  },
+  {
+    "n": 11,
+    "title": "On stage",
+    "blurb": "The finial version standing on a stage floor, with the pink light spilling out onto it."
   }
 ]

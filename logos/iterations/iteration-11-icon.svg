@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>curtain</title>
+  <g id="icon">
+    <rect x="9" y="6" width="82" height="6" rx="3" fill="currentColor"/>
+    <circle cx="7" cy="9" r="5" fill="currentColor"/>
+    <circle cx="93" cy="9" r="5" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="15" cy="15" r="2.6"/><circle cx="27" cy="15" r="2.6"/><circle cx="39" cy="15" r="2.6"/><circle cx="61" cy="15" r="2.6"/><circle cx="73" cy="15" r="2.6"/><circle cx="85" cy="15" r="2.6"/></g><path d="M50 18 C46 44 37 70 28 88 H72 C63 70 54 44 50 18 Z" fill="#ff0055"/>
+    <defs>
+      <mask id="it11i" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+        <rect width="100" height="100" fill="#fff"/>
+        <g fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round"><path d="M37 21 C34 44 29 68 23 86"/><path d="M24 21 C22 44 18 68 15 86"/><path d="M 63 21 C 66 44 71 68 77 86"/><path d="M 76 21 C 78 44 82 68 85 86"/></g>
+      </mask>
+    </defs>
+    <g mask="url(#it11i)" fill="currentColor">
+      <path d="M10 18 H50 C46 44 37 70 28 88 Q24 92 20 88 Q15 92 10 88 Z"/>
+      <path d="M 90 18 H 50 C 54 44 63 70 72 88 Q 76 92 80 88 Q 85 92 90 88 Z"/>
+    </g><rect x="2" y="93" width="96" height="5" rx="2.5" fill="currentColor"/><ellipse cx="50" cy="93" rx="26" ry="3.2" fill="#ff0055"/>
+  </g>
+</svg>

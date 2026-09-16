@@ -39,7 +39,7 @@ export default function Brand() {
       </p>
 
       {sets.map((set) => {
-        const items: Concept[] = JSON.parse(read(`${set.dir}/${set.index}`))
+        const items: Concept[] = JSON.parse(read(`${set.dir}/${set.index}`)).reverse()
         return (
           <div key={set.dir} className="mt-16">
             <h2 className="font-heading text-[clamp(1.5rem,1.2rem+1vw,2rem)]">{set.heading}</h2>
