@@ -16,6 +16,13 @@ The rules the site is built to. Short on purpose; it grows as decisions are made
 - No numbered lists that stand in for thought. If something is a sequence, the prose says so.
 - Plain sentences over labels with colons.
 
+## Voice
+
+- Short and dry. A tooltip is two or three words, a caption is one line, a heading is a plain statement.
+- Humour is a nudge, not a joke: "Lights on", "Stars welcome", "Copy, paste, curtain up."
+- No idioms standing in for a point, no sales words, no numbered lists, no em dashes in interface copy.
+- Say what the thing does before saying why it is good.
+
 ## Colour
 
 - Dark by default. The page is near-black, `#0a0a0a`.
