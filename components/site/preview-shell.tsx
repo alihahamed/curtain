@@ -6,7 +6,7 @@ import { transitions } from '@/lib/transitions'
 export type Layout = 'left' | 'centre' | 'split' | 'bottom' | 'stats' | 'card'
 
 /**
- * A small demo site for the preview frames, called curtain like the library:
+ * A small demo site for the preview frames, called Curtain like the library:
  * a bar, a short hero in one of six layouts, a footer. The whole page is one
  * link, so a click anywhere turns the page. Copy is a few words; the hero is
  * there to give the transition a real page to move, not to be read. Sizes
@@ -115,7 +115,7 @@ export function PreviewShell({
   return (
     <Link href={href} className="flex h-dvh flex-col overflow-hidden" style={{ background: bg, color: fg }}>
       <header className="flex items-center justify-between px-[5vw] pt-[3.2vw] text-[clamp(9px,2.2vw,13px)]">
-        <span className="font-heading text-[clamp(11px,2.6vw,15px)]">curtain</span>
+        <span className="font-heading text-[clamp(11px,2.6vw,15px)]">Curtain</span>
         <nav className="flex gap-[3vw] opacity-55">
           <span>Work</span>
           <span>Studio</span>
@@ -129,7 +129,7 @@ export function PreviewShell({
       {body[layout]}
 
       <footer className="flex items-center justify-between px-[5vw] pb-[3.2vw] text-[clamp(8px,1.9vw,11px)] opacity-50">
-        <span>curtain, a demo</span>
+        <span>Curtain, a demo</span>
         <span className="preview-hint">click anywhere →</span>
       </footer>
       <Suspense>

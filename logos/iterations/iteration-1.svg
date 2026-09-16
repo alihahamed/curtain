@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512">
-  <title>curtain</title>
+  <title>Curtain</title>
   <g id="icon" transform="translate(90 126) scale(2.6)">
     <path d="M50 8 C45 40 36 70 26 92 H74 C64 70 55 40 50 8 Z" fill="#ff0055"/>
     <path d="M8 24 C8 15 15 8 24 8 H50 C45 40 36 70 26 92 H24 C15 92 8 85 8 76 Z" fill="currentColor"/>

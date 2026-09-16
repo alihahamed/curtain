@@ -7,7 +7,7 @@ import ShinyButton from '@/components/pixel-perfect/shiny-button'
 
 // Prefilled so the post reads well on its own; the cursor lands after it for their own words.
 const X_POST = `https://x.com/intent/post?text=${encodeURIComponent(
-  'My page transitions finally have some personality. Built with curtain by @AhmedAli8177\n\nhttps://curtain.dev\n\n',
+  'My page transitions finally have some personality. Built with Curtain by @AhmedAli8177\n\nhttps://curtain.dev\n\n',
 )}`
 
 const unknowns = Array.from({ length: 15 }, () => ({ glyph: '?' }))
@@ -61,7 +61,7 @@ export function Testimonial() {
           Your words could sit right here.
         </h2>
         <p className="mx-auto mt-4 max-w-[34ch] text-foreground/65">
-          Built something with curtain? Tell us and it lands on this page.
+          Built something with Curtain? Tell us and it lands on this page.
         </p>
         <ShinyButton asChild size="lg" wrapperClassName="mt-8 rounded-[10px] border-transparent" className="h-11 gap-2 rounded-[10px] bg-foreground px-5 text-[15px] text-background hover:bg-foreground">
           <a href={X_POST} target="_blank" rel="noopener" aria-label="Post it on X">

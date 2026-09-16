@@ -10,15 +10,15 @@ const text = Onest({ variable: '--font-text', subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://curtain.dev'),
   title: {
-    default: 'curtain — characterful page transitions for Next.js',
-    template: '%s — curtain',
+    default: 'Curtain — characterful page transitions for Next.js',
+    template: '%s — Curtain',
   },
   description:
     'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
   openGraph: {
     type: 'website',
-    siteName: 'curtain',
-    title: 'curtain — characterful page transitions for Next.js',
+    siteName: 'Curtain',
+    title: 'Curtain — characterful page transitions for Next.js',
     description:
       'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
   },

@@ -35,7 +35,7 @@ export default function Brand() {
     <main className="mx-auto w-full max-w-6xl px-6 pt-28 pb-24">
       <h1 className="font-heading text-[clamp(2rem,1.4rem+2.4vw,3.25rem)] leading-[1.05] tracking-[-0.015em]">Logo concepts</h1>
       <p className="mt-3 max-w-[52ch] text-foreground/60">
-        Directions for the curtain mark, newest first. The word follows the theme, pure white on dark and pure black on light; pink is the only colour.
+        Directions for the Curtain mark, newest first. The word follows the theme, pure white on dark and pure black on light; pink is the only colour.
       </p>
 
       {sets.map((set) => {

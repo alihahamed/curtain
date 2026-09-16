@@ -91,7 +91,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Logo
 
-- The mark is a curtain on a rod with ball finials and rings, two fold lines cut into each drape, and a scalloped hem, parted in the middle. One colour only: pure white on dark, pure black on light, never the accent. The wordmark is Curtain, capital C, in Bricolage Grotesque SemiBold drawn as paths.
+- The mark is a curtain on a rod with ball finials and rings, two fold lines cut into each drape, and a scalloped hem, parted in the middle. One colour only: pure white on dark, pure black on light, never the accent. The name is Curtain, capital C, everywhere it appears as a name (titles, copy, labels, the demo site); only URLs, package paths and code stay lowercase. The wordmark is in Bricolage Grotesque SemiBold drawn as paths.
 - Sources live in logos/export. The favicon follows the tab's theme (app/icon.svg); favicon.ico and the Apple icon are the white mark on the near-black page colour.
 
 ## Open

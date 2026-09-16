@@ -56,7 +56,7 @@ export default function Home() {
           Drop one in and your links do the rest.
         </p>
         <InstallCommand className="hero-rise mt-10 [animation-delay:180ms] sm:mt-12" />
-        <p className="hero-rise mt-4 text-sm text-foreground/60 [animation-delay:260ms]">Copy, paste, curtain up.</p>
+        <p className="hero-rise mt-4 text-sm text-foreground/60 [animation-delay:260ms]">Copy, paste, Curtain up.</p>
         </div>
       </section>
 

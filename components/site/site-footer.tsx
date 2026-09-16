@@ -119,7 +119,7 @@ export function SiteFooter({ stars }: { stars: number | null }) {
             </a>
           </Tip>
           <Tip content="Stars welcome">
-            <a href={`https://github.com/${REPO}`} target="_blank" rel="noopener" aria-label="curtain on GitHub" className="footer-icon flex h-10 items-center gap-2 rounded-[10px] border border-border bg-foreground/[0.04] px-3 text-sm text-foreground/75">
+            <a href={`https://github.com/${REPO}`} target="_blank" rel="noopener" aria-label="Curtain on GitHub" className="footer-icon flex h-10 items-center gap-2 rounded-[10px] border border-border bg-foreground/[0.04] px-3 text-sm text-foreground/75">
               <GitHubMark className="size-4" />
               {stars !== null && <span className="tabular-nums">{formatStars(stars)}</span>}
             </a>
