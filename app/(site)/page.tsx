@@ -1,9 +1,13 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { HeroField } from '@/components/site/hero-field'
 import { InstallCommand } from '@/components/site/install-command'
 import { AllTransitions, Bento } from '@/components/site/bento'
 import { HomeScroll } from '@/components/site/home-scroll'
 import { Faq, Testimonial, ToolStack } from '@/components/site/home-sections'
+
+/** Set here, not in the root layout, where every page would inherit it and claim to be the home page. */
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 /**
  * The home page is the hero and nothing else: a WebGL field filling the whole

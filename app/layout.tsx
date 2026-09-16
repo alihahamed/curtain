@@ -9,7 +9,6 @@ const text = Onest({ variable: '--font-text', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://curtain.dev'),
-  alternates: { canonical: '/' },
   title: {
     default: 'curtain — characterful page transitions for Next.js',
     template: '%s — curtain',
