@@ -16,7 +16,7 @@ import { transitions } from '@/lib/transitions'
  */
 const slugs = ['tear', 'spaces', 'zipper', 'slate', 'concertina', 'crayon']
 
-function Card({ slug }: { slug: string }) {
+export function Card({ slug }: { slug: string }) {
   const t = transitions.find((x) => x.slug === slug)!
   const ref = useRef<HTMLDivElement>(null)
   const frame = useRef<HTMLIFrameElement>(null)

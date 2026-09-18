@@ -69,7 +69,8 @@ export function SiteNav({ stars }: { stars: number | null }) {
   const [mark, setMark] = useState({ x: 0, w: 0, on: false, moved: false })
   useLayoutEffect(() => {
     const el = target ? group.current?.querySelector<HTMLElement>(`[data-nav="${target}"]`) : null
-    if (!el || getComputedStyle(el).display === 'none') {
+    // Hidden links (the phone bar keeps them in the menu) have no box to sit behind.
+    if (!el || el.getClientRects().length === 0) {
       setMark((m) => ({ ...m, on: false }))
       return
     }

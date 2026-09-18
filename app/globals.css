@@ -669,3 +669,12 @@
 .dark .site-nav :is(a, button) {
   color: #fff;
 }
+
+.catalogue-search {
+  transition-property: border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.catalogue-search:focus-within {
+  border-color: color-mix(in oklab, var(--foreground) 30%, transparent);
+}
