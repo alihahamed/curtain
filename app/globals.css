@@ -685,3 +685,8 @@
   }
 }
 
+
+/* The listing field covers the top of the screen and fades out into the page. */
+.listing-field {
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}

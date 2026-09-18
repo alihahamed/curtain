@@ -87,7 +87,13 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 - The site scrolls smoothly with Lenis, driven by GSAP's ticker so ScrollTrigger animations move in step. Reduced motion keeps native scrolling. Dialogs and anything marked data-lenis-prevent scroll natively. A new page starts at the top immediately.
 
+## Transitions listing
+
+- The top 60% of the screen is the Zhangxia ASCII field, on the same budget as the home field (capped pixels, half-resolution field, 30fps), fading into the page over its lower half.
+
 ## Footer
+
+- The footer appears on the home page only.
 
 - A row of three: the name with who made it under it, the three links, and the X, GitHub and back-to-top controls.
 - Below everything, the wordmark at display size, cut at its middle like a curtain half raised and fading into the page. Its letters rise out of the clip one after another at their own pace once it is in view, and sink back when it leaves so it plays again (tied to scroll it was either too fast or invisible, since the wordmark is only on screen for the page's last stretch), and each lifts and takes the accent under the pointer.

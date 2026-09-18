@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { HeroField } from '@/components/site/hero-field'
+import { SiteFooter } from '@/components/site/site-footer'
+import { githubStars } from '@/lib/github-stars'
 import { InstallCommand } from '@/components/site/install-command'
 import { AllTransitions, Bento } from '@/components/site/bento'
 import { HomeScroll } from '@/components/site/home-scroll'
@@ -19,7 +21,8 @@ export const metadata: Metadata = { alternates: { canonical: '/' } }
  * share of the viewport height, so the headline lands in the same place on a
  * phone held upright and on a wide monitor.
  */
-export default function Home() {
+export default async function Home() {
+  const stars = await githubStars()
   return (
     <main className="relative w-full bg-background">
       <section data-hero className="relative min-h-dvh w-full overflow-hidden pb-[180px]">
@@ -72,6 +75,7 @@ export default function Home() {
         <Faq />
       </div>
       <HomeScroll />
+      <SiteFooter stars={stars} />
     </main>
   )
 }

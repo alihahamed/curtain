@@ -50,7 +50,7 @@ export function TransitionGrid() {
   return (
     <>
       {list.length ? (
-        <div className="mx-auto mt-16 grid w-full max-w-[84rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="relative mx-auto mt-16 grid w-full max-w-[84rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((t) => (
             <div key={t.slug} className="stagger-cell">
               <Card slug={t.slug} />
