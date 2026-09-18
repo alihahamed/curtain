@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Transitions() {
   return (
-    <main className="relative w-full px-4 pt-32 pb-16 sm:px-6">
+    <main className="relative w-full px-4 pt-32 pb-32 sm:px-8 lg:px-10">
       <ListingField />
       <div className="relative text-center">
         <h1 className="font-heading text-[clamp(2.5rem,1.6rem+3.6vw,4.5rem)] leading-[1.02] tracking-[-0.02em]">Pick your exit</h1>

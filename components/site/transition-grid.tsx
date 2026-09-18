@@ -50,7 +50,7 @@ export function TransitionGrid() {
   return (
     <>
       {list.length ? (
-        <div className="relative mx-auto mt-16 grid w-full max-w-[84rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="relative mx-auto mt-16 grid w-full max-w-[120rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {list.map((t) => (
             <div key={t.slug} className="stagger-cell">
               <Card slug={t.slug} />
@@ -66,10 +66,11 @@ export function TransitionGrid() {
         </p>
       )}
 
-      {/* Search and filter float in an island stuck to the bottom of the screen while the
-          grid scrolls, and settle under the grid at its end, so they are never out of reach. */}
-      <div className="sticky bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] z-40 mt-10 flex justify-center">
-        <div className="flex w-full max-w-[34rem] items-center gap-1.5 rounded-[16px] border border-border bg-background p-1.5 shadow-[0_12px_40px_-12px_rgb(0_0_0/0.5)]">
+      {/* Search and filter float in an island fixed to the bottom of the screen. Fixed, not
+          sticky: sticky follows the end of the grid, so it jumped whenever a filter changed
+          how tall the grid was. */}
+      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] z-40 flex justify-center px-4">
+        <div className="pointer-events-auto flex w-full max-w-[34rem] items-center gap-1.5 rounded-[16px] border border-border bg-background p-1.5 shadow-[0_12px_40px_-12px_rgb(0_0_0/0.5)]">
           <label className="catalogue-search flex h-10 min-w-0 flex-1 items-center gap-2 rounded-[10px] bg-foreground/[0.06] px-3">
             <Search className="size-4 shrink-0 text-foreground/50" aria-hidden="true" />
             <input
