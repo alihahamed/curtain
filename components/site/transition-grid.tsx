@@ -15,9 +15,10 @@ type Kind = (typeof kinds)[number]['id']
 const kindOf = (deps: string[]) => (deps.length === 0 ? 'native' : 'overlay')
 
 /**
- * The catalogue: every shipped transition as a live card, with a search over
- * names and taglines and a filter for the two engines. The same cards as the
- * home page, so each one plays and pauses off screen.
+ * The catalogue: every shipped transition as a live card, four to a row with
+ * every second card set lower, so the row reads as a wave. Search and the
+ * engine filter float in an island at the bottom of the screen. The same cards
+ * as the home page, so each one plays and pauses off screen.
  */
 export function TransitionGrid() {
   const [query, setQuery] = useState('')
@@ -48,44 +49,12 @@ export function TransitionGrid() {
 
   return (
     <>
-      <div className="mx-auto mt-10 flex w-full max-w-[42rem] flex-col items-stretch gap-2 sm:flex-row">
-        <label className="catalogue-search flex h-11 shrink-0 items-center sm:flex-1 gap-2.5 rounded-[12px] border border-border bg-background px-3.5">
-          <Search className="size-[18px] shrink-0 text-foreground/50" aria-hidden="true" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search transitions"
-            aria-label="Search transitions"
-            className="h-full w-full bg-transparent text-[15px] outline-none placeholder:text-foreground/40"
-          />
-        </label>
-        <div ref={tabs} role="tablist" aria-label="Engine" className="relative flex rounded-[12px] border border-border bg-background p-1">
-          <span
-            aria-hidden="true"
-            className="install-marker pointer-events-none absolute top-1 h-9 rounded-[8px] bg-foreground/[0.08]"
-            style={{ translate: `${mark.x}px 0`, width: mark.w }}
-          />
-          {kinds.map((k) => (
-            <button
-              key={k.id}
-              type="button"
-              role="tab"
-              data-kind={k.id}
-              aria-selected={kind === k.id}
-              onClick={() => setKind(k.id)}
-              className="install-tab relative z-10 flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 text-sm text-foreground/60 aria-selected:text-foreground"
-            >
-              {k.label}
-              <span className="text-xs tabular-nums text-foreground/40">{count(k.id)}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
       {list.length ? (
-        <div className="mx-auto mt-12 grid w-full max-w-[82rem] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid w-full max-w-[84rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((t) => (
-            <Card key={t.slug} slug={t.slug} />
+            <div key={t.slug} className="stagger-cell">
+              <Card slug={t.slug} />
+            </div>
           ))}
         </div>
       ) : (
@@ -96,6 +65,44 @@ export function TransitionGrid() {
           </button>
         </p>
       )}
+
+      {/* Search and filter float in an island stuck to the bottom of the screen while the
+          grid scrolls, and settle under the grid at its end, so they are never out of reach. */}
+      <div className="sticky bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] z-40 mt-10 flex justify-center">
+        <div className="flex w-full max-w-[34rem] items-center gap-1.5 rounded-[16px] border border-border bg-background p-1.5 shadow-[0_12px_40px_-12px_rgb(0_0_0/0.5)]">
+          <label className="catalogue-search flex h-10 min-w-0 flex-1 items-center gap-2 rounded-[10px] bg-foreground/[0.06] px-3">
+            <Search className="size-4 shrink-0 text-foreground/50" aria-hidden="true" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search"
+              aria-label="Search transitions"
+              className="h-full w-full min-w-0 bg-transparent text-[15px] outline-none placeholder:text-foreground/40"
+            />
+          </label>
+          <div ref={tabs} role="tablist" aria-label="Engine" className="relative flex shrink-0">
+            <span
+              aria-hidden="true"
+              className="install-marker pointer-events-none absolute top-0 h-10 rounded-[10px] bg-foreground/[0.08]"
+              style={{ translate: `${mark.x}px 0`, width: mark.w }}
+            />
+            {kinds.map((k) => (
+              <button
+                key={k.id}
+                type="button"
+                role="tab"
+                data-kind={k.id}
+                aria-selected={kind === k.id}
+                onClick={() => setKind(k.id)}
+                className="install-tab relative z-10 flex h-10 items-center gap-1.5 rounded-[10px] px-2.5 text-sm text-foreground/60 aria-selected:text-foreground sm:px-3"
+              >
+                {k.label}
+                <span className="hidden text-xs tabular-nums text-foreground/40 sm:inline">{count(k.id)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   )
 }

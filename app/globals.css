@@ -671,10 +671,17 @@
 }
 
 .catalogue-search {
-  transition-property: border-color;
+  transition-property: background-color;
   transition-duration: 150ms;
   transition-timing-function: ease-out;
 }
 .catalogue-search:focus-within {
-  border-color: color-mix(in oklab, var(--foreground) 30%, transparent);
+  background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
 }
+/* Every second card sits lower, so a row of four reads up, down, up, down. */
+@media (min-width: 640px) {
+  .stagger-cell:nth-child(2n) {
+    translate: 0 3.5rem;
+  }
+}
+

@@ -68,15 +68,20 @@ export function SiteNav({ stars }: { stars: number | null }) {
   const target = hover ?? current
   const [mark, setMark] = useState({ x: 0, w: 0, on: false, moved: false })
   useLayoutEffect(() => {
-    const el = target ? group.current?.querySelector<HTMLElement>(`[data-nav="${target}"]`) : null
-    // Hidden links (the phone bar keeps them in the menu) have no box to sit behind.
-    if (!el || el.getClientRects().length === 0) {
-      setMark((m) => ({ ...m, on: false }))
-      return
+    const place = () => {
+      const el = target ? group.current?.querySelector<HTMLElement>(`[data-nav="${target}"]`) : null
+      // Hidden links (the phone bar keeps them in the menu) have no box to sit behind.
+      if (!el || el.getClientRects().length === 0) {
+        setMark((m) => ({ ...m, on: false }))
+        return
+      }
+      // Measured against the group, not offsetParent: the tooltip wrapper sits between.
+      const x = el.getBoundingClientRect().left - group.current!.getBoundingClientRect().left
+      setMark((m) => ({ x, w: el.offsetWidth, on: true, moved: m.on }))
     }
-    // Measured against the group, not offsetParent: the tooltip wrapper sits between.
-    const x = el.getBoundingClientRect().left - group.current!.getBoundingClientRect().left
-    setMark((m) => ({ x, w: el.offsetWidth, on: true, moved: m.on }))
+    place()
+    window.addEventListener('resize', place)
+    return () => window.removeEventListener('resize', place)
   }, [target])
 
   useEffect(() => setOpen(false), [pathname])
