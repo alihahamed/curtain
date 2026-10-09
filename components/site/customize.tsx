@@ -91,15 +91,18 @@ export function Customize({
   onChange,
   onReset,
   title = 'Customize',
+  /** One per row, for narrow places like the stage's popover. */
+  stacked = false,
 }: {
   controls: Control[]
   values: Values
   onChange: (next: Values) => void
   onReset: () => void
   title?: string
+  stacked?: boolean
 }) {
   return (
-    <div className="rounded-xl border border-border p-4">
+    <div className={stacked ? '' : 'rounded-xl border border-border p-4'}>
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-medium">{title}</h3>
         <button
@@ -109,7 +112,7 @@ export function Customize({
           reset
         </button>
       </div>
-      <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+      <div className={stacked ? 'grid gap-2.5' : 'grid gap-2.5 md:grid-cols-2 xl:grid-cols-3'}>
         {controls.map((c) => (
           <Row
             key={c.key}
