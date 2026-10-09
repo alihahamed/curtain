@@ -1,52 +1,58 @@
 # Handoff
 
-State of transitions-lib at the end of the session on 2026-09-04, written so the
+State of the project at the end of the session on 2026-10-09, written so the
 next session can pick up without re-deriving anything. Read `CLAUDE.md` for the
-standing conventions; this file is the situation.
+standing conventions and `design.md` for the house style; this file is the
+situation.
 
 ## What the project is
 
-A page-transition component library for the Next.js App Router, installed
-through a shadcn custom registry (`npx shadcn add <url>/r/<slug>.json`). Each
-transition is a drop-in provider wrapped around `{children}` in
+**Curtain**, a page-transition component library for the Next.js App Router,
+installed through a shadcn custom registry (`npx shadcn add <url>/r/<slug>.json`).
+Each transition is a drop-in provider wrapped around `{children}` in
 `app/layout.tsx`; existing `<Link>`s are intercepted automatically.
 
 - Stack: Next.js 16.3, React 19.2, Tailwind v4, shadcn 4.19, GSAP 3.15,
-  next-transition-router 0.2.11. Dev server is Ali's, on `:3000`.
-- Goal Ali set: **eight transitions** before designing the site, finalising
-  its style, getting a domain, and fixing the install URL. The install URL in
-  `lib/transitions.ts` still points at `transitions-lib.vercel.app`, which is
-  not deployed — clean-install tests use the dev server's `/r/` instead.
+  next-transition-router 0.2.11, Lenis, next-themes. Dev server is Ali's, on
+  `:3000`.
+- The eight-transition goal is met and passed. The work since has been the
+  site: hero, navbar, search, install block, preview grid, testimonial ask,
+  FAQ, footer, logo, listing page, and the full-screen stage.
+- The install URL in `lib/transitions.ts` still points at
+  `transitions-lib.vercel.app`, which is not deployed, and `metadataBase` says
+  `curtain.dev`. **Neither domain is real yet** — clean-install tests use the
+  dev server's `/r/` instead.
 
 ## Where it stands
 
-**Shipped (6)** — in `registry.json`, built to `public/r/`, `ready: true`,
-listed on `/transitions`:
-
-| slug | lane | engine | core |
-| --- | --- | --- | --- |
-| crayon | object | GSAP | transition-core |
-| zipper | object | GSAP | transition-core |
-| film-burn | material | none | view-transition-core |
-| riser | choreography | none | view-transition-core |
-| concertina | object | GSAP | transition-core |
-| dither | graphic | GSAP (canvas) | transition-core |
+**Shipped (10)** — in `registry.json`, built to `public/r/`, `ready: true`,
+listed at `/transitions`: crayon, zipper, film-burn, riser, concertina,
+dither, slate, spaces, tear, origin.
 
 **Lab only (1)** — `push` (choreography, View Transitions, parallax 0.28,
-420ms, `power3`). Built, verified, `ready: false`, not in the registry.
-Ali has not signed off; it is at `/lab/push`.
+420ms, `power3`). Built and verified, `ready: false`, not in the registry.
+Ali never signed off; it is at `/lab/push`.
 
 **Removed** — `fold-away`. Built, reworked, reverted (`8379929`). Lessons are
-recorded in `TRANSITIONS.md` under "Deliberately not doing": a full-bleed
-sheet clips its own perspective, and an object over the page can never feel
-as good as moving the pages themselves.
+in `TRANSITIONS.md` under "Deliberately not doing".
 
-**Clean-install verified** for crayon, zipper, concertina, dither (fresh app,
-`shadcn add`, `next build`, served and driven, 0 console errors). Not yet run
-for film-burn, riser, push.
+**The site** — `app/(site)` carries the navbar; `app/(stage)` is the bare
+full-screen transition page and has no chrome. Pages: `/` (home, the only one
+with the footer), `/transitions` (listing: ASCII shader over the top 60%, a
+staggered 4-up grid, a fixed filter island, view-transition filtering),
+`/transitions/<slug>` (the stage: the demo full screen, an island, a docs
+panel), `/docs` (one page, built from `content/docs-draft.md`), `/lab/<slug>`
+(harness), `/brand` (logo judging).
 
-**Two slots left to reach eight.** Ali asked for ideas; the list and my two
-picks are at the end of this file. He has not chosen.
+**Preview pages** — all eleven now use `PreviewShell`, a small demo site also
+called Curtain, in six layouts. Origin passes `fromLink`, which moves the href
+onto the two buttons, because it opens the next page out of the element you
+clicked.
+
+**Assets** — logo in `logos/export/` (svg, pngs 16–2048), `app/icon.svg`
+theme-aware, favicon, apple icon, and `public/og.png` rendered from
+`logos/export/og.svg` with resvg. Regenerating the share image needs an Onest
+TTF passed with `--use-font-file`; resvg finds no system font for it.
 
 ## Architecture
 
@@ -67,7 +73,11 @@ picks are at the end of this file. He has not chosen.
   it survives the in-frame navigation). `PreviewShell` takes `bg` and `fg`.
 - `app/(site)/lab/[slug]` — `Harness`: iframe of the preview, "Play a
   navigation" (clicks the link inside the frame), live controls, "open full
-  size". The gallery at `/transitions` filters on `ready`.
+  size". The listing at `/transitions` filters on `ready`.
+- `app/(stage)/transitions/[slug]` — `TransitionStage`: the preview in an
+  iframe at full size, an island (docs, play, customise, copy, prev/next) and
+  a props popover. It plays by clicking the frame's own link, never
+  `router.push`, which would bypass both cores. No autoplay.
 - `registry.json` → `npx shadcn build` → `public/r/*.json`. The shared
   `transitions.css` is embedded in every bundle, so a CSS change means a
   rebuild of all of them.
@@ -156,64 +166,52 @@ bundles until `3bf5f83`.
 - `next build` while `next dev` runs is fine, but delete `.next/types`
   afterwards. Kill throwaway servers by port.
 
-## Session commit log (newest first)
+## Session commit log (newest first, this session)
 
 ```
-538cfe6 List dither in the gallery
-f82aec7 Add dither to the registry
-13018b5 Add dither, lab only
-62d8464 List concertina in the gallery
-3bf5f83 Add concertina to the registry
-8637325 Deepen the bow and slow the whole navigation a little
-47457f6 Mirror the compression's veil on the expansion
-2c6a183 Reveal the page instead of fading it in, and put the window on the pixel grid
-a87f04a Widen the page's bar by layout, and find it off the DOM
-070d12e Make the page's bar one of the row's own slats
-4bc8ab6 Carry the page's bar with the row when it shuffles
-2f6f02c Retreat the two arcs in opposite directions
-cb3f0fa Put every moving part on one law
-775fdf9 Take the expansion's ease off the reference
-2e8549f Draw the arc into the page's own clip
-469d70e Let the arcs shape the expansion
-23be5f9 Match the reveal curve to the reference
-fe33065 Hold the page back until the bar has opened
-4d27141 Shrink the page through a bar, not into a slot
-57f4c65 Put the row in a window and hand the page off to a slat
-4dd8a6c Make the page the middle slat
-6a8ce6d Add concertina, lab only
-19fc0a6 Zip upward, the way a jacket does
-622fa1d Add push, lab only
-8379929 Remove fold-away
-c8bb59e Give the fold something to be seen against
-e89a775 Wire fold-away into the gallery, lab and registry
-329bbab Fold a sheet of paper over the page
-cff76c5 Fix the burn's scoping selector
+df29190 Move origin onto the demo shell too
+5d13b40 Move riser and film burn onto the demo shell
+dc41abb Point the metadata at the share image
+0acf0ab Draw the share image
+0ccb063 Add a typecheck script
+74bf53d Remove the specimen band
+947f2ef Remove the old preview frame
+0874b6f Stage: no navbar, no autoplay, no theme toggle, a plainer props list
+d91f5b0 A transition's page is now the transition, full screen
+2245e49 Animate the catalogue filter
+522615c Listing: wider grid, island fixed in place
+49fc136 ASCII field over the listing, footer on the home page only
+74f9ac4 Transitions listing: a staggered grid and a floating filter island
+a3c69db Rebuild the transitions listing as a live grid
+3d00f4c Smooth scrolling with Lenis
+2c8c188 Draft the docs content, section by section
+0de3e42 License the library under MIT
+3d83ed2 Capitalise Curtain across the site
+273e37b Ship the curtain logo: finials and rings, capital C
 ```
+
+`git log` has the rest; the house style for messages is in there too.
 
 ## Open items, in priority order
 
-1. **Pick the last two transitions.** Ali asked for ideas "in the domain of
-   the previous three" and got three lanes. My picks: **CRT power-off**
-   (canvas, dither's rig, distinctive) and **card flip** (View Transitions,
-   push's skeleton, zero deps). Other candidates: halftone, static, Game of
-   Life, threshold dissolve; venetian blinds, equaliser, staircase, iris,
-   ticker; deck, slat reveal (gradient mask on the VT snapshot), seam split.
-   The earlier shortlist in `TRANSITIONS.md` (paper shredder, redaction, riso
-   misregistration, type mask) still stands too. Discuss before building.
-2. **push** — waiting on Ali's sign-off at `/lab/push`; then promote with the
-   two-commit pattern.
-3. **`TRANSITIONS.md` "Shipped" table** lists only crayon and zipper; it is
-   six now. Ali knows; not yet asked to fix.
-4. Clean-install tests for film-burn, riser, push.
-5. After eight: site design, style, domain, and the install URL.
-6. Dither twists Ali did not pick — colour pop, resolution ramp, route-seeded
-   order — are cheap follow-ons as props, not slots.
+1. **Docs content.** `content/docs-draft.md` is written and waiting on Ali's
+   read. Two bracketed notes in it are facts to verify before they go on the
+   page: whether the shadcn MCP server installs from custom registries, and
+   whether Next.js still announces the route to screen readers with each
+   engine. The live `/docs` page is the older, shorter version.
+2. **Domain and install URL.** `lib/transitions.ts` and `metadataBase` name two
+   different hosts, neither deployed. One decision fixes both.
+3. **push** — still waiting on Ali's sign-off at `/lab/push`; then promote with
+   the two-commit pattern.
+4. **`TRANSITIONS.md` "Shipped" table** lists two; it is ten.
+5. Clean-install tests for the six added since dither.
 
 ## How to drive it
 
-- Lab: `localhost:3000/lab/<slug>`. Preview: `/preview/<slug>` and `/b`;
-  `?speed=0.2` (and any prop) in the query.
-- The Playwright browser window is the one Ali screenshots from; navigating
-  it opens the page for him.
-- Scratchpad clean-install apps from this session: `clean-cc`, `clean-dither`
-  under the session scratchpad. Disposable.
+- Lab: `localhost:3000/lab/<slug>`. Stage: `/transitions/<slug>`. Preview:
+  `/preview/<slug>` and `/b`; `?speed=0.2` (and any prop) in the query.
+- `npm run typecheck` before committing; after a production `next build`,
+  clear `.next/types` or `tsc` reads the stale route types.
+- The Playwright browser window is the one Ali screenshots from; navigating it
+  opens the page for him. Note `browser_run_code_unsafe` wants an
+  `async (page) => { ... }` function, not bare statements.
