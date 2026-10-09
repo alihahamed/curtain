@@ -18,13 +18,16 @@ function Row({
   control,
   value,
   onChange,
+  bare = false,
 }: {
   control: Control
   value: string | number
   onChange: (v: string | number) => void
+  bare?: boolean
 }) {
-  const base =
-    'flex items-center gap-3 rounded-lg border border-border bg-muted/20 px-3 py-2.5'
+  const base = bare
+    ? 'flex items-center gap-4 px-4 py-2.5'
+    : 'flex items-center gap-3 rounded-lg border border-border bg-muted/20 px-3 py-2.5'
 
   if (control.kind === 'color') {
     return (
@@ -93,6 +96,8 @@ export function Customize({
   title = 'Customize',
   /** One per row, for narrow places like the stage's popover. */
   stacked = false,
+  /** No frame and no header of its own; the caller draws those. */
+  bare = false,
 }: {
   controls: Control[]
   values: Values
@@ -100,10 +105,11 @@ export function Customize({
   onReset: () => void
   title?: string
   stacked?: boolean
+  bare?: boolean
 }) {
   return (
     <div className={stacked ? '' : 'rounded-xl border border-border p-4'}>
-      <div className="mb-4 flex items-center justify-between">
+      <div className={`mb-4 flex items-center justify-between ${bare ? 'hidden' : ''}`}>
         <h3 className="text-sm font-medium">{title}</h3>
         <button
           onClick={onReset}
@@ -112,12 +118,13 @@ export function Customize({
           reset
         </button>
       </div>
-      <div className={stacked ? 'grid gap-2.5' : 'grid gap-2.5 md:grid-cols-2 xl:grid-cols-3'}>
+      <div className={bare ? 'divide-y divide-border border-t border-border' : stacked ? 'grid gap-2.5' : 'grid gap-2.5 md:grid-cols-2 xl:grid-cols-3'}>
         {controls.map((c) => (
           <Row
             key={c.key}
             control={c}
             value={values[c.key] ?? c.def}
+            bare={bare}
             onChange={(v) => onChange({ ...values, [c.key]: v })}
           />
         ))}

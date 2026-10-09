@@ -1,8 +1,7 @@
 'use client'
 
-import { ChevronLeft, ChevronRight, Moon, PanelLeftOpen, RotateCw, Settings2, Sun, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, PanelLeftOpen, Play, Settings2, X } from 'lucide-react'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Customize, useCustomize } from '@/components/site/customize'
 import { CopyMenu } from '@/components/site/copy-menu'
@@ -41,8 +40,7 @@ export function TransitionStage({
   const [showDocs, setShowDocs] = useState(false)
   const [showProps, setShowProps] = useState(false)
   const [reloads, setReloads] = useState(0)
-  const { resolvedTheme, setTheme } = useTheme()
-  const src = query ? `/preview/${slug}?loop&${query}` : `/preview/${slug}?loop`
+  const src = query ? `/preview/${slug}?${query}` : `/preview/${slug}`
 
   /** Click the shell's own link, the only honest way to start a real navigation. */
   const replay = () => {
@@ -91,12 +89,15 @@ export function TransitionStage({
           className="absolute inset-0 size-full border-0 bg-background"
         />
 
-        {/* The name sits over the stage until the docs take it. */}
-        <div className={`pointer-events-none absolute top-24 left-6 transition-opacity duration-300 sm:left-8 ${showDocs ? 'opacity-0' : 'opacity-100'}`}>
-          <Link href="/transitions" className="footer-link pointer-events-auto text-sm text-foreground/60">
-            All transitions
-          </Link>
-          <h1 className="mt-2 font-heading text-[clamp(1.75rem,1.4rem+1.4vw,2.5rem)] leading-none tracking-[-0.015em]">{name}</h1>
+        {/* The name sits over the stage until the docs take it. On its own panel, because
+            the demo page behind it brings its own colours. */}
+        <div className={`absolute top-6 left-6 transition-opacity duration-300 sm:top-8 sm:left-8 ${showDocs ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
+          <div className="rounded-[14px] border border-border bg-background/85 px-4 py-3 backdrop-blur-xl">
+            <Link href="/transitions" className="footer-link text-sm text-foreground/60">
+              All transitions
+            </Link>
+            <h1 className="mt-1 font-heading text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] leading-none tracking-[-0.015em]">{name}</h1>
+          </div>
         </div>
       </div>
 
@@ -118,18 +119,9 @@ export function TransitionStage({
 
           <span className="mx-0.5 h-6 w-px bg-border" />
 
-          <Tip content="Again">
-            <IconButton label="Replay the transition" onClick={replay}>
-              <RotateCw />
-            </IconButton>
-          </Tip>
-          <Tip content={resolvedTheme === 'dark' ? 'Lights on' : 'Lights off'}>
-            <IconButton
-              label={resolvedTheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            >
-              <Sun className={`icon-swap ${resolvedTheme === 'dark' ? '' : 'icon-swap-out'}`} />
-              <Moon className={`icon-swap ${resolvedTheme === 'dark' ? 'icon-swap-out' : ''}`} />
+          <Tip content="Play it again">
+            <IconButton label="Play the transition" onClick={replay}>
+              <Play />
             </IconButton>
           </Tip>
           {controls.length > 0 && (
@@ -157,9 +149,15 @@ export function TransitionStage({
           {showProps && controls.length > 0 && (
             <div
               data-lenis-prevent
-              className="stage-props absolute right-0 bottom-full mb-2 max-h-[60vh] w-[min(92vw,22rem)] overflow-y-auto rounded-[16px] border border-border bg-popover p-4 text-popover-foreground"
+              className="stage-props absolute right-0 bottom-full mb-2 max-h-[min(60vh,30rem)] w-[min(92vw,24rem)] overflow-y-auto rounded-[16px] border border-border bg-popover text-popover-foreground"
             >
-              <Customize controls={controls} values={values} onChange={setValues} onReset={reset} stacked />
+              <div className="flex items-center justify-between px-4 pt-3.5 pb-2">
+                <h2 className="text-sm">Customise</h2>
+                <button type="button" onClick={reset} className="footer-link text-sm text-foreground/50">
+                  Reset
+                </button>
+              </div>
+              <Customize controls={controls} values={values} onChange={setValues} onReset={reset} stacked bare />
             </div>
           )}
         </div>

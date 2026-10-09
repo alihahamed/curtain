@@ -94,10 +94,13 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Transition stage
 
-- A transition's own page is the transition, playing across the whole screen with the navbar floating over it. Nothing scrolls behind it.
-- One island at the bottom holds everything: show or hide the docs, replay, theme, the props panel, the install command, and the two neighbours. Arrow keys move between transitions, R replays, D opens the docs.
+- A transition's own page is the transition, playing across the whole screen. It has its own layout with no navbar and no footer; nothing sits over the transition but the title panel and the island.
+- The demo waits rather than looping: it plays when you click the stage or press Play, so what you watch is what you asked for.
+- One island at the bottom holds everything: show or hide the docs, play, the props panel, the install command, and the two neighbours. No theme toggle; the stage is for watching. Arrow keys move between transitions, R replays, D opens the docs.
 - The docs slide in from the left and the transition keeps playing in what is left of the screen. On a phone they cover it as a sheet.
+- The props panel is a plain list, one control per row, with no scrollbar in sight.
 - Changing a prop reloads the frame with it in the query, so what plays is what the props say.
+- The title sits on its own panel, since the demo page behind it brings its own colours.
 
 ## Footer
 
