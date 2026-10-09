@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     title: 'Curtain — characterful page transitions for Next.js',
     description:
       'Page transitions with actual personality, installed with the shadcn CLI. One line in your layout.',
+    images: ['/og.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@AhmedAli8177',
   },
 }
 
