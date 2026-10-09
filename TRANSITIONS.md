@@ -17,10 +17,25 @@ the cover, uncover — so they all fit `createTransition` with no new machinery.
 
 ## Shipped
 
+Ten, in the order they were built. `lib/transitions.ts` is the source of
+truth for props and defaults; this table is the shape of the library.
+
 | | family | engine | notes |
 | --- | --- | --- | --- |
 | **Crayon** | object | GSAP | Three hand-drawn strokes draw across, fatten to cover, retract. |
 | **Zipper** | object | GSAP | Chain meshes behind a slider that catches twice, seals, then the panels fall open sideways. |
+| **Film Burn** | material | View Transitions | The page catches alight and the fire burns straight through it. |
+| **Riser** | choreography | View Transitions | The page behind drops back while the next one rises over it. |
+| **Concertina** | object | GSAP | The screen folds into a strip of slats, slides to the page's slot, and opens back out. |
+| **Dither** | graphic | GSAP, canvas | The page dissolves through an ordered dither — dots, checker, weave, solid. |
+| **Slate** | object | GSAP | A clapperboard rises over the page, claps, and is pulled away from the next one. |
+| **Spaces** | choreography | View Transitions | The pages slide across as one strip, the way macOS switches desktops. |
+| **Tear** | object | GSAP, three.js | A sheet of paper comes down over the page and is torn in two. The one three.js transition, chosen with the weight known. |
+| **Origin** | choreography | View Transitions | The next page opens out of the thing you clicked, in that element's shape and colour. |
+
+**Lab only** — **Push** (choreography, View Transitions): the page you are
+leaving is overtaken rather than shoved off. Built and verified, `ready: false`,
+not in the registry, waiting on sign-off at `/lab/push`.
 
 ---
 
