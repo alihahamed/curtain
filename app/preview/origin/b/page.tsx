@@ -1,10 +1,9 @@
-import { Demo, dark } from '../demo'
+import { PreviewShell } from '@/components/site/preview-shell'
 
 export default function B() {
   return (
-    <Demo tone={dark} step="two" href="/preview/origin" title="And back, from whichever you choose.">
-      The page you are leaving only dims. The window bows outward as it grows and flattens as it meets
-      the edges, and the page inside it settles before the edge does.
-    </Demo>
+    <PreviewShell step="two" href="/preview/origin" accent="#2f5d50" bg="#1c1b1a" fg="#f4f1ea" layout="left" fromLink sub="The page you leave only dims.">
+      And back, from either.
+    </PreviewShell>
   )
 }

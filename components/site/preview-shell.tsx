@@ -20,6 +20,9 @@ export function PreviewShell({
   fg,
   layout = 'left',
   sub,
+  /** Origin opens the next page out of the element clicked, so it needs a
+   *  button to click rather than the whole page. Only the left layout has them. */
+  fromLink = false,
   children,
 }: {
   step: string
@@ -32,12 +35,20 @@ export function PreviewShell({
   layout?: Layout
   /** One short line under the heading. */
   sub?: string
+  fromLink?: boolean
   children: ReactNode
 }) {
   const h = 'font-heading text-[clamp(14px,4.4vw,40px)] leading-[1.04] tracking-[-0.015em]'
   const p = 'text-[clamp(9px,2vw,13px)] leading-snug opacity-60'
   const btn = 'inline-block rounded-[1.2vw] px-[2.6vw] py-[1.2vw] text-[clamp(9px,2vw,12px)]'
   const filled = { background: accent, color: '#fff' }
+  /** A button, and the thing that opens the page when the shell itself can't. */
+  const Btn = ({ className, style, children }: { className: string; style?: object; children: ReactNode }) =>
+    fromLink ? (
+      <Link href={href} className={className} style={style}>{children}</Link>
+    ) : (
+      <span className={className} style={style}>{children}</span>
+    )
 
   const body: Record<Layout, ReactNode> = {
     left: (
@@ -45,8 +56,8 @@ export function PreviewShell({
         <p className={`${h} max-w-[14ch]`}>{children}</p>
         {sub && <p className={`${p} mt-[1.6vw] max-w-[36ch]`}>{sub}</p>}
         <div className="mt-[3vw] flex gap-[1.4vw]">
-          <span className={btn} style={filled}>Start</span>
-          <span className={`${btn} border border-current/25`}>Work</span>
+          <Btn className={btn} style={filled}>Start</Btn>
+          <Btn className={`${btn} rounded-full border border-current/25`}>Work</Btn>
         </div>
       </div>
     ),
@@ -112,8 +123,8 @@ export function PreviewShell({
     ),
   }
 
-  return (
-    <Link href={href} className="flex h-dvh flex-col overflow-hidden" style={{ background: bg, color: fg }}>
+  const shell = (
+    <>
       <header className="flex items-center justify-between px-[5vw] pt-[3.2vw] text-[clamp(9px,2.2vw,13px)]">
         <span className="font-heading text-[clamp(11px,2.6vw,15px)]">Curtain</span>
         <nav className="flex gap-[3vw] opacity-55">
@@ -130,11 +141,19 @@ export function PreviewShell({
 
       <footer className="flex items-center justify-between px-[5vw] pb-[3.2vw] text-[clamp(8px,1.9vw,11px)] opacity-50">
         <span>Curtain, a demo</span>
-        <span className="preview-hint">click anywhere →</span>
+        <span className="preview-hint">{fromLink ? 'click a button →' : 'click anywhere →'}</span>
       </footer>
       <Suspense>
         <AutoAdvance href={href} />
       </Suspense>
-    </Link>
+    </>
+  )
+
+  const cls = 'flex h-dvh flex-col overflow-hidden'
+  const style = { background: bg, color: fg }
+  return fromLink ? (
+    <div className={cls} style={style}>{shell}</div>
+  ) : (
+    <Link href={href} className={cls} style={style}>{shell}</Link>
   )
 }
