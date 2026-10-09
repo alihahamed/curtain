@@ -690,3 +690,34 @@
 .listing-field {
   mask-image: linear-gradient(to bottom, black 55%, transparent);
 }
+
+/* Filtering the catalogue: cards glide to their new slots, leavers sink out, arrivals rise in.
+   The page itself does not cross-fade, so everything else stays put. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-group(.catalogue-card) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.catalogue-card) {
+  isolation: auto;
+}
+::view-transition-old(.catalogue-card),
+::view-transition-new(.catalogue-card) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(.catalogue-card):only-child {
+  animation: card-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(.catalogue-card):only-child {
+  animation: card-in 480ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+@keyframes card-out {
+  to { opacity: 0; transform: translateY(16px) scale(0.96); filter: blur(4px); }
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); filter: blur(6px); }
+}

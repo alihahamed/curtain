@@ -89,6 +89,7 @@ Before a UI change lands, walk this once: nested corners are concentric, icons s
 
 ## Transitions listing
 
+- Changing the engine filter runs through a view transition: cards that stay glide to their new slots, cards that leave sink and blur out, new ones rise in. The page itself does not cross-fade. Reduced motion changes the grid instantly.
 - The top 60% of the screen is the Zhangxia ASCII field, on the same budget as the home field (capped pixels, half-resolution field, 30fps), fading into the page over its lower half.
 
 ## Footer

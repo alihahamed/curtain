@@ -2,6 +2,7 @@
 
 import { Search } from 'lucide-react'
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { Card } from '@/components/site/bento'
 import { transitions } from '@/lib/transitions'
 
@@ -13,6 +14,16 @@ const kinds = [
 ] as const
 type Kind = (typeof kinds)[number]['id']
 const kindOf = (deps: string[]) => (deps.length === 0 ? 'native' : 'overlay')
+
+/**
+ * Changes the grid inside a view transition, so cards that stay slide to their
+ * new places, cards that leave fade down and out, and new ones rise in. Falls
+ * back to an instant change without the API or under reduced motion.
+ */
+function morph(update: () => void) {
+  if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return update()
+  document.startViewTransition(() => flushSync(update))
+}
 
 /**
  * The catalogue: every shipped transition as a live card, four to a row with
@@ -52,7 +63,11 @@ export function TransitionGrid() {
       {list.length ? (
         <div className="relative mx-auto mt-16 grid w-full max-w-[120rem] grid-cols-1 gap-5 pb-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {list.map((t) => (
-            <div key={t.slug} className="stagger-cell">
+            <div
+              key={t.slug}
+              className="stagger-cell"
+              style={{ viewTransitionName: `card-${t.slug}`, viewTransitionClass: 'catalogue-card' } as React.CSSProperties}
+            >
               <Card slug={t.slug} />
             </div>
           ))}
@@ -60,7 +75,7 @@ export function TransitionGrid() {
       ) : (
         <p className="mt-16 text-center text-foreground/60">
           Nothing matches &ldquo;{query}&rdquo;.{' '}
-          <button type="button" onClick={() => { setQuery(''); setKind('all') }} className="footer-link text-foreground">
+          <button type="button" onClick={() => morph(() => { setQuery(''); setKind('all') })} className="footer-link text-foreground">
             Show all
           </button>
         </p>
@@ -94,7 +109,7 @@ export function TransitionGrid() {
                 role="tab"
                 data-kind={k.id}
                 aria-selected={kind === k.id}
-                onClick={() => setKind(k.id)}
+                onClick={() => k.id !== kind && morph(() => setKind(k.id))}
                 className="install-tab relative z-10 flex h-10 items-center gap-1.5 rounded-[10px] px-2.5 text-sm text-foreground/60 aria-selected:text-foreground sm:px-3"
               >
                 {k.label}
